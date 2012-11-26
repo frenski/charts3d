@@ -6,7 +6,7 @@ var schema = {
                        { name:"Autumn", color:"61c900" }, 
                        { name:"Winter", color:"00c2d3" }
                      ],
-               rows: ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5"]
+               rows: ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6"]
              };
              
 var dataValues = [];
@@ -14,6 +14,6 @@ var dataValues = [];
 for( var i=0; i<schema.cols.length; i++ ){
   dataValues[i] = [];
   for (var j=0; j<schema.rows.length; j++ ){
-    dataValues[i][j] = Math.floor((Math.random()*1500));
+    dataValues[i][j] = Math.floor((Math.random()*1000));
   }
 }
