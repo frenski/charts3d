@@ -6,7 +6,12 @@ var schema = {
                        { name:"Autumn", color:"61c900" }, 
                        { name:"Winter", color:"00c2d3" }
                      ],
-               rows: ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6"]
+               rows: [ { name: "Product 1" }, 
+                       { name: "Product 2" },
+                       { name: "Product 3" },
+                       { name: "Product 4" },
+                       { name: "Product 5" }
+                     ]
              };
              
 var dataValues = [];

@@ -180,7 +180,7 @@
       }
       
       for( var i=0; i<schema.rows.length; i++ ) {
-        sTextRows[i] = new ScaleText(schema.rows[i], "row", i);
+        sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i);
         sTextRows[i].addText(groundX);
       }
       
