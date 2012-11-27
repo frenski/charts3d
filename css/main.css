@@ -6,15 +6,15 @@ audio:not([controls]) { display: none; }
 [hidden] { display: none; }
 
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.4; font-style:Helvetica, Arial, Verdana; }
-body, button, input, select, textarea { font-family: sans-serif; color: #888; }
+body { margin: 0; font-size: 16px; line-height: 1.4; font-style:Helvetica, Arial, Verdana; }
+body, button, input, select, textarea { font-family: sans-serif; color: #555; }
 
 ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
 ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
 
-a { color: text-decoration:underline; font-style: italic; color: inherit }
-a:visited { color: inherit }
-a:hover { color: #B2B2B2; }
+a { font-style: italic; color: #c3c3c3; font-family: Georgia, Times, "Times New Roman", serif; text-decoration: none; }
+a:visited { color: #c3c3c3 }
+a:hover { color: #fff; text-decoration:underline; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 
@@ -57,6 +57,82 @@ input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 input.admin-input{margin-bottom:10px;}
 
+/* Primary Stles - author: Yane Frenski */
+
+@font-face {
+    font-family: "League";
+    font-weight: normal;
+    src: url("League-Gothic.otf");
+}
+
 body{
   background:#26272b;
 }
+
+h1{
+  margin: auto;
+  width: 200px;
+  margin-top: 70px;
+}
+
+h1 span{
+  display: none;
+}
+
+h2{
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
+  color: #a0a0a0;
+  margin: auto;
+  margin-bottom: 70px;
+  width: 200px;
+}
+
+h3{
+  font-family: League, Impact, Helvetica, Arial;
+  font-size: 36px;
+  font-weight: normal;
+  color: #fff;
+  text-transform: uppercase;
+  margin:0 0 20px 0;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li{
+  margin:30px 0;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
+}
+
+.float{
+  float: left;
+}
+
+.clear{
+  clear: both;
+}
+
+.column_big{
+  width: 200px;
+  text-align: center;
+}
+
+.separator_big{
+  width: 50px;
+  background: url('../img/separator_big.png') repeat-y top center;
+  height: 280px;
+}
+
+#content {
+  width: 450px;
+  margin: auto;
+}
+
+
