@@ -7,27 +7,16 @@ var camera, scene, renderer, projector;
 var mouse = { x: -3000, y: -3000 }, INTERSECTED = null; 
 //-3000 to make ot out of the screen
 
+// The deviation position of the ground from the center
+var yDeviation, zDeviation, xDeviation;
+
+// Creates the value scale variables
+var minScaleVal, maxScaleVal, scaleDif;
+
 // size of one square in real 3d units
 var squareStep = 200;
 // maximum height of the walls (y and z)
 var valHeight = 1000;
-
-// The deviation position of the ground from the center
-var yDeviation = -(valHeight/2);
-var zDeviation = -(schema.cols.length*squareStep/2);
-var xDeviation = -(schema.rows.length*squareStep/2);
-
-// Creates the value sale variables
-var minScaleVal = getMinArr ( dataValues );
-var maxScaleVal = getMaxArr ( dataValues );
-if(minScaleVal > 0){
-  minScaleVal = 0;
-}else{
-  minScaleVal = getRoundMax ( minScaleVal );
-}
-maxScaleVal = getRoundMax ( maxScaleVal );
-var scaleDif = maxScaleVal - minScaleVal;
-console.log(minScaleVal, maxScaleVal);
 
 // bars array
 var bars = [], intersobj = [];
@@ -35,10 +24,30 @@ var bars = [], intersobj = [];
 // scale texts arrays
 var sTextVals = [], sTextRows = [], sTextCols = [];
 
-init();
-animate();
+function initSceneVars(){
+  
+  // Inits deviation position of the ground from the center
+  yDeviation = -(valHeight/2);
+  zDeviation = -(schema.cols.length*squareStep/2);
+  xDeviation = -(schema.rows.length*squareStep/2);
 
-function init() {
+  // Inits the value scale variables
+  minScaleVal = getMinArr ( dataValues );
+  maxScaleVal = getMaxArr ( dataValues );
+  if(minScaleVal > 0){
+    minScaleVal = 0;
+  }else{
+    minScaleVal = getRoundMax ( minScaleVal );
+  }
+  maxScaleVal = getRoundMax ( maxScaleVal );
+  scaleDif = maxScaleVal - minScaleVal;
+  
+}
+
+
+function initScene() {
+  
+  initSceneVars()
 
   // Getting the projector for picking objects
   projector = new THREE.Projector();
@@ -222,9 +231,9 @@ $(window).resize(function() {
 });
 
 // Main animatioon function - called on each frame
-function animate() {
+function animateScene() {
 
-  requestAnimationFrame( animate );
+  requestAnimationFrame( animateScene );
   
   // Updateing the controls for the trackball camera
   controls.update();
