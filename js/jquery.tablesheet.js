@@ -27,12 +27,12 @@
     // adds the add/remove and export button
     table.css("float", "left");
     table.after('<div class="addremove" style="float:left;"><img id="'+nspace+
-                'addCol" src="img/add1.jpg"><br>'+
-                '<img id="'+nspace+'remCol" src="img/rem1.jpg"></div>'+
+                'addCol" src="img/add2.png"><br>'+
+                '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
                 '<div style="clear:both;"></div>'+
                 '<div class="addremove"><img id="'+nspace+
-                'addRow" src="img/add2.jpg"><img id="'+nspace+
-                'remRow" src="img/rem2.jpg"></div>'+
+                'addRow" src="img/add1.png"><img id="'+nspace+
+                'remRow" src="img/rem2.png"></div>'+
                 '<div style="height:20px">&nbsp;</div>'+
                 '<div id="'+nspace+'exportbut" class="exportbut">'+
                 opts.exportText+'</div>');

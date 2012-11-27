@@ -15,7 +15,7 @@
 }
 
 .jqueryTableSheet .rowcol{
-  background-color:#F3F3F3;
+  background-color:#e3e3e3;
 }
 
 .addremove{
@@ -37,4 +37,5 @@
   padding: 10px;
   display:inline;
   cursor: pointer;
+  float:right;
 }

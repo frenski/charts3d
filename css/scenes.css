@@ -28,3 +28,5 @@ h3{
 #div-waitbox{
   display:none;
 }
+
+.datadialog .ui-dialog-titlebar {display:none}

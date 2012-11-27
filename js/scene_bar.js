@@ -208,27 +208,27 @@ function initScene() {
   // light.shadowCameraVisible  = true;
   scene.add( light );
   ////////////////////
+  
+  // funciton to get the mouse position for the hover efect onthe bars
+  $(document).mousemove(function(event) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+  });
+
+  // function to adjust the size of the canvas when resizing the window
+  $(window).resize(function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+  });
 
 }
 
-
-// funciton to get the mouse position for the hover efect onthe bars
-$(document).mousemove(function(event) {
-
-  event.preventDefault();
-
-  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-  mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-  
-});
-
-// function to adjust the size of the canvas when resizing the window
-$(window).resize(function() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize( window.innerWidth, window.innerHeight );
-});
 
 // Main animatioon function - called on each frame
 function animateScene() {

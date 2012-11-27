@@ -4,36 +4,59 @@
     <title>3D Bar Chart - Three Charts</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/jquery.tablesheet.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery.colorpicker.css">
     <link rel="stylesheet" href="css/scenes.css">
-    <link rel="stylesheet" href="css/facebox.css">
   </head>
   
   <body>
     
-    <div id="div-waitbox">
-      <h3>Add your data</h3>
+    <div id="div-databox">
+      <h3>Add Your Data</h3>
+      <table id="datatable" class="jqueryTableSheet">
+      </table>
     </div>
     
   </body>
   
   <!-- <script src="js/InputData.js"></script> -->
   
-  <script src="js/jquery-1.7.1.js"></script>
-  <script src="js/jquery.facebox.js"></script>
-  <script src="js/three.min.js"></script>
-  <script src="js/TrackballControls.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/BarCubes.js"></script>
-  <script src="js/ScaleTexts.js"></script>
-  <script src="fonts/helvetiker_bold.typeface.js"></script>
-  <script src="js/scene_bar.js"></script>
+  <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/jquery.jeditable.mini.js"></script>
+  <script type="text/javascript" src="js/jquery.colorpicker.js"></script>
+  <script type="text/javascript" src="js/jquery.tablesheet.js"></script>
+  <script type="text/javascript" src="js/three.min.js"></script>
+  <script type="text/javascript" src="js/TrackballControls.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/BarCubes.js"></script>
+  <script type="text/javascript" src="js/ScaleTexts.js"></script>
+  <script type="text/javascript" src="fonts/helvetiker_bold.typeface.js"></script>
+  <script type="text/javascript" src="js/scene_bar.js"></script>
   
   <script>
-    $.facebox({ div: '#div-waitbox', 
-                        closeImage:'css/images/closelabel.png',
-                        loadingImage: 'css/images/loading.gif' });
-    // initScene();
-    // animateScene();
+    var schema = {};
+    var dataValues = [];
+
+    $( "#div-databox" ).dialog({
+                modal: true,
+                draggable: false,
+                title: "Add your data",
+                dialogClass: 'datadialog',
+                width:600,
+                height:400,
+                maxWidth: 800,
+                maxHeight: 600,
+                resizable:true
+            });
+    $('#datatable').tableSheet({exportCall: function(param){
+      schema = param.schema;
+      dataValues = param.data;
+      $( "#div-databox" ).dialog( "close" );
+      initScene();
+      animateScene();
+    }});
   </script>
 
 </html>
