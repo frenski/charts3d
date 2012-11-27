@@ -1,11 +1,28 @@
 /**
- * a style for the scenese - @author Yane Frenski
+ * a style for the scenes - @author Yane Frenski
  */
- 
+
+ @font-face {
+     font-family: "League";
+     font-weight: normal;
+     src: url("League-Gothic.otf");
+ }
+
 body {
   margin: 0px;
   background-color: #000000;
   overflow: hidden;
+}
+
+h3{
+  font-family: League, Impact, Helvetica, Arial;
+  font-size: 36px;
+  font-weight: normal;
+  color: #26272b;
+  text-transform: uppercase;
+  margin:10px;
+  text-align:left;
+  border-bottom: 1px solid #26272b;
 }
 
 #div-waitbox{
