@@ -17,7 +17,15 @@
     nspace = opts.namespace
     
     // adds first rows and columns
-    tbody.append('<tr><td class="rowcol"></td><td class="rowcol" id="'+nspace+
+    tbody.append('<tr><td class="rowcol" style="padding:0">'+
+                  '<div class="addremove" style="text-align:right;"><img id="'+nspace+
+                              'addCol" src="img/add2.png"><br>'+
+                              '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
+                              '<div style="clear:both;"></div>'+
+                              '<div class="addremove" style="margin-top:0"><img id="'+nspace+
+                              'addRow" src="img/add1.png"><img id="'+nspace+
+                              'remRow" src="img/rem2.png"></div>'+
+                  '</td><td class="rowcol" id="'+nspace+
                   'col0"><input id="colorpick0" type="text" size="1"'+
                   'value="ae00e6" /> <span>Column 1</span></td></tr>'+
                   '<tr id="'+nspace+'row0"><td class="rowcol" id="">'+
@@ -25,15 +33,19 @@
                   '<td id="'+nspace+'cell0_0" class="cell">0</td></tr>');
                   
     // adds the add/remove and export button
-    table.css("float", "left");
-    table.after('<div class="addremove" style="float:left;"><img id="'+nspace+
-                'addCol" src="img/add2.png"><br>'+
-                '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
-                '<div style="clear:both;"></div>'+
-                '<div class="addremove"><img id="'+nspace+
-                'addRow" src="img/add1.png"><img id="'+nspace+
-                'remRow" src="img/rem2.png"></div>'+
-                '<div style="height:20px">&nbsp;</div>'+
+    // table.css("float", "left");
+    // table.after('<div class="addremove" style="float:left; margin-left:-14px;"><img id="'+nspace+
+    //             'addCol" src="img/add2.png"><br>'+
+    //             '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
+    //             '<div style="clear:both;"></div>'+
+    //             '<div class="addremove" style="margin-top:0"><img id="'+nspace+
+    //             'addRow" src="img/add1.png"><img id="'+nspace+
+    //             'remRow" src="img/rem2.png"></div>'+
+    //             '<div style="height:20px">&nbsp;</div>'+
+    //             '<div id="'+nspace+'exportbut" class="exportbut">'+
+    //             opts.exportText+'</div>');
+  
+    table.after('<div style="height:20px">&nbsp;</div>'+
                 '<div id="'+nspace+'exportbut" class="exportbut">'+
                 opts.exportText+'</div>');
              
