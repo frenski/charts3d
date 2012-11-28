@@ -38,7 +38,7 @@
   <script>
     var schema = {};
     var dataValues = [];
-
+    // Create the dialog box and calls the sheet plugin
     $( "#div-databox" ).dialog({
                 modal: true,
                 draggable: false,
@@ -53,6 +53,7 @@
     $('#datatable').tableSheet({exportCall: function(param){
       schema = param.schema;
       dataValues = param.data;
+      console.log(schema, dataValues);
       $( "#div-databox" ).dialog( "close" );
       initScene();
       animateScene();

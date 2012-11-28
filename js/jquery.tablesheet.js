@@ -151,7 +151,7 @@
      
       
       // exporting the row data
-      for( var i=0; i<cols; i++){
+      for( var i=0; i<rows; i++){
         schema.rows[i] = {};
         schema.rows[i].name = tbody.children('tr#'+nspace+'row'+i).
                               children('td').html();
