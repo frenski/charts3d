@@ -30,3 +30,27 @@ h3{
 }
 
 .datadialog .ui-dialog-titlebar {display:none}
+
+#div-controls{
+  position: absolute;
+  width: 100px;
+  height: 150px;
+  padding: 10px;
+  background: #26272b;
+}
+
+#div-controls ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#div-controls ul li{
+/*  font-size: */
+  margin: 10px 5px;
+}
+
+.separator_big_h{
+  height: 20px;
+  background: url('../img/separator_big_h.png') repeat-x left center;
+}
