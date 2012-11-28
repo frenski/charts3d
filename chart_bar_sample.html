@@ -3,22 +3,81 @@
   <head>
     <title>3D Bar Chart - Three Charts</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/jquery.tablesheet.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery.colorpicker.css">
     <link rel="stylesheet" href="css/scenes.css">
   </head>
   
   <body>
     
+    <div id="div-controls">
+      <a href="/charts3d"><img src="img/logo_s.png"></a>
+      <div class="separator_big_h"></div>
+      <ul>
+        <li>
+          <a href="chart_bar.html" title="bar chart">
+            <img src="img/icon_export.png" alt="Export"> Export 
+          </a>
+        </li>
+        <li>
+          <a href="chart_bar.html" title="bar chart">
+            <img src="img/icon_settings.png" alt="Edit"> Edit
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <div id="div-databox">
+      <h3>Edit Your Data</h3>
+      <table id="datatable" class="jqueryTableSheet">
+      </table>
+    </div>
+    
   </body>
   
   <script src="js/InputData.js"></script>
   
-  <script src="js/jquery-1.7.1.js"></script>
-  <script src="js/three.min.js"></script>
-  <script src="js/TrackballControls.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/BarCubes.js"></script>
-  <script src="js/ScaleTexts.js"></script>
-  <script src="fonts/helvetiker_bold.typeface.js"></script>
-  <script src="js/scene_bar.js"></script>
+  <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/jquery.jeditable.mini.js"></script>
+  <script type="text/javascript" src="js/jquery.colorpicker.js"></script>
+  <script type="text/javascript" src="js/jquery.tablesheet.js"></script>
+  <script type="text/javascript" src="js/three.min.js"></script>
+  <script type="text/javascript" src="js/TrackballControls.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/BarCubes.js"></script>
+  <script type="text/javascript" src="js/ScaleTexts.js"></script>
+  <script type="text/javascript" src="fonts/helvetiker_bold.typeface.js"></script>
+  <script type="text/javascript" src="js/scene_bar.js"></script>
+  
+  <script>
+    // // Create the dialog box and calls the sheet plugin
+    // $( "#div-databox" ).dialog({
+    //             modal: true,
+    //             draggable: false,
+    //             title: "Edit your data",
+    //             dialogClass: 'datadialog',
+    //             disabled: true,
+    //             width:600,
+    //             height:400,
+    //             maxWidth: 800,
+    //             maxHeight: 600,
+    //             resizable:true
+    //         });
+    // $('#datatable').tableSheet({exportCall: function(param){
+    //   schema = param.schema;
+    //   dataValues = param.data;
+    //   console.log(schema, dataValues);
+    //   $( "#div-databox" ).dialog( "close" );
+    //   initScene();
+    //   animateScene();
+    // }});
+    
+      initScene();
+      animateScene();
+    
+  </script>
 
 </html>

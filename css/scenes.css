@@ -37,6 +37,7 @@ h3{
   height: 150px;
   padding: 10px;
   background: #26272b;
+  z-index: 10;
 }
 
 #div-controls ul{
