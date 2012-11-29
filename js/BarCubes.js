@@ -33,7 +33,7 @@ BarCube = function( color, x, z, val ) {
   
   // main cube colour
   this.color = parseInt(color,16);
-  this.lumcolor = colorLuminance( color, 0.8 );
+  this.lumcolor = colorLuminance( color, 0.5 );
   this.darklumcolor = colorLuminance( color, -0.3 );
   
   // label vars

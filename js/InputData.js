@@ -1,8 +1,8 @@
 // *******************
 // sample data file
 var schema = { 
-               cols: [ { name:"2010", color:"bd6600" }, 
-                       { name:"2011", color:"cbb100" }, 
+               cols: [ { name:"2010", color:"d17100" }, 
+                       { name:"2011", color:"d9bd00" }, 
                        { name:"2012", color:"61c900" }, 
                      ],
                rows: [ { name: "Product 1" }, 
