@@ -8,6 +8,8 @@
 var squareStep = 200;
 // maximum height of the walls (y and z)
 var valHeight = 1000;
+// Background Color
+var backColor = "000000";
 
 
 // *** GLOBAL VARIABLES *******************************************************

@@ -143,8 +143,8 @@
       var canvasData = renderer.domElement.toDataURL();
       $.ajax({
           type: "POST",
-          url: "exporters/export_image.php?h="+window.innerWidth+
-                "&w="+window.innerHeight,
+          url: "exporters/export_image.php?h="+window.innerHeight+
+                "&w="+window.innerWidth+"&c="+backColor,
           data: canvasData,
           contentType: "application/upload; charset=utf-8",
           success: function(data){
