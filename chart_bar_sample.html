@@ -22,18 +22,18 @@
           </a>
         </li>
         <li>
-          <a href="chart_bar.html" title="bar chart">
+          <a href="#" title="bar chart" id="link-edit">
             <img src="img/icon_settings.png" alt="Edit"> Edit
           </a>
         </li>
       </ul>
     </div>
     
-    <div id="div-databox">
+    <!-- <div id="div-databox">
       <h3>Edit Your Data</h3>
       <table id="datatable" class="jqueryTableSheet">
       </table>
-    </div>
+    </div> -->
     
   </body>
   
@@ -54,29 +54,37 @@
   
   <script>
     // // Create the dialog box and calls the sheet plugin
-    // $( "#div-databox" ).dialog({
-    //             modal: true,
-    //             draggable: false,
-    //             title: "Edit your data",
-    //             dialogClass: 'datadialog',
-    //             disabled: true,
-    //             width:600,
-    //             height:400,
-    //             maxWidth: 800,
-    //             maxHeight: 600,
-    //             resizable:true
-    //         });
-    // $('#datatable').tableSheet({exportCall: function(param){
-    //   schema = param.schema;
-    //   dataValues = param.data;
-    //   console.log(schema, dataValues);
-    //   $( "#div-databox" ).dialog( "close" );
-    //   initScene();
-    //   animateScene();
-    // }});
-    
+    $( "#div-databox" ).dialog({
+                modal: true,
+                draggable: false,
+                title: "Edit your data",
+                dialogClass: 'datadialog',
+                disabled: true,
+                width:600,
+                height:400,
+                maxWidth: 800,
+                maxHeight: 600,
+                resizable:true
+            });
+    $('#datatable').tableSheet({exportCall: function(param){
+      schema = param.schema;
+      dataValues = param.data;
+      console.log(schema, dataValues);
+      $( "#div-databox" ).dialog( "close" );
       initScene();
       animateScene();
+    }});
+    
+    // link to open dialog again
+    $( "#link-edit" ).click(function(){
+      $( "#div-databox" ).dialog( "open" );
+      return false;
+    });
+    
+    $( "#div-databox" ).dialog( "close" );
+    
+    initScene();
+    animateScene();
     
   </script>
 

@@ -2,10 +2,20 @@
  * a script for loading bar chart scene - @author Yane Frenski
  */
 
+// *** GENERAL SETTINGS *******************************************************
+// ****************************************************************************
+// size of one square in real 3d units
+var squareStep = 200;
+// maximum height of the walls (y and z)
+var valHeight = 1000;
+
+
+// *** GLOBAL VARIABLES *******************************************************
+// ****************************************************************************
+
 // Main scene vars
 var camera, scene, renderer, projector;
-var mouse = { x: -3000, y: -3000 }, INTERSECTED = null; 
-//-3000 to make ot out of the screen
+var mouse = { }, INTERSECTED; 
 
 // The deviation position of the ground from the center
 var yDeviation, zDeviation, xDeviation;
@@ -13,18 +23,23 @@ var yDeviation, zDeviation, xDeviation;
 // Creates the value scale variables
 var minScaleVal, maxScaleVal, scaleDif;
 
-// size of one square in real 3d units
-var squareStep = 200;
-// maximum height of the walls (y and z)
-var valHeight = 1000;
-
 // bars array
-var bars = [], intersobj = [];
+var bars, intersobj;
 
 // scale texts arrays
-var sTextVals = [], sTextRows = [], sTextCols = [];
+var sTextVals, sTextRows, sTextCols;
+
+
+// *** VARIABLES INITIALIZATION ***********************************************
+// ****************************************************************************
 
 function initSceneVars(){
+  
+  // mouse position
+  //-3000 to make ot out of the screen
+  mouse.x = -3000;
+  mouse.y = -3000;
+  INTERSECTED = null;
   
   // Inits deviation position of the ground from the center
   yDeviation = -(valHeight/2);
@@ -42,18 +57,31 @@ function initSceneVars(){
   maxScaleVal = getRoundMax ( maxScaleVal );
   scaleDif = maxScaleVal - minScaleVal;
   
+  // bars array
+  bars = [];
+  intersobj = [];
+
+  // scale texts arrays
+  sTextVals = [];
+  sTextRows = [];
+  sTextCols = [];
+  
 }
 
+// *** SCENE INITIALIZATION ***************************************************
+// ****************************************************************************
 
 function initScene() {
   
-  initSceneVars()
-
+  initSceneVars();
+  
+  $('canvas').remove();
+  
   // Getting the projector for picking objects
   projector = new THREE.Projector();
 
   // Setting the renderer (with shadows)
-  renderer = new THREE.WebGLRenderer( { antialias: true} );
+  renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setSize( window.innerWidth, window.innerHeight );
   
   // Switch off the shadows for safari due to the three.js bug with it
@@ -230,7 +258,9 @@ function initScene() {
 }
 
 
-// Main animatioon function - called on each frame
+// *** SCENE ANIMATION ********************************************************
+// ****************************************************************************
+
 function animateScene() {
 
   requestAnimationFrame( animateScene );

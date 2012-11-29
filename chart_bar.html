@@ -22,7 +22,7 @@
           </a>
         </li>
         <li>
-          <a href="chart_bar.html" title="bar chart">
+          <a href="#" title="bar chart" id="link-edit">
             <img src="img/icon_settings.png" alt="Edit"> Edit
           </a>
         </li>
@@ -53,28 +53,39 @@
   <script type="text/javascript" src="js/scene_bar.js"></script>
   
   <script>
+  
     var schema = {};
     var dataValues = [];
+    
     // Create the dialog box and calls the sheet plugin
     $( "#div-databox" ).dialog({
                 modal: true,
                 draggable: false,
                 title: "Add your data",
-                dialogClass: 'datadialog',
+                dialogClass: "datadialog",
                 width:600,
                 height:400,
                 maxWidth: 800,
                 maxHeight: 600,
-                resizable:true
+                resizable: true
             });
-    $('#datatable').tableSheet({exportCall: function(param){
+            
+    // Adding the table sheet to the dialog
+    $( "#datatable" ).tableSheet({exportCall: function(param){
       schema = param.schema;
       dataValues = param.data;
-      console.log(schema, dataValues);
       $( "#div-databox" ).dialog( "close" );
       initScene();
       animateScene();
     }});
+    
+    // link to open dialog again
+    $( "#link-edit" ).click(function(){
+      $( "#div-databox" ).dialog( "open" );
+      return false;
+    });
+    
+    
   </script>
 
 </html>
