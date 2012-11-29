@@ -6,45 +6,52 @@
     table.append('<tbody></tbody>');
     var tbody = table.children('tbody');
     
-    // initializing the number of rows
-    var rows = 1;
-    var cols = 1;
-    
     // gets the parameters
     var opts = $.extend({}, $.fn.tableSheet.defaults, options);
     
-    // the namespace
-    nspace = opts.namespace
+    // initializing the number of rows
+    var initSchema = opts.initSchema;
+    var initData = opts.initData;
+    var rows = initSchema.rows.length;
+    var cols = initSchema.cols.length;
     
-    // adds first rows and columns
+    // the namespace
+    nspace = opts.namespace;
+    
+    // adds columns from the init data and schema
+    var colsToAdd = '';
+    for( var i=0; i<cols; i++ ){
+      colsToAdd += '<td class="rowcol" id="'+nspace+
+                   'col'+i+'"><input id="colorpick'+i+'" type="text" size="1"'+
+                   'value="'+initSchema.cols[i].color+
+                   '" /><span>'+initSchema.cols[i].name+'</span></td>';
+    } 
     tbody.append('<tr><td class="rowcol" style="padding:0">'+
                   '<div class="addremove" style="text-align:right;"><img id="'+nspace+
-                              'addCol" src="img/add2.png"><br>'+
-                              '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
-                              '<div style="clear:both;"></div>'+
-                              '<div class="addremove" style="margin-top:0"><img id="'+nspace+
-                              'addRow" src="img/add1.png"><img id="'+nspace+
-                              'remRow" src="img/rem2.png"></div>'+
-                  '</td><td class="rowcol" id="'+nspace+
-                  'col0"><input id="colorpick0" type="text" size="1"'+
-                  'value="ae00e6" /> <span>Column 1</span></td></tr>'+
-                  '<tr id="'+nspace+'row0"><td class="rowcol" id="">'+
-                  'Row 1</td>'+
-                  '<td id="'+nspace+'cell0_0" class="cell">0</td></tr>');
-                  
-    // adds the add/remove and export button
-    // table.css("float", "left");
-    // table.after('<div class="addremove" style="float:left; margin-left:-14px;"><img id="'+nspace+
-    //             'addCol" src="img/add2.png"><br>'+
-    //             '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
-    //             '<div style="clear:both;"></div>'+
-    //             '<div class="addremove" style="margin-top:0"><img id="'+nspace+
-    //             'addRow" src="img/add1.png"><img id="'+nspace+
-    //             'remRow" src="img/rem2.png"></div>'+
-    //             '<div style="height:20px">&nbsp;</div>'+
-    //             '<div id="'+nspace+'exportbut" class="exportbut">'+
-    //             opts.exportText+'</div>');
-  
+                  'addCol" src="img/add2.png"><br>'+
+                  '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
+                  '<div style="clear:both;"></div>'+
+                  '<div class="addremove" style="margin-top:0"><img id="'+nspace+
+                  'addRow" src="img/add1.png"><img id="'+nspace+
+                  'remRow" src="img/rem2.png"></div></td>'+colsToAdd+'</tr>');
+    
+    // adds rows from the init data and schema
+    var rowsToAdd = '';
+    for( var i=0; i<rows; i++ ){
+      rowsToAdd += '<tr id="'+nspace+'row'+i+'"><td class="rowcol" id="">'+
+                    initSchema.rows[i].name+'</td>';
+      for( var j=0; j<cols; j++ ){
+        rowsToAdd += '<td id="'+nspace+'cell'+j+'_'+i+'" class="cell">'+
+                      initData[j][i]+'</td>';
+      }
+      rowsToAdd += '</tr>';
+    }
+    
+    tbody.append(rowsToAdd);
+   
+   
+   
+   // adds the export button
     table.after('<div style="height:20px">&nbsp;</div>'+
                 '<div id="'+nspace+'exportbut" class="exportbut">'+
                 opts.exportText+'</div>');
@@ -178,13 +185,20 @@
       return (Math.random()*0xFFFFFF<<0).toString(16);
     }
     
-    // Adds jeditable to the first element
-    addJeditable ( $('#'+nspace+'col0').children('span'), 'string' );
-    addJeditable ( $('#'+nspace+'row0').children('td:first'), 'string' );
-    addJeditable ( $('#'+nspace+'cell0_0'), 'float' );
-    
-    // Adds the color picker elements
-    addColPick ( $( '#colorpick0' ) );
+    // Adds jeditable to the initialized rows
+    for( var i=0; i<rows; i++ ){
+      addJeditable ( $('#'+nspace+'row'+i).children('td:first'), 'string' );
+    }
+    for( var i=0; i<cols; i++ ){
+      // Adds jeditable to the initialized columns
+      addJeditable ( $('#'+nspace+'col'+i).children('span'), 'string' );
+      // Adds the color picker elements
+      addColPick ( $( '#colorpick'+i ) );
+      // Adds jeditable to the initialized data cells
+      for( var j=0; j<rows; j++ ){
+        addJeditable ( $('#'+nspace+'cell'+i+'_'+j), 'float' );
+      }
+    }
   
 
   }
@@ -194,7 +208,10 @@
     addRowText : 'row: ',
     namespace: 'jtsheet_',
     exportText: 'Export',
-    exportCall: ''
+    exportCall: '',
+    initSchema: { cols: [ { name: "Column 1", color:"ae00e6" }],
+                  rows: [ { name: "Row 1" } ] },
+    initData: [[0]]
   };
 
   })(jQuery);

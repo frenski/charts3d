@@ -29,11 +29,11 @@
       </ul>
     </div>
     
-    <!-- <div id="div-databox">
+    <div id="div-databox">
       <h3>Edit Your Data</h3>
       <table id="datatable" class="jqueryTableSheet">
       </table>
-    </div> -->
+    </div>
     
   </body>
   
@@ -66,14 +66,18 @@
                 maxHeight: 600,
                 resizable:true
             });
-    $('#datatable').tableSheet({exportCall: function(param){
-      schema = param.schema;
-      dataValues = param.data;
-      console.log(schema, dataValues);
-      $( "#div-databox" ).dialog( "close" );
-      initScene();
-      animateScene();
-    }});
+    $('#datatable').tableSheet({
+      initSchema: schema,
+      initData: dataValues,
+      exportCall: function(param){
+        schema = param.schema;
+        dataValues = param.data;
+        console.log(schema, dataValues)
+        $( "#div-databox" ).dialog( "close" );
+        initScene();
+        animateScene();
+      }
+    });
     
     // link to open dialog again
     $( "#link-edit" ).click(function(){
