@@ -25,10 +25,6 @@ h3{
   border-bottom: 1px solid #26272b;
 }
 
-#div-waitbox{
-  display:none;
-}
-
 .datadialog .ui-dialog-titlebar {display:none}
 
 #div-controls{
@@ -51,7 +47,46 @@ h3{
   margin: 10px 5px;
 }
 
+
+/* Buttons */
+.general-button{
+  width: 100px;
+  padding:10px 0;
+  text-align:center;
+  color: #fff;
+  background: #777777;
+  font-family: Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  cursor: pointer;
+  line-height: 16px;
+}
+
+.general-button span{
+  font-size: 12px;
+  color: #ddd;
+}
+
+.general-button-b{
+  width: 200px;
+}
+
+.general-button-disabled{
+  background-color:#bbbbbb;
+  cursor: inherit;
+}
+
+.element-centered{
+  margin: auto;
+}
+
+
+/* Separators */
 .separator_big_h{
   height: 20px;
   background: url('../img/separator_big_h.png') repeat-x left center;
 }
+
+.separator_hid10 { height: 10px; }
+.separator_hid20 { height: 20px; }
+.separator_hid30 { height: 30px; }
+.separator_hid50 { height: 50px; }

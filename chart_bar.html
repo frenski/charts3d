@@ -17,12 +17,12 @@
       <div class="separator_big_h"></div>
       <ul>
         <li>
-          <a href="chart_bar.html" title="bar chart">
+          <a href="#" title="export bar chart" id="link-export">
             <img src="img/icon_export.png" alt="Export"> Export 
           </a>
         </li>
         <li>
-          <a href="#" title="bar chart" id="link-edit">
+          <a href="#" title="edit bar chart" id="link-edit">
             <img src="img/icon_settings.png" alt="Edit"> Edit
           </a>
         </li>
@@ -33,6 +33,30 @@
       <h3>Add Your Data</h3>
       <table id="datatable" class="jqueryTableSheet">
       </table>
+    </div>
+    
+    <div id="div-exportbox">
+      <h3>Export chart</h3>
+      <div class="separator_hid10"></div>
+      <div id="link-export-image" class="general-button general-button-b element-centered">
+        Export as image
+      </div>
+      <div class="separator_hid10"></div>
+      <div id="link-export-embed" class="general-button general-button-b general-button-disabled element-centered">
+        Embed in html<br>
+        <span>(coming soon)</span>
+      </div>
+      <div class="separator_hid10"></div>
+      <div id="link-export-openweb" class="general-button general-button-b general-button-disabled element-centered">
+        Open as webpage<br>
+        <span>(coming soon)</span>
+      </div>
+      <div class="separator_hid30"></div>
+      <div class="separator_big_h"></div>
+      <div class="separator_hid10"></div>
+      <div id="link-export-close" class="general-button general-button-b element-centered">
+        Cancel
+      </div>
     </div>
     
   </body>
@@ -70,20 +94,50 @@
                 resizable: true
             });
             
+    // Creates export dialog box
+    $( "#div-exportbox" ).dialog({
+                modal: true,
+                draggable: false,
+                title: "Export your chart",
+                dialogClass: 'datadialog',
+                disabled: true,
+                width:600,
+                height:400,
+                resizable: false
+            });
+            
     // Adding the table sheet to the dialog
-    $( "#datatable" ).tableSheet({exportCall: function(param){
-      schema = param.schema;
-      dataValues = param.data;
-      $( "#div-databox" ).dialog( "close" );
-      initScene();
-      animateScene();
-    }});
+    $( "#datatable" ).tableSheet({
+      exportText: 'Generate Chart',
+      exportCall: function(param){
+        schema = param.schema;
+        dataValues = param.data;
+        $( "#div-databox" ).dialog( "close" );
+        initScene();
+        animateScene();
+      }
+    });
     
     // link to open dialog again
     $( "#link-edit" ).click(function(){
       $( "#div-databox" ).dialog( "open" );
       return false;
     });
+    
+    // link to open the export box
+    $( "#link-export" ).click(function(){
+      $( "#div-exportbox" ).dialog( "open" );
+      return false;
+    });
+    
+    // link to close the export box
+    $( "#link-export-close" ).click(function(){
+      $( "#div-exportbox" ).dialog( "close" );
+      return false;
+    });
+    
+    // Closes the export dialog box at the begining
+    $( "#div-exportbox" ).dialog( "close" );
     
     
   </script>
