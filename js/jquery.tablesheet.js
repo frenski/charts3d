@@ -48,8 +48,7 @@
     }
     
     tbody.append(rowsToAdd);
-   
-   
+  
    
    // adds the export button
     table.after('<div style="height:20px">&nbsp;</div>'+
@@ -137,13 +136,13 @@
     
     var addColPick = function ( el, type ){
       el.colorpicker({
-      		parts: ['swatches'],
-      		showOn: 'button',
-      		showCloseButton: true,
-      		buttonColorize: true,
-      		showNoneButton: false,
-      		alpha: true,
-      		buttonImage: 'css/images/ui-colorpicker.png',
+          parts: ['swatches'],
+          showOn: 'button',
+          showCloseButton: true,
+          buttonColorize: true,
+          showNoneButton: false,
+          alpha: true,
+          buttonImage: 'css/images/ui-colorpicker.png',
       });
       el.hide();
     }
@@ -176,11 +175,13 @@
                               children('td').html();
       }
       
+      // The export callback function if set
       if(opts.exportCall!=''){
         opts.exportCall( {schema: schema, data: data} );
       }
     }
     
+    // Function for generating random hex numbers
     var randomHexNum = function () {
       return (Math.random()*0xFFFFFF<<0).toString(16);
     }
@@ -213,5 +214,27 @@
                   rows: [ { name: "Row 1" } ] },
     initData: [[0]]
   };
+  
+  /**** plugin parameters *****************************************************
+  *****************************************************************************
+  
+    * addColText:        Text to be shown on a add column link (not used now)
+    * addRowText:        Text to be shown on a add row link (not used now)
+    * namespace:         Namespace for the id elements to prevent collisions
+    * exportText:        Text for the export button
+    * exportCall:        A call back function when exporting the data
+    * initSchema,
+      initData:          If we want to initiate the table with some schema and
+                         data. By default it's one cell with one column and row
+                         initSchema must be object with columns and rows that
+                         are arays containing objects. Should look like this:
+                         {  
+                            cols: [ {name: "", color:""}, ....],
+                            rows: [ {name: "" }, ....]
+                         }
+                         initData must be two dimentional array with the size
+                         of the number of rows and columns in the initSchema
+                         
+  ****************************************************************************/
 
   })(jQuery);
