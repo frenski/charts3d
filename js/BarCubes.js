@@ -50,7 +50,7 @@ BarCube = function( color, x, z, val ) {
     var material = new THREE.MeshPhongMaterial( {ambient: 0x000000,
                                                  color: this.color,
                                                  specular: 0x999999,
-                                                 shininess: 20,
+                                                 shininess: 100,
                                                  shading : THREE.SmoothShading,
                                                  opacity:0.8,
                                                  transparent: true
