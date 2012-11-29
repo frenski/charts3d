@@ -41,6 +41,7 @@
       <div id="link-export-image" class="general-button general-button-b element-centered">
         Export as image
       </div>
+      <div id="result-export-image" class="div-results"></div>
       <div class="separator_hid10"></div>
       <div id="link-export-embed" class="general-button general-button-b general-button-disabled element-centered">
         Embed in html<br>
@@ -134,6 +135,22 @@
     $( "#link-export-close" ).click(function(){
       $( "#div-exportbox" ).dialog( "close" );
       return false;
+    });
+    
+    // link to export the chart as image
+    $('div#link-export-image').click(function(){
+      animateScene();
+      var canvasData = renderer.domElement.toDataURL();
+      $.ajax({
+          type: "POST",
+          url: "exporters/export_image.php?h="+window.innerWidth+
+                "&w="+window.innerHeight,
+          data: canvasData,
+          contentType: "application/upload; charset=utf-8",
+          success: function(data){
+            $('div#result-export-image').html(data);
+          }
+      });
     });
     
     // Closes the export dialog box at the begining

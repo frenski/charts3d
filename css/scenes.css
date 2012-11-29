@@ -47,6 +47,12 @@ h3{
   margin: 10px 5px;
 }
 
+.div-results{
+  text-align: center;
+  font-family: Helvetica, Arial, Verdana;
+  font-size: 14px;
+}
+
 
 /* Buttons */
 .general-button{
