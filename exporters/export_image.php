@@ -32,8 +32,9 @@ if (isset($GLOBALS["HTTP_RAW_POST_DATA"])){
     
     imagepng($im, $filename, 9);
     
-    echo 'Your image is <a href="'.$base_url
-                                  .$filename.'" target="_blank">here</a>';
+    echo '<a href="exporters/get_image.php?file='.$base_url.$filename
+                    .'" target="_blank">Click here to download the image</a>';
+    
   }else{
     echo "Failed to save image";
   }
