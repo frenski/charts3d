@@ -30,7 +30,21 @@
     </div>
     
     <div id="div-databox">
-      <h3>Edit Your Data</h3>
+      <h3>Edit Settings</h3>
+      <h4>General Settings</h4>
+      <div class="left col1-3">
+        Title: <input type="text" size="15">
+      </div>
+      <div class="left col1-3">
+        Background colour: 
+        <input id="colorpick_bc" type="text" size="4" value="000000" />
+      </div>
+      <div class="left col1-3">
+        Scale text colour:
+        <input id="colorpick_stc" type="text" size="4" value="ffffff" />
+      </div>
+      <div class="clear"></div>
+      <h4>Chart Data</h4>
       <table id="datatable" class="jqueryTableSheet">
       </table>
     </div>
@@ -113,8 +127,9 @@
       exportCall: function(param){
         schema = param.schema;
         dataValues = param.data;
-        console.log(schema, dataValues)
         $( "#div-databox" ).dialog( "close" );
+        backColor = $('#colorpick_bc').val();
+        scaleTextColor = $('#colorpick_stc').val();
         initScene();
         animateScene();
       }
@@ -154,6 +169,29 @@
           }
       });
     });
+    
+    // Color pickers for the backtdound and the scale color
+    $('#colorpick_bc').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    
+    $('#colorpick_stc').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    $('#colorpick_bc').hide();
+    $('#colorpick_stc').hide();
     
     // Closes the dialog boxes at the begining
     $( "#div-databox" ).dialog( "close" );

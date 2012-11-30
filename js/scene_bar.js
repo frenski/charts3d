@@ -10,6 +10,8 @@ var squareStep = 200;
 var valHeight = 1000;
 // Background Color
 var backColor = "000000";
+// Colour for the text on the x and y scales
+var scaleTextColor = "eeeeee";
 
 
 // *** GLOBAL VARIABLES *******************************************************
@@ -77,6 +79,10 @@ function initScene() {
   
   initSceneVars();
   
+  // changes background colour
+  $('body').css('background-color', '#'+backColor);
+  
+  // removes previous canvas if exists
   $('canvas').remove();
   
   // Getting the projector for picking objects
@@ -190,13 +196,13 @@ function initScene() {
   }
   
   for( var i=0; i<schema.rows.length; i++ ) {
-    sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i);
+    sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i, scaleTextColor);
     sTextRows[i].addText(groundX);
   }
   
   for ( var i=0; i<=valHeight/squareStep*2; i++ ) {
     var val = scaleDif*i/10;
-    sTextVals[i] = new ScaleText(val.toString(), "val", i, "aaaaaa");
+    sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
     sTextVals[i].addText(groundZ);
   }
   
