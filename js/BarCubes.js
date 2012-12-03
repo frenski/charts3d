@@ -2,7 +2,7 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-BarCube = function( color, x, z, val ) {
+BarCube = function( color, x, z, val, valcolor ) {
   //the 3D cube object
   this.barobj = null;
   
@@ -35,6 +35,7 @@ BarCube = function( color, x, z, val ) {
   this.color = parseInt(color,16);
   this.lumcolor = colorLuminance( color, 0.5 );
   this.darklumcolor = colorLuminance( color, -0.3 );
+  this.valcolor = parseInt(valcolor,16);
   
   // label vars
   this.labelSize = 50;
@@ -98,7 +99,8 @@ BarCube = function( color, x, z, val ) {
         bevelEnabled: false
       });
 
-      var material = new THREE.MeshPhongMaterial( { color: 0xffffff, shading: THREE.FlatShading } );
+      var material = new THREE.MeshPhongMaterial( { color: this.valcolor, 
+                                                    shading: THREE.FlatShading } );
       
       // Positions the text and adds it to the scene
       this.labelobj = new THREE.Mesh( geometry, material );

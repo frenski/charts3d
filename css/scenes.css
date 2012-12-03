@@ -44,7 +44,6 @@ h3{
 }
 
 #div-controls ul li{
-/*  font-size: */
   margin: 10px 5px;
 }
 
@@ -106,9 +105,18 @@ h3{
 .col1-3 { width: 33% }
 .col2-3 { width: 67% }
 
+.col1-4 { width: 25% }
+.col2-4 { width: 50% }
+.col3-4 { width: 75% }
+
 /* Explicit style*/
 #jtsheet_exportbut {
   position: absolute;
   right: 10px ;
   top:10px;
+}
+
+/* Text styles */
+.small-text{
+  font-size: 12px;
 }

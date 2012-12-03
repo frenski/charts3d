@@ -12,6 +12,8 @@ var valHeight = 1000;
 var backColor = "000000";
 // Colour for the text on the x and y scales
 var scaleTextColor = "eeeeee";
+// Colour for the text on each bar
+var valTextColor = "ffffff";
 
 
 // *** GLOBAL VARIABLES *******************************************************
@@ -210,7 +212,8 @@ function initScene() {
   //*** Adding bars
   for ( var i=0; i<schema.cols.length; i++ ) {
     for (var j=0; j<schema.rows.length; j++ ) {
-      bars.push( new BarCube( schema.cols[i].color, j, i, dataValues[i][j] ) );
+      bars.push( new BarCube( schema.cols[i].color, j, i, 
+                              dataValues[i][j], valTextColor ) );
       bars[bars.length-1].addBar(scene);
       // Adds the bars objects to ones that need to be checked for intersection
       // This is used for the moseover action
