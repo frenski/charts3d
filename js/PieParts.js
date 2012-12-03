@@ -32,7 +32,7 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   this.color = parseInt(color,16);
   this.valcolor = parseInt(valcolor,16);
   this.lumcolor = colorLuminance( color, 0.5 );
-  this.darklumcolor = colorLuminance( color, -0.5 );
+  this.darklumcolor = colorLuminance( color, -0.6 );
   
   // label vars
   this.labelSize = 60;
