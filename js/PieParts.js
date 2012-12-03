@@ -35,8 +35,8 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   // this.darklumcolor = colorLuminance( color, -0.3 );
   
   // label vars
-  this.labelSize = 70;
-  this.labelHeight = 7;
+  this.labelSize = 60;
+  this.labelHeight = 6;
   this.labelFont = "helvetiker";
   
   // function to add the bar to the scene and position it
@@ -75,7 +75,9 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
     // If we want to have a label, we add a text object
     if(this.hasLabel){
       
-      var txt = this.val.toString();
+      var percent = Math.round( (this.val/this.valTotal*100) * 10 ) / 10;
+      var txt = this.val.toString() + " (" +
+                percent.toString() +"%)";
       
       // Create a three.js text geometry
       var geometry = new THREE.TextGeometry( txt, {
