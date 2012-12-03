@@ -93,8 +93,10 @@ function getRoundMax (val){
 function getTotalArr(arr){
   var total = 0;
   for (var i = 0; i < arr.length; i++) {
-    if ( typeof arr[i] != 'number' ) arr[i] = 0;
-    total += arr[i];
+    for (var j = 0; j < arr[i].length; j++) {
+      if ( typeof arr[i][j] != 'number' ) arr[i][j] = 0;
+      total += arr[i][j];
+    }
   }
   return total;
 }

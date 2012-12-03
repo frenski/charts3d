@@ -2,7 +2,7 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-PiePart = function( val, totalval, angprev, color,  valcolor , pos) {
+PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolor) {
   //the 3D cube object
   this.pieobj = null;
   
@@ -10,13 +10,13 @@ PiePart = function( val, totalval, angprev, color,  valcolor , pos) {
   this.labelobj = null
   
   // should it have a label
-  this.hasLabel = true;
+  this.hasLabel = false;
   
   // the position (usually 0;0;0)
   this.position = pos;
   
   // the radius size 
-  this.radius = 300;
+  this.radius = radius;
   
   // the previous angle - this one should start from it
   this.angPrev = angprev;
@@ -25,8 +25,11 @@ PiePart = function( val, totalval, angprev, color,  valcolor , pos) {
   this.val = val;
   this.valTotal = totalval;
   
+  // extrude options
+  this.extrudeOpts = extrude;
+  
   // main cube colour
-  // this.color = parseInt(color,16);
+  this.color = parseInt(color,16);
   // this.lumcolor = colorLuminance( color, 0.5 );
   // this.darklumcolor = colorLuminance( color, -0.3 );
   // this.valcolor = parseInt(valcolor,16);
@@ -50,20 +53,20 @@ PiePart = function( val, totalval, angprev, color,  valcolor , pos) {
     
     // Creats the shape, based on the value and the radius
     var shape = new THREE.Shape();
-    shape.moveTo(0,0);
-    shape.arc(0,0,pieRadius,this.angPrev,this.angPrev+
-      (Math.PI*2*(this.val/this.valTotal)),false);
-    shape.lineTo(0,0);
+    shape.moveTo(this.position.x,this.position.y);
+    shape.arc(this.position.x,this.position.y,pieRadius,this.angPrev,
+              this.angPrev+(Math.PI*2*(this.val/this.valTotal)),false);
+    shape.lineTo(this.position.x,this.position.y);
     nextAng = this.angPrev + Math.PI*2*(this.val/this.valTotal);
 
-    var geometry = new THREE.ExtrudeGeometry( shape, extrudeOpts);
+    var geometry = new THREE.ExtrudeGeometry( shape, this.extrudeOpts);
 
     this.pieobj = new THREE.Mesh( geometry, material );
-    mesh.rotation.set(90,0,0);
+    this.pieobj.rotation.set(90,0,0);
                                           
     // Creating the 3D object, positioning it and adding it to the scene
     this.pieobj = new THREE.Mesh( geometry, material );
-    this.pieobjmesh.rotation.set(90,0,0);
+    this.pieobj.rotation.set(90,0,0);
     this.pieobj.castShadow = true;
     this.pieobj.receiveShadow = true;
     target.add( this.pieobj );

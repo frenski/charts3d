@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>3D Bar Chart - Three Charts</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/jquery.tablesheet.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery.colorpicker.css">
+    <link rel="stylesheet" href="css/scenes.css">
+  </head>
+  
+  <body>
+    
+    <div id="div-controls">
+      <a href="/charts3d"><img src="img/logo_s.png"></a>
+      <div class="separator_big_h"></div>
+      <ul>
+        <li>
+          <a href="#" title="export bar chart" id="link-export">
+            <img src="img/icon_export.png" alt="Export"> Export 
+          </a>
+        </li>
+        <li>
+          <a href="#" title="edit bar chart" id="link-edit">
+            <img src="img/icon_settings.png" alt="Edit"> Edit
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <div id="div-databox">
+      <h3>Edit Settings</h3>
+      <h4>General Settings</h4>
+      <div class="left col1-4 small-text">
+        Title: <input type="text" size="12">
+      </div>
+      <div class="left col1-4 small-text">
+        Background color: 
+        <input id="colorpick_bc" type="text" size="4" value="000000" />
+      </div>
+      <div class="left col1-4 small-text">
+        Value text color:
+        <input id="colorpick_vt" type="text" size="4" value="ffffff" />
+      </div>
+      <div class="clear"></div>
+      <h4>Chart Data</h4>
+      <table id="datatable" class="jqueryTableSheet">
+      </table>
+    </div>
+    
+    <div id="div-exportbox">
+      <h3>Export chart</h3>
+      <div class="separator_hid10"></div>
+      <div id="link-export-image" class="general-button general-button-b element-centered">
+        Export as image
+      </div>
+      <div id="result-export-image" class="div-results"></div>
+      <div class="separator_hid10"></div>
+      <div id="link-export-embed" class="general-button general-button-b general-button-disabled element-centered">
+        Embed in html<br>
+        <span>(coming soon)</span>
+      </div>
+      <div class="separator_hid10"></div>
+      <div id="link-export-openweb" class="general-button general-button-b general-button-disabled element-centered">
+        Open as webpage<br>
+        <span>(coming soon)</span>
+      </div>
+      <div class="separator_hid30"></div>
+      <div class="separator_big_h"></div>
+      <div class="separator_hid10"></div>
+      <div id="link-export-close" class="general-button general-button-b element-centered">
+        Cancel
+      </div>
+    </div>
+    
+  </body>
+  
+  <script src="js/InputDataPie.js"></script>
+  
+  <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/jquery.jeditable.mini.js"></script>
+  <script type="text/javascript" src="js/jquery.colorpicker.js"></script>
+  <script type="text/javascript" src="js/jquery.tablesheet.js"></script>
+  <script type="text/javascript" src="js/three.min.js"></script>
+  <script type="text/javascript" src="js/TrackballControls.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/PieParts.js"></script>
+  <!-- <script type="text/javascript" src="js/ScaleTexts.js"></script> -->
+  <script type="text/javascript" src="fonts/helvetiker_bold.typeface.js"></script>
+  <script type="text/javascript" src="js/scene_pie.js"></script>
+  
+  <script>
+  
+    // Creates the edit/add data dialog box
+    $( "#div-databox" ).dialog({
+                modal: true,
+                draggable: false,
+                title: "Edit your data",
+                dialogClass: 'datadialog',
+                disabled: true,
+                width:600,
+                height:400,
+                maxWidth: 800,
+                maxHeight: 600,
+                resizable:true
+            });
+            
+    // Creates export dialog box
+    $( "#div-exportbox" ).dialog({
+                modal: true,
+                draggable: false,
+                title: "Export your chart",
+                dialogClass: 'datadialog',
+                disabled: true,
+                width:600,
+                height:400,
+                resizable: false
+            });
+            
+    // calls the sheet plugin
+    $('#datatable').tableSheet({
+      initSchema: schema,
+      initData: dataValues,
+      exportText: 'Generate Chart',
+      exportCall: function(param){
+        schema = param.schema;
+        dataValues = param.data;
+        $( "#div-databox" ).dialog( "close" );
+        backColor = $('#colorpick_bc').val();
+        scaleTextColor = $('#colorpick_stc').val();
+        valTextColor = $('#colorpick_vt').val();
+        initScene();
+        animateScene();
+      }
+    });
+    
+    // link to open add/edit data dialog again
+    $( "#link-edit" ).click(function(){
+      $( "#div-databox" ).dialog( "open" );
+      return false;
+    });
+    
+    // link to open the export box
+    $( "#link-export" ).click(function(){
+      $( "#div-exportbox" ).dialog( "open" );
+      return false;
+    });
+    
+    // link to close the export box
+    $( "#link-export-close" ).click(function(){
+      $( "#div-exportbox" ).dialog( "close" );
+      return false;
+    });
+    
+    
+    // link to export the chart as image
+    $('div#link-export-image').click(function(){
+      animateScene();
+      var canvasData = renderer.domElement.toDataURL();
+      $.ajax({
+          type: "POST",
+          url: "exporters/export_image.php?h="+window.innerHeight+
+                "&w="+window.innerWidth+"&c="+backColor,
+          data: canvasData,
+          contentType: "application/upload; charset=utf-8",
+          success: function(data){
+            $('div#result-export-image').html(data);
+          }
+      });
+    });
+    
+    // Color pickers for the backround and text colours
+    $('#colorpick_bc').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    
+    $('#colorpick_vt').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    $('#colorpick_bc').hide();
+    $('#colorpick_stc').hide();
+    $('#colorpick_vt').hide();
+    
+    // Closes the dialog boxes at the begining
+    $( "#div-databox" ).dialog( "close" );
+    $( "#div-exportbox" ).dialog( "close" );
+    
+    initScene();
+    animateScene();
+    
+  </script>
+
+</html>
