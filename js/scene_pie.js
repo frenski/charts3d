@@ -23,9 +23,6 @@ var mouse = { }, INTERSECTED;
 // pies array
 var pies, intersobj;
 
-// scale texts arrays
-var sTextVals, sTextRows, sTextCols;
-
 
 // *** VARIABLES INITIALIZATION ***********************************************
 // ****************************************************************************
@@ -105,7 +102,7 @@ function initScene() {
   for ( var i=0; i<schema.cols.length; i++ ) {
       pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
                               curAngle, {x:0,y:0,z:0}, extrudeOpts, 
-                              schema.cols[i].color, "ffffff"  ) );
+                              schema.cols[i].color, valTextColor ) );
       curAngle = pies[pies.length-1].addPie(scene);
       // Adds the pies objects to ones that need to be checked for intersection
       // This is used for the moseover action
