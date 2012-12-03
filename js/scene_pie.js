@@ -95,9 +95,7 @@ function initScene() {
                       bevelEnabled: true, 
                       bevelSegments: 5, 
                       steps: 5 };
-  
-  console.log ( dataValues );
-  
+
   //*** Adding pies
   for ( var i=0; i<schema.cols.length; i++ ) {
       pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
