@@ -103,7 +103,6 @@ function getTotalArr(arr){
 
 // funciton to update the legend div - requires jQuery
 function initLegend(el, schema){
-  console.log("init legend");
   el.empty();
   for ( var i=0; i<schema.cols.length; i++){
     el.append('<div style="margin-right:5px; background-color:#'+

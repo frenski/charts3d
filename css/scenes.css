@@ -59,9 +59,13 @@ h3{
 }
 
 #div-legend h4{
-  margin: 0 0 10px 0;
+  margin: 0;
   font-size: 12px;
   font-style: italic;
+}
+
+#div-legend-data{
+  margin-top:10px;
 }
 
 .div-legend-color{

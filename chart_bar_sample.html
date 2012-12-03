@@ -29,11 +29,15 @@
       </ul>
     </div>
     
+    <div id="div-legend">
+      <h4>Chart Title</h4>
+    </div>
+    
     <div id="div-databox">
       <h3>Edit Settings</h3>
       <h4>General Settings</h4>
       <div class="left col1-4 small-text">
-        Title: <input type="text" size="12">
+        Title: <input type="text" id="charttitle" size="12">
       </div>
       <div class="left col1-4 small-text">
         Background color: 
@@ -137,6 +141,7 @@
         valTextColor = $('#colorpick_vt').val();
         initScene();
         animateScene();
+        $('#div-legend').children('h4').html($('#charttitle').val());
       }
     });
     
@@ -215,6 +220,8 @@
     
     initScene();
     animateScene();
+    $('#charttitle').val('Three Chart Bar Sample')
+    $('#div-legend').children('h4').html($('#charttitle').val());
     
   </script>
 
