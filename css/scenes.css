@@ -47,6 +47,28 @@ h3{
   margin: 10px 5px;
 }
 
+#div-legend{
+  background: #26272b;
+  color: #eee;
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 80%;
+  padding:10px;
+  font-size: 11px;
+}
+
+#div-legend h4{
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.div-legend-color{
+  width: 10px;
+  height: 10px;
+}
+
 .div-results{
   text-align: center;
   font-family: Helvetica, Arial, Verdana;

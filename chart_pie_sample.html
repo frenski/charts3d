@@ -65,6 +65,13 @@
       </table>
     </div>
     
+    <div id="div-legend">
+      <h4>Chart Title</h4>
+      <div id="div-legend-data">
+        
+      </div>
+    </div>
+    
     <div id="div-exportbox">
       <h3>Export chart</h3>
       <div class="separator_hid10"></div>
@@ -149,6 +156,7 @@
         pieHeight = parseInt($('#pie_height').val());
         initScene();
         animateScene();
+        initLegend($('#div-legend-data'), schema);
       }
     });
     
@@ -219,6 +227,7 @@
     
     initScene();
     animateScene();
+    initLegend($('#div-legend-data'), schema);
     
   </script>
 

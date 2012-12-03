@@ -29,6 +29,13 @@
       </ul>
     </div>
     
+    <div id="div-legend">
+      <h4>Chart Title</h4>
+      <div id="div-legend-data">
+        
+      </div>
+    </div>
+    
     <div id="div-databox">
       <h3>Edit Settings</h3>
       <h4>General Settings</h4>
@@ -151,6 +158,7 @@
         pieHeight = parseInt($('#pie_height').val());
         initScene();
         animateScene();
+        initLegend($('#div-legend-data'), schema);
       }
     });
     
