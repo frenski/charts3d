@@ -122,7 +122,7 @@ function initScene() {
   light.position.set( -1, 1, -1 ).normalize();
   scene.add( light );
   
-  light = new THREE.SpotLight( 0xcccccc, 2 );
+  light = new THREE.SpotLight( 0xffffff, 1 );
   light.position.set( 600, 3000, 1500 );
   light.target.position.set( 0, 0, 0 );
   

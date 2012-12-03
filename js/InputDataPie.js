@@ -1,10 +1,10 @@
 // ****************************************************************************
 // sample data file for the bar charts
 var schema = { cols: [
-                   { name:"Tourism", color:"a55900" }, 
-                   { name:"Industry", color:"a18c00" }, 
-                   { name:"Agriculture", color:"5d8300" },
-                   { name:"Services", color:"cc2901" } 
+                   { name:"Data 1", color:"be6700" }, 
+                   { name:"Data 2", color:"b49d00" }, 
+                   { name:"Data 3", color:"61c900" },
+                   { name:"Data 4", color:"ff3300" } 
                   ],
                   rows:[{name:"Row 1"}]
                 }
