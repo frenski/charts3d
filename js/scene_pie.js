@@ -98,6 +98,7 @@ function initScene() {
 
   //*** Adding pies
   for ( var i=0; i<schema.cols.length; i++ ) {
+    if( dataValues[i][0] > 0 ){
       pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
                               curAngle, {x:0,y:0,z:0}, extrudeOpts, 
                               schema.cols[i].color, valTextColor ) );
@@ -106,6 +107,7 @@ function initScene() {
       // This is used for the moseover action
       intersobj[pies.length-1] = pies[pies.length-1].pieobj;
       intersobj[pies.length-1].pieid = pies.length-1;
+    }
   }
   
   //////////////////

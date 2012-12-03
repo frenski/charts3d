@@ -53,7 +53,7 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
     
     // Creats the shape, based on the value and the radius
     var shape = new THREE.Shape();
-    var angToMove = (Math.PI*2*(this.val/this.valTotal))
+    var angToMove = (Math.PI*2*(this.val/this.valTotal));
     shape.moveTo(this.position.x,this.position.y);
     shape.arc(this.position.x,this.position.y,pieRadius,this.angPrev,
               this.angPrev+angToMove,false);
