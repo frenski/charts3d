@@ -10,7 +10,7 @@ var backColor = "000000";
 // Colour for the text on each bar
 var valTextColor = "ffffff";
 // the thickness of the pie
-var pieHeight = 100;
+var pieHeight = 150;
 
 
 // *** GLOBAL VARIABLES *******************************************************
@@ -75,13 +75,13 @@ function initScene() {
   scene = new THREE.Scene();
   
   // Setting the camera
-  camera = new THREE.PerspectiveCamera( 60, 
+  camera = new THREE.PerspectiveCamera( 70, 
                                         window.innerWidth/window.innerHeight,
                                         1, 
                                         5000 );
-  camera.position.z = 1500;
+  camera.position.z = 1200;
   camera.position.x = 500;
-  camera.position.y = 900;
+  camera.position.y = 700;
   
   // Setting controls for the trackball camera
   controls = new THREE.TrackballControls( camera, renderer.domElement );
@@ -117,15 +117,15 @@ function initScene() {
   
   
   //*** Adding the lights
-  var light = new THREE.DirectionalLight( 0x999999 );
+  var light = new THREE.DirectionalLight( 0x777777 );
   light.position.set( 1, -1, 1 ).normalize();
   scene.add( light );
   
-  var light = new THREE.DirectionalLight( 0x999999 );
+  var light = new THREE.DirectionalLight( 0x777777 );
   light.position.set( -1, 1, -1 ).normalize();
   scene.add( light );
   
-  light = new THREE.SpotLight( 0xd8d8d8, 2 );
+  light = new THREE.SpotLight( 0xcccccc, 2 );
   light.position.set( 600, 3000, 1500 );
   light.target.position.set( 0, 0, 0 );
   
@@ -172,36 +172,36 @@ function animateScene() {
   
   // find intersections - from the Mr.Doob example
   // url: 
-  // var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-  // projector.unprojectVector( vector, camera );
-  //  
-  // var ray = new THREE.Ray( camera.position, 
-  //                           vector.subSelf( camera.position ).normalize() );
-  // var intersects = ray.intersectObjects( intersobj );
-  // 
-  // if ( intersects.length > 0 ) {
-  //   if ( INTERSECTED != intersects[ 0 ].object ) {
-  //     if ( INTERSECTED ) {
-  //       INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-  //       for( var i=0; i<pies.length; i++ ){
-  //         pies[i].hideLabel();
-  //       }
-  //     }
-  //     INTERSECTED = intersects[ 0 ].object;
-  //     INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-  //     INTERSECTED.material.emissive.setHex( 
-  //       parseInt( pies[intersects[0].object.pieid].darklumcolor, 16 ) );
-  //     pies[intersects[0].object.pieid].showLabel()
-  //   }
-  // } else {
-  //   if ( INTERSECTED ) {
-  //     INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-  //     for( var i=0; i<pies.length; i++ ){
-  //       pies[i].hideLabel();
-  //     }
-  //   }
-  //   INTERSECTED = null;
-  // }
+  var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  projector.unprojectVector( vector, camera );
+   
+  var ray = new THREE.Ray( camera.position, 
+                            vector.subSelf( camera.position ).normalize() );
+  var intersects = ray.intersectObjects( intersobj );
+  
+  if ( intersects.length > 0 ) {
+    if ( INTERSECTED != intersects[ 0 ].object ) {
+      if ( INTERSECTED ) {
+        INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+        for( var i=0; i<pies.length; i++ ){
+          pies[i].hideLabel();
+        }
+      }
+      INTERSECTED = intersects[ 0 ].object;
+      INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+      INTERSECTED.material.emissive.setHex( 
+        parseInt( pies[intersects[0].object.pieid].darklumcolor, 16 ) );
+      pies[intersects[0].object.pieid].showLabel()
+    }
+  } else {
+    if ( INTERSECTED ) {
+      INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+      for( var i=0; i<pies.length; i++ ){
+        pies[i].hideLabel();
+      }
+    }
+    INTERSECTED = null;
+  }
 
   renderer.render( scene, camera );
 

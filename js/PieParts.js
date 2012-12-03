@@ -31,8 +31,8 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   // main cube colour
   this.color = parseInt(color,16);
   this.valcolor = parseInt(valcolor,16);
-  // this.lumcolor = colorLuminance( color, 0.5 );
-  // this.darklumcolor = colorLuminance( color, -0.3 );
+  this.lumcolor = colorLuminance( color, 0.5 );
+  this.darklumcolor = colorLuminance( color, -0.5 );
   
   // label vars
   this.labelSize = 60;
@@ -101,7 +101,7 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
       
       // Positions the text and adds it to the scene
       this.labelobj = new THREE.Mesh( geometry, material );
-      this.labelobj.position.z += this.extrudeOpts.amount - 150;
+      this.labelobj.position.z += this.extrudeOpts.amount - this.labelSize *3;
       this.labelobj.position.x = txtRad * Math.cos(txtAng);
       this.labelobj.position.y = txtRad * Math.sin(txtAng);
       this.labelobj.rotation.set(3*Math.PI/2,0,0);
@@ -110,7 +110,7 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
       this.pieobj.add( this.labelobj );
       
       // hides the label at the beginning
-      // this.hideLabel();
+      this.hideLabel();
       
     }
     

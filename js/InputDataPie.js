@@ -1,8 +1,8 @@
 // ****************************************************************************
 // sample data file for the bar charts
 var schema = { cols: [
-                   { name:"Data 1", color:"d17100" }, 
-                   { name:"Data 2", color:"d9bd00" }, 
+                   { name:"Data 1", color:"be6700" }, 
+                   { name:"Data 2", color:"bea500" }, 
                    { name:"Data 3", color:"61c900" },
                    { name:"Data 4", color:"FF3300" } 
                   ],
