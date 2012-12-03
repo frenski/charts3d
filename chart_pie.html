@@ -108,6 +108,9 @@
   
   <script>
   
+    var schema = {};
+    var dataValues = [];
+  
     // Creates the edit/add data dialog box
     $( "#div-databox" ).dialog({
                 modal: true,
@@ -136,8 +139,6 @@
             
     // calls the sheet plugin
     $('#datatable').tableSheet({
-      initSchema: schema,
-      initData: dataValues,
       maxRows: 1,
       exportText: 'Generate Chart',
       exportCall: function(param){
@@ -145,6 +146,7 @@
         dataValues = param.data;
         $( "#div-databox" ).dialog( "close" );
         backColor = $('#colorpick_bc').val();
+        scaleTextColor = $('#colorpick_stc').val();
         valTextColor = $('#colorpick_vt').val();
         pieHeight = parseInt($('#pie_height').val());
         initScene();
@@ -211,14 +213,11 @@
         buttonImage: 'css/images/ui-colorpicker.png',
     });
     $('#colorpick_bc').hide();
+    $('#colorpick_stc').hide();
     $('#colorpick_vt').hide();
     
-    // Closes the dialog boxes at the begining
-    $( "#div-databox" ).dialog( "close" );
+    // Closes the export dialog box at the begining
     $( "#div-exportbox" ).dialog( "close" );
-    
-    initScene();
-    animateScene();
     
   </script>
 
