@@ -30,7 +30,25 @@
     </div>
     
     <div id="div-databox">
-      <h3>Add Your Data</h3>
+      <h3>Edit Settings</h3>
+      <h4>General Settings</h4>
+      <div class="left col1-4 small-text">
+        Title: <input type="text" size="12">
+      </div>
+      <div class="left col1-4 small-text">
+        Background color: 
+        <input id="colorpick_bc" type="text" size="4" value="000000" />
+      </div>
+      <div class="left col1-4 small-text">
+        Scale text color:
+        <input id="colorpick_stc" type="text" size="4" value="ffffff" />
+      </div>
+      <div class="left col1-4 small-text">
+        Value text color:
+        <input id="colorpick_vt" type="text" size="4" value="ffffff" />
+      </div>
+      <div class="clear"></div>
+      <h4>Chart Data</h4>
       <table id="datatable" class="jqueryTableSheet">
       </table>
     </div>
@@ -114,6 +132,9 @@
         schema = param.schema;
         dataValues = param.data;
         $( "#div-databox" ).dialog( "close" );
+        backColor = $('#colorpick_bc').val();
+        scaleTextColor = $('#colorpick_stc').val();
+        valTextColor = $('#colorpick_vt').val();
         initScene();
         animateScene();
       }
@@ -152,6 +173,40 @@
           }
       });
     });
+    
+    // Color pickers for the backround and text colours
+    $('#colorpick_bc').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    
+    $('#colorpick_stc').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    
+    $('#colorpick_vt').colorpicker({
+        parts: ['swatches'],
+        showOn: 'button',
+        showCloseButton: true,
+        buttonColorize: true,
+        showNoneButton: false,
+        alpha: true,
+        buttonImage: 'css/images/ui-colorpicker.png',
+    });
+    $('#colorpick_bc').hide();
+    $('#colorpick_stc').hide();
+    $('#colorpick_vt').hide();
     
     // Closes the export dialog box at the begining
     $( "#div-exportbox" ).dialog( "close" );
