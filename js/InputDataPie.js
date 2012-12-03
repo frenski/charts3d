@@ -6,7 +6,7 @@ var schema = { cols: [
                    { name:"Data 3", color:"61c900" },
                    { name:"Data 4", color:"FF3300" } 
                   ],
-                  rows:[]
+                  rows:[{name:"Row 1"}]
                 }
 
 var dataValues = [];

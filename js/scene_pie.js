@@ -9,6 +9,8 @@ var pieRadius = 750;
 var backColor = "000000";
 // Colour for the text on each bar
 var valTextColor = "ffffff";
+// the thickness of the pie
+var pieHeight = 100;
 
 
 // *** GLOBAL VARIABLES *******************************************************
@@ -77,9 +79,9 @@ function initScene() {
                                         window.innerWidth/window.innerHeight,
                                         1, 
                                         5000 );
-  camera.position.z = 1600;
+  camera.position.z = 1500;
   camera.position.x = 500;
-  camera.position.y = 500;
+  camera.position.y = 900;
   
   // Setting controls for the trackball camera
   controls = new THREE.TrackballControls( camera, renderer.domElement );
@@ -92,9 +94,12 @@ function initScene() {
   var totalVal = getTotalArr ( dataValues ); 
   // Setting the current angle of rotation
   var curAngle = 0;
-  var extrudeOpts = { amount:50, bevelEnabled: true, bevelSegments: 5, steps: 5 };
+  var extrudeOpts = { amount: pieHeight, 
+                      bevelEnabled: true, 
+                      bevelSegments: 5, 
+                      steps: 5 };
   
-  console.log(dataValues)
+  console.log ( dataValues );
   
   //*** Adding pies
   for ( var i=0; i<schema.cols.length; i++ ) {
