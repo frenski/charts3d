@@ -138,6 +138,7 @@
     $('#datatable').tableSheet({
       initSchema: schema,
       initData: dataValues,
+      maxRows: 1,
       exportText: 'Generate Chart',
       exportCall: function(param){
         schema = param.schema;

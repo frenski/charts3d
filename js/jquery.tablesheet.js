@@ -64,42 +64,46 @@
     
     // function for adding a collumn
     var addColumn = function () {
+      if( rows < opts.maxCols ){
       // Adds the header column to the tbody
-      tbody.children('tr:first')
+        tbody.children('tr:first')
            .children('td#'+nspace+'col'+(cols-1))
            .after('<td class="rowcol" id="'+nspace+'col'+cols+'">'+
            '<input id="colorpick'+cols+
            '" type="text" size="1" value="'+randomHexNum()+'" />'+
            ' <span>Column '+(cols+1)+'</span></td>');
-      // adds the color picker function
-      addColPick ( $( '#colorpick'+cols ) );
-      // adds the text editing plugin
-      addJeditable ( $('#'+nspace+'col'+cols).children('span'), 'string' );
-      for ( var i=0; i<rows; i++ ){
-          tbody.children('tr#'+nspace+'row'+i)
-               .append('<td class="cell" id="'+nspace+'cell'+cols+'_'+i+'">0</td>');
-          addJeditable ( $('#'+nspace+'cell'+cols+'_'+i), 'float' );
-        }
-      cols ++;
+        // adds the color picker function
+        addColPick ( $( '#colorpick'+cols ) );
+        // adds the text editing plugin
+        addJeditable ( $('#'+nspace+'col'+cols).children('span'), 'string' );
+        for ( var i=0; i<rows; i++ ){
+            tbody.children('tr#'+nspace+'row'+i)
+               .append('<td class="cell" id="'+nspace+'cell'+cols+'_'+i+'">0</td>');       
+            addJeditable ( $('#'+nspace+'cell'+cols+'_'+i), 'float' );
+          }
+        cols ++;
+      }
     };
     
     // function for adding a row
     var addRow = function () {
-      // apends every row and column to the table
-      var html = '<tr id="'+nspace+'row'+rows+'"><td class="rowcol">Row '
+      if( rows < opts.maxRows ){
+        // apends every row and column to the table
+        var html = '<tr id="'+nspace+'row'+rows+'"><td class="rowcol">Row '
                   +(rows+1)+'</td>';
-      for ( var i=0; i<cols; i++ ){
+        for ( var i=0; i<cols; i++ ){
           html += '<td class="cell" id="'+nspace+'cell'+i+'_'+rows+'">0</td>';
         }
-      html += '</tr>';
-      tbody.append(html);
-      // adds the plugins - jeditable and color pickur
-      addJeditable ( $('#'+nspace+'row'+rows).children('td:first'), 'string' );
+        html += '</tr>';
+        tbody.append(html);
+        // adds the plugins - jeditable and color pickur
+        addJeditable ( $('#'+nspace+'row'+rows).children('td:first'), 'string' );
       
-      for ( var i=0; i<cols; i++ ){
-        addJeditable ( $('#'+nspace+'cell'+i+'_'+rows), 'float' );
+        for ( var i=0; i<cols; i++ ){
+          addJeditable ( $('#'+nspace+'cell'+i+'_'+rows), 'float' );
+        }
+        rows ++;
       }
-      rows ++;
     };
     
     // function for removing a row
@@ -207,6 +211,8 @@
   $.fn.tableSheet.defaults = {
     addColText : 'column: ',
     addRowText : 'row: ',
+    maxRows : 50,
+    maxCols : 50,
     namespace: 'jtsheet_',
     exportText: 'Export',
     exportCall: '',
@@ -220,6 +226,8 @@
   
     * addColText:        Text to be shown on a add column link (not used now)
     * addRowText:        Text to be shown on a add row link (not used now)
+    * maxRows:           Maximum number of rows allowed to be added
+    * maxCols:           Maximum number of colums allowed to be added
     * namespace:         Namespace for the id elements to prevent collisions
     * exportText:        Text for the export button
     * exportCall:        A call back function when exporting the data
