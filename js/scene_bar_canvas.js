@@ -132,7 +132,6 @@ function initScene() {
     specular : 0x888888,
     shading : THREE.SmoothShading,
     side: THREE.DoubleSide,
-    map:gridTex2
   });
   
   var materialYZ = new THREE.MeshPhongMaterial({
@@ -142,7 +141,6 @@ function initScene() {
     specular : 0x888888,
     shading : THREE.SmoothShading,
     side: THREE.DoubleSide,
-    map:gridTex
   });
   
   // Creating the ground-x
@@ -173,28 +171,28 @@ function initScene() {
   groundZ.rotation.y -= Math.PI/2;
   groundZ.position.x = xDeviation;
   scene.add( groundZ );
-  //////////////////
+  ////////////////
   
   
   //*** Adding texts for the scales
-  for( var i=0; i<schema.cols.length; i++ ) {
-    sTextCols[i] = new ScaleText(schema.cols[i].name, 
-                                 "col", 
-                                  i, 
-                                  schema.cols[i].color);
-    sTextCols[i].addText(groundX);
-  }
-  
-  for( var i=0; i<schema.rows.length; i++ ) {
-    sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i, scaleTextColor);
-    sTextRows[i].addText(groundX);
-  }
-  
-  for ( var i=0; i<=valHeight/squareStep*2; i++ ) {
-    var val = scaleDif*i/10;
-    sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
-    sTextVals[i].addText(groundZ);
-  }
+  // for( var i=0; i<schema.cols.length; i++ ) {
+  //   sTextCols[i] = new ScaleText(schema.cols[i].name, 
+  //                                "col", 
+  //                                 i, 
+  //                                 schema.cols[i].color);
+  //   sTextCols[i].addText(groundX);
+  // }
+  // 
+  // for( var i=0; i<schema.rows.length; i++ ) {
+  //   sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i, scaleTextColor);
+  //   sTextRows[i].addText(groundX);
+  // }
+  // 
+  // for ( var i=0; i<=valHeight/squareStep*2; i++ ) {
+  //   var val = scaleDif*i/10;
+  //   sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
+  //   sTextVals[i].addText(groundZ);
+  // }
   
   
   //*** Adding bars
@@ -214,15 +212,15 @@ function initScene() {
   
   
   //*** Adding the lights
-  var light = new THREE.DirectionalLight( 0x999999 );
+  var light = new THREE.DirectionalLight( 0xffffff );
   light.position.set( 1, -1, 1 ).normalize();
   scene.add( light );
   
-  var light = new THREE.DirectionalLight( 0x999999 );
+  var light = new THREE.DirectionalLight( 0xffffff );
   light.position.set( -1, 1, -1 ).normalize();
   scene.add( light );
   
-  light = new THREE.SpotLight( 0xd8d8d8, 2 );
+  light = new THREE.SpotLight( 0xffffff, 2 );
   light.position.set( 600, 3000, 1500 );
   light.target.position.set( 0, 0, 0 );
   
@@ -262,37 +260,37 @@ function animateScene() {
   
   // find intersections - from the Mr.Doob example
   // url: 
-  // var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-  // projector.unprojectVector( vector, camera );
-  //  
-  // var ray = new THREE.Ray( camera.position, 
-  //                           vector.subSelf( camera.position ).normalize() );
-  // var intersects = ray.intersectObjects( intersobj );
-  // 
-  // if ( intersects.length > 0 ) {
-  //   if ( INTERSECTED != intersects[ 0 ].object ) {
-  //     if ( INTERSECTED ) {
-  //       INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-  //       for( var i=0; i<bars.length; i++ ){
-  //         bars[i].hideLabel();
-  //       }
-  //     }
-  //     INTERSECTED = intersects[ 0 ].object;
-  //     INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-  //     INTERSECTED.material.emissive.setHex( 
-  //       parseInt( bars[intersects[0].object.barid].darklumcolor, 16 ) );
-  //     bars[intersects[0].object.barid].showLabel()
-  //   }
-  // } else {
-  //   if ( INTERSECTED ) {
-  //     INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-  //     for( var i=0; i<bars.length; i++ ){
-  //       bars[i].hideLabel();
-  //     }
-  //   }
-  //   INTERSECTED = null;
-  // }
-  // 
+  var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  projector.unprojectVector( vector, camera );
+   
+  var ray = new THREE.Ray( camera.position, 
+                            vector.subSelf( camera.position ).normalize() );
+  var intersects = ray.intersectObjects( intersobj );
+  
+  if ( intersects.length > 0 ) {
+    if ( INTERSECTED != intersects[ 0 ].object ) {
+      if ( INTERSECTED ) {
+        INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+        for( var i=0; i<bars.length; i++ ){
+          bars[i].hideLabel();
+        }
+      }
+      INTERSECTED = intersects[ 0 ].object;
+      INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+      INTERSECTED.material.emissive.setHex( 
+        parseInt( bars[intersects[0].object.barid].darklumcolor, 16 ) );
+      bars[intersects[0].object.barid].showLabel()
+    }
+  } else {
+    if ( INTERSECTED ) {
+      INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+      for( var i=0; i<bars.length; i++ ){
+        bars[i].hideLabel();
+      }
+    }
+    INTERSECTED = null;
+  }
+  
   renderer.render( scene, camera );
 
 }
