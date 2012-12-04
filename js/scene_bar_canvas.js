@@ -115,9 +115,38 @@ function initScene() {
   controls.minDistance = 500;
   controls.maxDistance = 3500;
   
+  
   //*** Adding the grounds
+  // *********************
 
-  ////////////////
+  var groundSizeX = squareStep*schema.rows.length;
+  var groundSizeY = squareStep*schema.cols.length;
+  var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcccccc, 
+                                                    opacity: 0.5 } );
+  
+  // Adding the X ground
+  
+  var geometry = new THREE.Geometry();
+    // putting the Y vertices
+    for ( var i = 0; i <= groundSizeY; i += squareStep ) {
+      geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+      geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
+    }
+    // putting the Y vertices
+    for ( var i = 0; i <= groundSizeX; i += squareStep ) {
+      geometry.vertices.push( new THREE.Vector3( i, 0, 0 ) );
+      geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
+    }
+    
+    // Creating the line object and positioning it
+    var groundX = new THREE.Line( geometry, lineMaterial );
+    groundX.position.y = yDeviation;
+    groundX.position.z = zDeviation;
+    groundX.position.x = xDeviation;
+    groundX.type = THREE.LinePieces;
+    scene.add( groundX );
+
+  //**********************
   
   
   //*** Adding texts for the scales
@@ -141,7 +170,8 @@ function initScene() {
   // }
   
   
-  //*** Adding bars
+  //*** Adding bars ************
+  // ***************************
   for ( var i=0; i<schema.cols.length; i++ ) {
     for (var j=0; j<schema.rows.length; j++ ) {
       bars.push( new BarCube( schema.cols[i].color, j, i, 
@@ -154,10 +184,11 @@ function initScene() {
     }
   }
   
-  //////////////////
+  //******************************
   
   
-  //*** Adding the lights
+  //*** Adding the lights ********
+  //******************************
 	var ambientLight = new THREE.AmbientLight( 0xffffff );
 	scene.add( ambientLight );
 
@@ -174,7 +205,7 @@ function initScene() {
 	directionalLight.position.z = - 0.1;
 	directionalLight.position.normalize();
 	scene.add( directionalLight );
-  ////////////////////
+  //******************************
   
   // funciton to get the mouse position for the hover efect onthe bars
   $(document).mousemove(function(event) {
