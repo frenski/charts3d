@@ -122,7 +122,7 @@ function initScene() {
   var groundSizeX = squareStep*schema.rows.length;
   var groundSizeY = squareStep*schema.cols.length;
   var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcccccc, 
-                                                    opacity: 0.5 } );
+                                                    opacity: 0.8 } );
   
   // Adding the X ground
   
