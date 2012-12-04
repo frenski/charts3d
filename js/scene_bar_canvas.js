@@ -127,24 +127,24 @@ function initScene() {
   // Adding the X ground
   
   var geometry = new THREE.Geometry();
-    // putting the Y vertices
-    for ( var i = 0; i <= groundSizeY; i += squareStep ) {
-      geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
-      geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
-    }
-    // putting the Y vertices
-    for ( var i = 0; i <= groundSizeX; i += squareStep ) {
-      geometry.vertices.push( new THREE.Vector3( i, 0, 0 ) );
-      geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
-    }
+  // putting the Y vertices
+  for ( var i = 0; i <= groundSizeY; i += squareStep ) {
+    geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+    geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
+  }
+  // putting the Y vertices
+  for ( var i = 0; i <= groundSizeX; i += squareStep ) {
+    geometry.vertices.push( new THREE.Vector3( i, 0, 0 ) );
+    geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
+  }
     
-    // Creating the line object and positioning it
-    var groundX = new THREE.Line( geometry, lineMaterial );
-    groundX.position.y = yDeviation;
-    groundX.position.z = zDeviation;
-    groundX.position.x = xDeviation;
-    groundX.type = THREE.LinePieces;
-    scene.add( groundX );
+  // Creating the line object and positioning it
+  var groundX = new THREE.Line( geometry, lineMaterial );
+  groundX.position.y = yDeviation;
+  groundX.position.z = zDeviation;
+  groundX.position.x = xDeviation;
+  groundX.type = THREE.LinePieces;
+  scene.add( groundX );
 
   //**********************
   
