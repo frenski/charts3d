@@ -65,7 +65,7 @@ BarCube = function( color, x, z, val, valcolor, render ) {
       
     //  if we want a lower quality renderer - mainly with canvas renderer
     if( this.renderType == 'light' ){
-      // material = new THREE.MeshBasicMaterial( { color: this.color } );
+      var material = new THREE.MeshLambertMaterial( { color: this.color, shading: THREE.FlatShading, overdraw: true } );
       this.hasWireframe = false;
       this.hasShadows = false;
     }

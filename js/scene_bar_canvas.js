@@ -116,61 +116,7 @@ function initScene() {
   controls.maxDistance = 3500;
   
   //*** Adding the grounds
-  // material for the grounds
-  var gridTex = THREE.ImageUtils.loadTexture("img/grid_pattern1.jpg");
-  gridTex.wrapS = gridTex.wrapT = THREE.RepeatWrapping;
-  gridTex.repeat.set( 5, 5 );
-  
-  var gridTex2 = THREE.ImageUtils.loadTexture("img/grid_pattern2.jpg");
-  gridTex2.wrapS = gridTex2.wrapT = THREE.RepeatWrapping;
-  gridTex2.repeat.set( schema.rows.length, schema.cols.length );
-  
-  var materialX = new THREE.MeshPhongMaterial({
-    ambient : 0x444444,
-    color : 0x777777,
-    shininess : 70, 
-    specular : 0x888888,
-    shading : THREE.SmoothShading,
-    side: THREE.DoubleSide,
-  });
-  
-  var materialYZ = new THREE.MeshPhongMaterial({
-    ambient : 0x444444,
-    color : 0x999999,
-    shininess : 70, 
-    specular : 0x888888,
-    shading : THREE.SmoothShading,
-    side: THREE.DoubleSide,
-  });
-  
-  // Creating the ground-x
-  var geometry = new THREE.PlaneGeometry( 
-                        squareStep*schema.rows.length, 
-                        squareStep*schema.cols.length );
-                        
-  var groundX = new THREE.Mesh( geometry, materialX );
-  groundX.rotation.x -= Math.PI/2;
-  groundX.position.y = yDeviation;
-  scene.add( groundX );
-  
-  // Creating the ground-y
-  var geometry = new THREE.PlaneGeometry( 
-                        squareStep*schema.rows.length, 
-                        valHeight );
-                        
-  var groundY = new THREE.Mesh( geometry, materialYZ );
-  groundY.position.z = zDeviation;
-  scene.add( groundY );
-  
-  // craating the groynd-z
-  var geometry = new THREE.PlaneGeometry( 
-                        squareStep*schema.cols.length, 
-                        valHeight );
-                        
-  var groundZ = new THREE.Mesh( geometry, materialYZ );
-  groundZ.rotation.y -= Math.PI/2;
-  groundZ.position.x = xDeviation;
-  scene.add( groundZ );
+
   ////////////////
   
   
@@ -212,19 +158,22 @@ function initScene() {
   
   
   //*** Adding the lights
-  var light = new THREE.DirectionalLight( 0xffffff );
-  light.position.set( 1, -1, 1 ).normalize();
-  scene.add( light );
-  
-  var light = new THREE.DirectionalLight( 0xffffff );
-  light.position.set( -1, 1, -1 ).normalize();
-  scene.add( light );
-  
-  light = new THREE.SpotLight( 0xffffff, 2 );
-  light.position.set( 600, 3000, 1500 );
-  light.target.position.set( 0, 0, 0 );
-  
-  scene.add( light );
+	var ambientLight = new THREE.AmbientLight( 0xffffff );
+	scene.add( ambientLight );
+
+	var directionalLight = new THREE.DirectionalLight( Math.random() * 0xffffff );
+	directionalLight.position.x = 0.4;
+	directionalLight.position.y = 0.4;
+	directionalLight.position.z = - 0.2;
+	directionalLight.position.normalize();
+	scene.add( directionalLight );
+
+	var directionalLight = new THREE.DirectionalLight( Math.random() * 0xffffff );
+	directionalLight.position.x = - 0.2;
+	directionalLight.position.y = 0.5;
+	directionalLight.position.z = - 0.1;
+	directionalLight.position.normalize();
+	scene.add( directionalLight );
   ////////////////////
   
   // funciton to get the mouse position for the hover efect onthe bars
