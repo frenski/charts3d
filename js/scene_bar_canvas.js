@@ -201,7 +201,7 @@ function initScene() {
   for ( var i=0; i<schema.cols.length; i++ ) {
     for (var j=0; j<schema.rows.length; j++ ) {
       bars.push( new BarCube( schema.cols[i].color, j, i, 
-                              dataValues[i][j], valTextColor ) );
+                              dataValues[i][j], valTextColor, 'light' ) );
       bars[bars.length-1].addBar(scene);
       // Adds the bars objects to ones that need to be checked for intersection
       // This is used for the moseover action
@@ -293,6 +293,6 @@ function animateScene() {
   //   INTERSECTED = null;
   // }
   // 
-  // renderer.render( scene, camera );
+  renderer.render( scene, camera );
 
 }
