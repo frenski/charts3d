@@ -112,3 +112,43 @@ function initLegend(el, schema){
   }
   el.append ('<div class="clear"></div>');
 }
+
+function createTextureScale ( text, h, line, size, color, backGroundColor ) {
+
+  var backgroundMargin = 10;
+  
+  var canvas = document.createElement("canvas");
+
+  var context = canvas.getContext("2d");
+  context.font = size + "px Arial";
+
+  var textMaxWidth = context.measureText(text[0].name).width;
+  for ( var i=1; i<text.length; i++ ){
+    var textWidth = context.measureText(text[i]).width;
+    if ( textWidth>textMaxWidth ) textMaxWidth = textWidth;
+  }
+
+  canvas.width = textMaxWidth + backgroundMargin;
+  canvas.height = h + backgroundMargin;
+  context = canvas.getContext("2d");
+  
+  context.font = size + "px Arial";
+
+  if(backGroundColor) {
+    context.beginPath();
+    context.rect(0, 0, canvas.width , canvas.height);
+    context.fillStyle = backGroundColor;
+    context.fill();
+  }
+
+  context.textAlign = "right";
+  context.textBaseline = "middle";
+  context.fillStyle = color;
+  
+  for ( var i=0; i<text.length; i++ ){
+    context.fillText(text[i].name, textMaxWidth-backgroundMargin, i*line+line/2);
+  }
+  
+  return canvas;
+  
+}

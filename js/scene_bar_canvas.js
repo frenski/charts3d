@@ -121,7 +121,7 @@ function initScene() {
 
   var groundSizeX = squareStep*schema.rows.length;
   var groundSizeY = squareStep*schema.cols.length;
-  var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcccccc, 
+  var lineMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa, 
                                                     opacity: 0.8 } );
   
   // Adding the X ground
@@ -184,6 +184,27 @@ function initScene() {
 
   //**********************
   
+
+  // Adding scale texts
+  var canvTexture = createTextureScale (schema.rows,  
+                                        squareStep*schema.rows.length,
+                                        squareStep,
+                                        40, "#"+scaleTextColor, 
+                                        "#"+backColor);
+  var texture = new THREE.Texture(canvTexture);
+  texture.needsUpdate = true;
+  
+  var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.rows.length );
+
+
+  var material = new THREE.MeshLambertMaterial( {  map: texture, overdraw:true } );
+
+  scalePlaneX = new THREE.Mesh( geometry, material );
+  scalePlaneX.rotation.set ( 3*Math.PI/2, 0, Math.PI/2 );
+  scalePlaneX.position.y = yDeviation;
+  scalePlaneX.position.z = squareStep*(schema.cols.length)/2 + canvTexture.width/2 + 2;
+  scene.add( scalePlaneX );
+  
   
   //*** Adding texts for the scales
   // for( var i=0; i<schema.cols.length; i++ ) {
@@ -193,7 +214,7 @@ function initScene() {
   //                                 schema.cols[i].color);
   //   sTextCols[i].addText(groundX);
   // }
-  // 
+  
   // for( var i=0; i<schema.rows.length; i++ ) {
   //   sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i, scaleTextColor);
   //   sTextRows[i].addText(groundX);
