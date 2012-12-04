@@ -2,7 +2,7 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-BarCube = function( color, x, z, val, valcolor, render ) {
+BarCube = function( color, x, z, val, valcolor ) {
   //the 3D cube object
   this.barobj = null;
   
@@ -25,12 +25,8 @@ BarCube = function( color, x, z, val, valcolor, render ) {
   this.posx = x;
   this.posz = z;
   
-  // Setting the render type - light and full
-  this.renderType = render;
-  
   // value & height
   this.val = val;
-  ratio = 
   this.h = ((val - minScaleVal)/scaleDif)*valHeight;
   if ( this.h==0 ) this.h = 0.5;
   
