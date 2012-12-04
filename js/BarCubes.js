@@ -2,7 +2,11 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-BarCube = function( color, x, z, val, valcolor ) {
+BarCube = function( color, x, z, val, valcolor, render ) {
+  
+  // The render type - can be light and full
+  this.renderType = render;
+  
   //the 3D cube object
   this.barobj = null;
   
@@ -17,6 +21,9 @@ BarCube = function( color, x, z, val, valcolor ) {
   
   // should it have a label
   this.hasLabel = true;
+  
+  // should it cast/receive shadows
+  this.hasShadows = true;
   
   // the square size (x and z)
   this.sqsize = 100;
@@ -55,11 +62,22 @@ BarCube = function( color, x, z, val, valcolor ) {
                                                  opacity:0.8,
                                                  transparent: true
                                                 } );
+      
+    //  if we want a lower quality renderer - mainly with canvas renderer
+    if( this.renderType == 'light' ){
+      material = new THREE.MeshBasicMaterial( { color: this.color } );
+      this.hasWireframe = false;
+      this.hasShadows = false;
+    }
+      
                                                 
     // Creating the 3D object, positioning it and adding it to the scene
     this.barobj = new THREE.Mesh( geometry, material );
-    this.barobj.castShadow = true;
-    this.barobj.receiveShadow = true;
+    // Adds shadows if selected as an option
+    if( this.hasShadows ){
+      this.barobj.castShadow = true;
+      this.barobj.receiveShadow = true;
+    }
     this.barobj.position.x = xDeviation + this.posx*squareStep + squareStep/2;
     this.barobj.position.y = yDeviation + this.h/2;
     this.barobj.position.z = zDeviation + this.posz*squareStep + squareStep/2;
@@ -83,23 +101,29 @@ BarCube = function( color, x, z, val, valcolor ) {
     }
     
     // If we want to have a label, we add a text object
-    if(this.hasLabel){
+    if( this.hasLabel ){
       
       var txt = this.val.toString();
+      var curveSeg = 3;
+      var material = new THREE.MeshPhongMaterial( { color: this.valcolor, 
+                                                    shading: THREE.FlatShading } );
+      
+      // changing to simple values if lower rendering method selected
+      if( this.renderType == 'light' ){
+        curveSeg = 1;
+        material = new THREE.MeshBasicMaterial( { color: this.valcolor } );
+      } 
       
       // Create a three.js text geometry
       var geometry = new THREE.TextGeometry( txt, {
         size: this.labelSize,
         height: this.labelHeight,
-        curveSegments: 3,
+        curveSegments: curveSeg,
         font: this.labelFont,
         weight: "bold",
         style: "normal",
         bevelEnabled: false
       });
-
-      var material = new THREE.MeshPhongMaterial( { color: this.valcolor, 
-                                                    shading: THREE.FlatShading } );
       
       // Positions the text and adds it to the scene
       this.labelobj = new THREE.Mesh( geometry, material );
@@ -107,8 +131,11 @@ BarCube = function( color, x, z, val, valcolor ) {
       this.labelobj.position.x -= (this.labelSize*txt.length/3);
       this.labelobj.position.z += 50;
       this.labelobj.rotation.y = Math.PI/4;
-      this.labelobj.castShadow = true;
-      this.labelobj.receiveShadow = true;
+      // Adds shadows if selected as an option
+      if( this.hasShadows ){
+        this.labelobj.castShadow = true;
+        this.labelobj.receiveShadow = true;
+      }
       this.barobj.add( this.labelobj );
       
       // hides the label at the beginning
