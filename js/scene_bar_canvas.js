@@ -132,7 +132,7 @@ function initScene() {
     geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
     geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
   }
-  // putting the Y vertices
+  // putting the X vertices
   for ( var i = 0; i <= groundSizeX; i += squareStep ) {
     geometry.vertices.push( new THREE.Vector3( i, 0, 0 ) );
     geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
@@ -140,11 +140,47 @@ function initScene() {
     
   // Creating the line object and positioning it
   var groundX = new THREE.Line( geometry, lineMaterial );
+  groundX.type = THREE.LinePieces;
   groundX.position.y = yDeviation;
   groundX.position.z = zDeviation;
   groundX.position.x = xDeviation;
-  groundX.type = THREE.LinePieces;
   scene.add( groundX );
+  
+  // Adding the Y ground
+  
+  var geometry = new THREE.Geometry();
+  // putting the X vertices
+  for ( var i = 0; i <= valHeight; i += squareStep ) {
+    geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+    geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
+  }
+      
+  // Creating the line object and positioning it
+  var groundY = new THREE.Line( geometry, lineMaterial );
+  groundY.rotation.set( Math.PI/2, 0, 0 );
+  groundY.type = THREE.LinePieces;
+  groundY.position.y = -yDeviation;
+  groundY.position.z = zDeviation;
+  groundY.position.x = xDeviation;
+  scene.add( groundY );
+  
+  // Adding the Y ground
+  
+  var geometry = new THREE.Geometry();
+  // putting the X vertices
+  for ( var i = 0; i <= valHeight; i += squareStep ) {
+    geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+    geometry.vertices.push( new THREE.Vector3(  groundSizeY, 0, i ) );
+  }
+      
+  // Creating the line object and positioning it
+  var groundZ = new THREE.Line( geometry, lineMaterial );
+  groundZ.rotation.set( Math.PI/2, 0, Math.PI/2 );
+  groundZ.type = THREE.LinePieces;
+  groundZ.position.y = -yDeviation;
+  groundZ.position.z = zDeviation;
+  groundZ.position.x = xDeviation;
+  scene.add( groundZ );
 
   //**********************
   
