@@ -251,7 +251,7 @@ function animateScene() {
   controls.update();
   
   // find intersections - from the Mr.Doob example
-  // url: 
+  // url: http://mrdoob.github.com/three.js/examples/webgl_interactive_cubes.html
   if (!touch.device) {
     var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
   }else{
