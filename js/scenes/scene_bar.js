@@ -425,13 +425,13 @@ function initScene() {
   
   // **** Mouse controls *********************
   // Setting controls for the trackball camera
-  controls = new THREE.TrackballControls( camera, renderer.domElement );
+  controls = new THREE.TrackballControlsTouch( camera, renderer.domElement );
   controls.zoomSpeed = 0.3;
   controls.rotateSpeed = 0.1;
   controls.minDistance = 500;
   controls.maxDistance = 3500;
   
-  // funciton to get the mouse position for the hover efect onthe bars
+  // funciton to get the mouse position for the hover efect on the bars
   $(document).mousemove(function(event) {
 
     event.preventDefault();
@@ -450,7 +450,6 @@ function initScene() {
   });
 
 }
-
 
 
 // *** SCENE ANIMATION ********************************************************

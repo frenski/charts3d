@@ -210,7 +210,7 @@ function initScene () {
   
   // **** Mouse controls *********************
   // Setting controls for the trackball camera
-  controls = new THREE.TrackballControls( camera, renderer.domElement );
+  controls = new THREE.TrackballControlsTouch( camera, renderer.domElement );
   controls.zoomSpeed = 0.3;
   controls.rotateSpeed = 0.1;
   controls.minDistance = 500;
