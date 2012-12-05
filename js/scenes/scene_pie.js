@@ -38,14 +38,6 @@ function initSceneVars(){
   // pies array
   pies = [];
   intersobj = [];
-}
-
-// *** SCENE INITIALIZATION ***************************************************
-// ****************************************************************************
-
-function initScene() {
-  
-  initSceneVars();
   
   // changes background colour
   $('body').css('background-color', '#'+backColor);
@@ -55,18 +47,6 @@ function initScene() {
   
   // Getting the projector for picking objects
   projector = new THREE.Projector();
-
-  // Setting the renderer (with shadows)
-  renderer = new THREE.WebGLRenderer( { antialias: true } );
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  
-  // Switch off the shadows for safari due to the three.js bug with it
-  if( !$.browser.safari && $.browser.version != "534.57.2"){
-    renderer.shadowMapEnabled = true;
-    renderer.shadowMapSoft = true;
-  }
-  
-  $('body').append( renderer.domElement );
   
   // Creating new scene
   scene = new THREE.Scene();
@@ -80,12 +60,25 @@ function initScene() {
   camera.position.x = 500;
   camera.position.y = 700;
   
-  // Setting controls for the trackball camera
-  controls = new THREE.TrackballControls( camera, renderer.domElement );
-  controls.zoomSpeed = 0.3;
-  controls.rotateSpeed = 0.1;
-  controls.minDistance = 500;
-  controls.maxDistance = 3500;
+}
+
+
+// *** SCENE INITIALIZATION FOR WEBGL RENDERER ********************************
+// ****************************************************************************
+
+function initWebGLScene () {
+  
+  // Setting the renderer (with shadows)
+  renderer = new THREE.WebGLRenderer( { antialias: true } );
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  
+  // Switch off the shadows for safari due to the three.js bug with it
+  if( !$.browser.safari && $.browser.version != "534.57.2"){
+    renderer.shadowMapEnabled = true;
+    renderer.shadowMapSoft = true;
+  }
+  
+  $('body').append( renderer.domElement );
   
   // Calclulating total value of all fields
   var totalVal = getTotalArr ( dataValues ); 
@@ -112,7 +105,6 @@ function initScene() {
   
   //////////////////
   
-  
   //*** Adding the lights
   var light = new THREE.DirectionalLight( 0x777777 );
   light.position.set( 1, -1, 1 ).normalize();
@@ -135,6 +127,98 @@ function initScene() {
   // light.shadowCameraVisible  = true;
   scene.add( light );
   ////////////////////
+
+}
+
+
+// *** SCENE INITIALIZATION FOR CANVAS RENDERER *******************************
+// ****************************************************************************
+
+function initCanvasScene () {
+  
+  // Setting the canvas renderer
+  renderer = new THREE.CanvasRenderer( );
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  
+  $('body').append( renderer.domElement );
+  
+  // Calclulating total value of all fields
+  var totalVal = getTotalArr ( dataValues ); 
+  // Setting the current angle of rotation
+  var curAngle = 0;
+  var extrudeOpts = { amount: pieHeight, 
+                      bevelEnabled: true, 
+                      bevelSegments: 1, 
+                      steps: 5 };
+
+  //*** Adding pies
+  for ( var i=0; i<schema.cols.length; i++ ) {
+    if( dataValues[i][0] > 0 ){
+      pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
+                              curAngle, {x:0,y:0,z:0}, extrudeOpts, 
+                              schema.cols[i].color, valTextColor, "light" ) );
+      curAngle = pies[pies.length-1].addPie(scene);
+      // Adds the pies objects to ones that need to be checked for intersection
+      // This is used for the moseover action
+      intersobj[pies.length-1] = pies[pies.length-1].pieobj;
+      intersobj[pies.length-1].pieid = pies.length-1;
+    }
+  }
+  
+  ////////////////// 
+  
+  //*** Adding the lights ********
+	var ambientLight = new THREE.AmbientLight( 0x777777 );
+	scene.add( ambientLight );
+
+	var directionalLight = new THREE.DirectionalLight( 0x777777 );
+	directionalLight.position.x = 0.4;
+	directionalLight.position.y = 0.4;
+	directionalLight.position.z = - 0.2;
+	directionalLight.position.normalize();
+	scene.add( directionalLight );
+
+	var directionalLight = new THREE.DirectionalLight( 0x777777 );
+	directionalLight.position.x = - 0.2;
+	directionalLight.position.y = 0.5;
+	directionalLight.position.z = - 0.1;
+	directionalLight.position.normalize();
+	scene.add( directionalLight );
+  //******************************
+  
+}
+
+
+// *** SCENE INITIALIZATION ***************************************************
+// ****************************************************************************
+
+function initScene () {
+  
+  // Detecting the renderer - from webgl detector
+  var ifcanvas = !! window.CanvasRenderingContext2D;
+  var ifwebgl = ( function () { try { return !! window.WebGLRenderingContext && !! document.createElement( 'canvas' ).getContext( 'experimental-webgl' ); } catch( e ) { return false; } } )();
+  
+  // Init vars and scene depending on the renderer
+  if ( ifwebgl ) {
+    initSceneVars ();
+    initWebGLScene ();
+  }
+  else if ( ifcanvas ) {
+    initSceneVars ();
+    initCanvasScene ();
+  }
+  else {
+    alert("Your browser doesn't support this function!");
+  }
+  
+  
+  // **** Mouse controls *********************
+  // Setting controls for the trackball camera
+  controls = new THREE.TrackballControls( camera, renderer.domElement );
+  controls.zoomSpeed = 0.3;
+  controls.rotateSpeed = 0.1;
+  controls.minDistance = 500;
+  controls.maxDistance = 3500;
   
   // funciton to get the mouse position for the hover efect onthe pies
   $(document).mousemove(function(event) {
