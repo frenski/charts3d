@@ -56,15 +56,9 @@ function initScene() {
   // Getting the projector for picking objects
   projector = new THREE.Projector();
 
-  // Setting the renderer (with shadows)
+  // Setting the renderer
   renderer = new THREE.CanvasRenderer( );
   renderer.setSize( window.innerWidth, window.innerHeight );
-  
-  // Switch off the shadows for safari due to the three.js bug with it
-  if( !$.browser.safari && $.browser.version != "534.57.2"){
-    renderer.shadowMapEnabled = true;
-    renderer.shadowMapSoft = true;
-  }
   
   $('body').append( renderer.domElement );
   
@@ -93,7 +87,7 @@ function initScene() {
   var curAngle = 0;
   var extrudeOpts = { amount: pieHeight, 
                       bevelEnabled: true, 
-                      bevelSegments: 5, 
+                      bevelSegments: 1, 
                       steps: 5 };
 
   //*** Adding pies

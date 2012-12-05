@@ -16,6 +16,9 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   // should it have a label
   this.hasLabel = true;
   
+  // should it cast/receive shadows
+  this.hasShadows = true;
+  
   // the position (usually 0;0;0)
   this.position = pos;
   
@@ -57,7 +60,9 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
                                                 
     //  if we want a lower quality renderer - mainly with canvas renderer
     if( this.renderType == 'light' ){
-      var material = new THREE.MeshLambertMaterial( { color: this.color, shading: THREE.FlatShading, overdraw: true } );
+      var material = new THREE.MeshLambertMaterial( { color: this.color, 
+                                                      shading: THREE.FlatShading, 
+                                                      overdraw: true } );
     }
     
     // Creats the shape, based on the value and the radius
@@ -77,8 +82,11 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
     // Creating the 3D object, positioning it and adding it to the scene
     this.pieobj = new THREE.Mesh( geometry, material );
     this.pieobj.rotation.set(Math.PI/2,0,0);
-    this.pieobj.castShadow = true;
-    this.pieobj.receiveShadow = true;
+    // Adds shadows if selected as an option
+    if( this.hasShadows ){
+      this.pieobj.castShadow = true;
+      this.pieobj.receiveShadow = true;
+    }
     target.add( this.pieobj );
     
     // If we want to have a label, we add a text object
@@ -119,8 +127,12 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
       this.labelobj.position.x = txtRad * Math.cos(txtAng);
       this.labelobj.position.y = txtRad * Math.sin(txtAng);
       this.labelobj.rotation.set(3*Math.PI/2,0,0);
-      this.labelobj.castShadow = true;
-      this.labelobj.receiveShadow = true;
+      
+      // Adds shadows if selected as an option
+      if( this.hasShadows ){
+        this.labelobj.castShadow = true;
+        this.labelobj.receiveShadow = true;
+      }
       this.pieobj.add( this.labelobj );
       
       // hides the label at the beginning
