@@ -11,6 +11,11 @@ var backColor = "000000";
 var valTextColor = "ffffff";
 // the thickness of the pie
 var pieHeight = 150;
+// extrude options
+var extrudeOpts = { amount: pieHeight, 
+                    bevelEnabled: true, 
+                    bevelSegments: 5, 
+                    steps: 5 };
 
 
 // *** GLOBAL VARIABLES *******************************************************
@@ -22,6 +27,9 @@ var mouse = { }, INTERSECTED;
 
 // pies array
 var pies, intersobj;
+
+// data vars
+var totalVal, curAngle;
 
 
 // *** VARIABLES INITIALIZATION ***********************************************
@@ -38,6 +46,12 @@ function initSceneVars(){
   // pies array
   pies = [];
   intersobj = [];
+  
+  // data vars
+  // Calclulating total value of all fields
+  totalVal = getTotalArr ( dataValues ); 
+  // Setting the current angle of rotation
+  curAngle = 0;
   
   // changes background colour
   $('body').css('background-color', '#'+backColor);
@@ -79,15 +93,6 @@ function initWebGLScene () {
   }
   
   $('body').append( renderer.domElement );
-  
-  // Calclulating total value of all fields
-  var totalVal = getTotalArr ( dataValues ); 
-  // Setting the current angle of rotation
-  var curAngle = 0;
-  var extrudeOpts = { amount: pieHeight, 
-                      bevelEnabled: true, 
-                      bevelSegments: 5, 
-                      steps: 5 };
 
   //*** Adding pies
   for ( var i=0; i<schema.cols.length; i++ ) {
@@ -141,15 +146,6 @@ function initCanvasScene () {
   renderer.setSize( window.innerWidth, window.innerHeight );
   
   $('body').append( renderer.domElement );
-  
-  // Calclulating total value of all fields
-  var totalVal = getTotalArr ( dataValues ); 
-  // Setting the current angle of rotation
-  var curAngle = 0;
-  var extrudeOpts = { amount: pieHeight, 
-                      bevelEnabled: true, 
-                      bevelSegments: 1, 
-                      steps: 5 };
 
   //*** Adding pies
   for ( var i=0; i<schema.cols.length; i++ ) {
