@@ -21,7 +21,7 @@ var valTextColor = "ffffff";
 
 // Main scene vars
 var camera, scene, renderer, projector;
-var mouse = { }, INTERSECTED; 
+var mouse = { }, touch = { },  INTERSECTED;
 
 // The deviation position of the ground from the center
 var yDeviation, zDeviation, xDeviation;
@@ -41,10 +41,13 @@ var sTextVals, sTextRows, sTextCols;
 
 function initSceneVars(){
   
-  // mouse position
+  // mouse/touch position
   //-3000 to make ot out of the screen
   mouse.x = -3000;
   mouse.y = -3000;
+  touch.x = -3000;
+  touch.y = -3000;
+  touch.device = false;
   INTERSECTED = null;
   
   // Inits deviation position of the ground from the center
@@ -464,7 +467,14 @@ function animateScene() {
   
   // find intersections - from the Mr.Doob example
   // url: http://mrdoob.github.com/three.js/examples/webgl_interactive_cubes.html
-  var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  
+  // Checks first if it's touch or mouse device
+  if (!touch.device) {
+    var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  }else{
+    var vector = new THREE.Vector3( touch.x, touch.y, 1 );
+  }
+  
   projector.unprojectVector( vector, camera );
    
   var ray = new THREE.Ray( camera.position, 

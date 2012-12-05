@@ -23,7 +23,7 @@ var extrudeOpts = { amount: pieHeight,
 
 // Main scene vars
 var camera, scene, renderer, projector;
-var mouse = { }, INTERSECTED; 
+var mouse = { }, touch = { },  INTERSECTED;
 
 // pies array
 var pies, intersobj;
@@ -37,10 +37,13 @@ var totalVal, curAngle;
 
 function initSceneVars(){
   
-  // mouse position
+  // mouse/touch position
   //-3000 to make ot out of the screen
   mouse.x = -3000;
   mouse.y = -3000;
+  touch.x = -3000;
+  touch.y = -3000;
+  touch.device = false;
   INTERSECTED = null;
   
   // pies array
@@ -249,7 +252,12 @@ function animateScene() {
   
   // find intersections - from the Mr.Doob example
   // url: 
-  var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  if (!touch.device) {
+    var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  }else{
+    var vector = new THREE.Vector3( touch.x, touch.y, 1 );
+  }
+  
   projector.unprojectVector( vector, camera );
    
   var ray = new THREE.Ray( camera.position, 
