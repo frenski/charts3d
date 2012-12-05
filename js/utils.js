@@ -90,6 +90,7 @@ function getRoundMax (val){
   
 }
 
+// function to get total count in two dimentional array
 function getTotalArr(arr){
   var total = 0;
   for (var i = 0; i < arr.length; i++) {
@@ -113,7 +114,8 @@ function initLegend(el, schema){
   el.append ('<div class="clear"></div>');
 }
 
-function createTextureScale ( text, h, line, size, color, backGroundColor ) {
+// function to return canvas scale texts
+function createTextureScale ( text, h, line, size, color, backGroundColor, align ) {
 
   var backgroundMargin = 10;
   
@@ -141,12 +143,16 @@ function createTextureScale ( text, h, line, size, color, backGroundColor ) {
     context.fill();
   }
 
-  context.textAlign = "right";
+  context.textAlign = align;
   context.textBaseline = "middle";
-  context.fillStyle = color;
+  
+  var xpos = backgroundMargin;
+  if( align == "right") xpos = textMaxWidth-backgroundMargin;
   
   for ( var i=0; i<text.length; i++ ){
-    context.fillText(text[i].name, textMaxWidth-backgroundMargin, i*line+line/2);
+    context.fillStyle = color;
+    if ( text[i].color )  context.fillStyle = "#"+text[i].color;
+    context.fillText(text[i].name, xpos, i*line+line/2);
   }
   
   return canvas;

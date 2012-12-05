@@ -185,19 +185,18 @@ function initScene() {
   //**********************
   
 
-  // Adding scale texts
+  // Adding scale texts - rows
   var canvTexture = createTextureScale (schema.rows,  
                                         squareStep*schema.rows.length,
                                         squareStep,
                                         40, "#"+scaleTextColor, 
-                                        "#"+backColor);
+                                        "#"+backColor,
+                                        "right");
   var texture = new THREE.Texture(canvTexture);
   texture.needsUpdate = true;
   
   var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.rows.length );
-
-
-  var material = new THREE.MeshLambertMaterial( {  map: texture, overdraw:true } );
+  var material = new THREE.MeshBasicMaterial( {  map: texture } );
 
   scalePlaneX = new THREE.Mesh( geometry, material );
   scalePlaneX.rotation.set ( 3*Math.PI/2, 0, Math.PI/2 );
@@ -205,26 +204,24 @@ function initScene() {
   scalePlaneX.position.z = squareStep*(schema.cols.length)/2 + canvTexture.width/2 + 2;
   scene.add( scalePlaneX );
   
+  // Adding scale texts - cols
+  var canvTexture = createTextureScale (schema.cols,  
+                                        squareStep*schema.cols.length,
+                                        squareStep,
+                                        40, "#"+scaleTextColor, 
+                                        "#"+backColor,
+                                        "left");
+  var texture = new THREE.Texture(canvTexture);
+  texture.needsUpdate = true;
   
-  //*** Adding texts for the scales
-  // for( var i=0; i<schema.cols.length; i++ ) {
-  //   sTextCols[i] = new ScaleText(schema.cols[i].name, 
-  //                                "col", 
-  //                                 i, 
-  //                                 schema.cols[i].color);
-  //   sTextCols[i].addText(groundX);
-  // }
-  
-  // for( var i=0; i<schema.rows.length; i++ ) {
-  //   sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i, scaleTextColor);
-  //   sTextRows[i].addText(groundX);
-  // }
-  // 
-  // for ( var i=0; i<=valHeight/squareStep*2; i++ ) {
-  //   var val = scaleDif*i/10;
-  //   sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
-  //   sTextVals[i].addText(groundZ);
-  // }
+  var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.cols.length );
+  var material = new THREE.MeshBasicMaterial( {  map: texture } );
+
+  scalePlaneX = new THREE.Mesh( geometry, material );
+  scalePlaneX.rotation.set ( 3*Math.PI/2, 0, 0 );
+  scalePlaneX.position.y = yDeviation
+  scalePlaneX.position.x = squareStep*(schema.rows.length)/2 + canvTexture.width/2 + 2;
+  scene.add( scalePlaneX );
   
   
   //*** Adding bars ************
