@@ -2,7 +2,11 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolor) {
+PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolor, render) {
+  
+  // The render type - can be light and full
+  this.renderType = render;
+  
   //the 3D cube object
   this.pieobj = null;
   
@@ -50,6 +54,11 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
                                                  shading : THREE.SmoothShading,
                                                  transparent: true
                                                 } );
+                                                
+    //  if we want a lower quality renderer - mainly with canvas renderer
+    if( this.renderType == 'light' ){
+      var material = new THREE.MeshLambertMaterial( { color: this.color, shading: THREE.FlatShading, overdraw: true } );
+    }
     
     // Creats the shape, based on the value and the radius
     var shape = new THREE.Shape();
@@ -78,20 +87,25 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
       var percent = Math.round( (this.val/this.valTotal*100) * 10 ) / 10;
       var txt = this.val.toString() + " (" +
                 percent.toString() +"%)";
+      var curveSeg = 3;
+      var material = new THREE.MeshPhongMaterial( { color: this.valcolor, 
+                                                    shading: THREE.FlatShading } );
+      
+      if( this.renderType == 'light' ){
+        curveSeg = 1;
+        material = new THREE.MeshBasicMaterial( { color: this.valcolor } );
+      }
       
       // Create a three.js text geometry
       var geometry = new THREE.TextGeometry( txt, {
         size: this.labelSize,
         height: this.labelHeight,
-        curveSegments: 3,
+        curveSegments: curveSeg,
         font: this.labelFont,
         weight: "bold",
         style: "normal",
         bevelEnabled: false
       });
-    
-      var material = new THREE.MeshPhongMaterial( { color: this.valcolor, 
-                                                    shading: THREE.FlatShading } );
       
       // calculates the positon of the text
       this.valcolor = parseInt(valcolor,16);

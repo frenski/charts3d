@@ -101,7 +101,7 @@ function initScene() {
     if( dataValues[i][0] > 0 ){
       pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
                               curAngle, {x:0,y:0,z:0}, extrudeOpts, 
-                              schema.cols[i].color, valTextColor ) );
+                              schema.cols[i].color, valTextColor, "full" ) );
       curAngle = pies[pies.length-1].addPie(scene);
       // Adds the pies objects to ones that need to be checked for intersection
       // This is used for the moseover action
