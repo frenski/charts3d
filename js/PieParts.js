@@ -1,5 +1,5 @@
 /**
- * a class for the Bar objects - @author Yane Frenski
+ * a class for the Pie objects - @author Yane Frenski
  */
 
 PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolor, render) {

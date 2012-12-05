@@ -1,5 +1,5 @@
 /**
- * a script for loading bar chart scene - @author Yane Frenski
+ * a script for loading bar chart scene for Canvas - @author Yane Frenski
  */
 
 // *** GENERAL SETTINGS *******************************************************
