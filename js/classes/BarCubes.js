@@ -2,7 +2,7 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-BarCube = function( color, x, z, val, valcolor, render ) {
+BarCube = function( color, x, z, val, valcolor, render, html_label, titles ) {
   
   // The render type - can be light and full
   this.renderType = render;
@@ -21,6 +21,7 @@ BarCube = function( color, x, z, val, valcolor, render ) {
   
   // should it have a label
   this.hasLabel = true;
+  this.hasHTMLLabel = html_label;
   
   // should it cast/receive shadows
   this.hasShadows = true;
@@ -37,8 +38,12 @@ BarCube = function( color, x, z, val, valcolor, render ) {
   this.h = ((val - minScaleVal)/scaleDif)*valHeight;
   if ( this.h==0 ) this.h = 0.5;
   
+  // rows and column titles
+  this.titles = titles;
+  
   // main cube colour
   this.color = parseInt(color,16);
+  this.htmlcolor = "#"+color;
   this.lumcolor = colorLuminance( color, 0.5 );
   this.darklumcolor = colorLuminance( color, -0.3 );
   this.valcolor = parseInt(valcolor,16);
@@ -65,7 +70,9 @@ BarCube = function( color, x, z, val, valcolor, render ) {
       
     //  if we want a lower quality renderer - mainly with canvas renderer
     if( this.renderType == 'light' ){
-      var material = new THREE.MeshLambertMaterial( { color: this.color, shading: THREE.FlatShading, overdraw: true } );
+      var material = new THREE.MeshLambertMaterial( { color: this.color, 
+                                          shading: THREE.FlatShading, 
+                                          overdraw: true } );
       this.hasWireframe = false;
       this.hasShadows = false;
     }
@@ -146,20 +153,37 @@ BarCube = function( color, x, z, val, valcolor, render ) {
   };
   
   // function to show the label
-  this.showLabel = function(){
+  this.showLabel = function( posx, posy){
   
-    if(this.hasLabel){
+    // Shows 3D label if set
+    if( this.hasLabel ) {
       this.labelobj.visible = true;
-    }  
+    }
+    
+    // Shows HTML Label if set - uses jquery for DOM manipulation
+    if ( this.hasHTMLLabel ) {
+      this.hasHTMLLabel.html( this.titles.row + 
+                              '<p>' + this.titles.col + ': '+val+'</p>' );
+      this.hasHTMLLabel.show();
+      // Back transformation of the coordinates
+      posx = ( ( posx + 1 ) * window.innerWidth / 2 );
+      posy = - ( ( posy - 1 ) * window.innerHeight / 2 );
+      this.hasHTMLLabel.offset( { left: posx, top: posy } );
+    }
     
   };
   
   // function to hide the label
   this.hideLabel = function(){
   
-    if(this.hasLabel){
+    if( this.hasLabel ) {
       this.labelobj.visible = false;
-    }  
+    }
+    
+    // Shows HTML Label if set - uses jquery for DOM manipulation
+    if ( this.hasHTMLLabel ) {
+      this.hasHTMLLabel.hide();
+    }
     
   };
   

@@ -146,3 +146,25 @@ h3{
 .small-text{
   font-size: 12px;
 }
+
+/* canvas value label*/
+#valuelabel{
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  position: absolute;
+  top: 200px;
+  left: 500px;
+  z-index: 9;
+  font-size: 16px;
+  display: none;
+  padding: 10px;
+  background: #26272b;
+  border: 1px solid #fff;
+}
+
+#valuelabel p{
+  font-size: 14px;
+  margin:0;
+  padding:0;
+  font-style: italic;
+}

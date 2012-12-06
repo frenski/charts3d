@@ -209,7 +209,9 @@ function initWebGLScene () {
   for ( var i=0; i<schema.cols.length; i++ ) {
     for (var j=0; j<schema.rows.length; j++ ) {
       bars.push( new BarCube( schema.cols[i].color, j, i, 
-                              dataValues[i][j], valTextColor, 'full' ) );
+                              dataValues[i][j], valTextColor, 'full', null,
+                              { row:schema.rows[j].name, 
+                                col:schema.cols[i].name } ) );
       bars[bars.length-1].addBar(scene);
       // Adds the bars objects to ones that need to be checked for intersection
       // This is used for the moseover action
@@ -370,7 +372,11 @@ function initCanvasScene () {
   for ( var i=0; i<schema.cols.length; i++ ) {
     for (var j=0; j<schema.rows.length; j++ ) {
       bars.push( new BarCube( schema.cols[i].color, j, i, 
-                              dataValues[i][j], valTextColor, 'light' ) );
+                              dataValues[i][j], valTextColor, 
+                              'light', $('#valuelabel'),
+                              { row:schema.rows[j].name, 
+                                col:schema.cols[i].name } ) );
+      bars[bars.length-1].hasLabel = false;               
       bars[bars.length-1].addBar(scene);
       // Adds the bars objects to ones that need to be checked for intersection
       // This is used for the moseover action
@@ -471,10 +477,12 @@ function animateScene() {
   
   // Checks first if it's touch or mouse device
   if (!touch.device) {
-    var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+    var actCoord = { x: mouse.x, y: mouse.y };
   }else{
-    var vector = new THREE.Vector3( touch.x, touch.y, 1 );
+    var actCoord = { x: touch.x, y: touch.y };
   }
+  
+  var vector = new THREE.Vector3( actCoord.x, actCoord.y, 1 );
   
   projector.unprojectVector( vector, camera );
    
@@ -492,7 +500,7 @@ function animateScene() {
       INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
       INTERSECTED.material.emissive.setHex( 
               parseInt( bars[intersects[0].object.barid].darklumcolor, 16 ) );
-      bars[intersects[0].object.barid].showLabel();
+      bars[intersects[0].object.barid].showLabel( actCoord.x, actCoord.y );
       intersectedId = intersects[0].object.barid;
     }
   } else {
