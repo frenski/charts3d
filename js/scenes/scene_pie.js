@@ -103,7 +103,8 @@ function initWebGLScene () {
     if( dataValues[i][0] > 0 ){
       pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
                               curAngle, {x:0,y:0,z:0}, extrudeOpts, 
-                              schema.cols[i].color, valTextColor, "full" ) );
+                              schema.cols[i].color, valTextColor, "full", null,
+                              { col: schema.cols[i].name } ) );
       curAngle = pies[pies.length-1].addPie(scene);
       // Adds the pies objects to ones that need to be checked for intersection
       // This is used for the moseover action
@@ -156,7 +157,10 @@ function initCanvasScene () {
     if( dataValues[i][0] > 0 ){
       pies.push( new PiePart( dataValues[i][0], totalVal, pieRadius, 
                               curAngle, {x:0,y:0,z:0}, extrudeOpts, 
-                              schema.cols[i].color, valTextColor, "light" ) );
+                              schema.cols[i].color, valTextColor, 
+                              'light', $('#valuelabel'),
+                              { col: schema.cols[i].name } ) );
+      pies[pies.length-1].hasLabel = false;
       curAngle = pies[pies.length-1].addPie(scene);
       // Adds the pies objects to ones that need to be checked for intersection
       // This is used for the moseover action
@@ -253,11 +257,15 @@ function animateScene() {
   
   // find intersections - from the Mr.Doob example
   // url: http://mrdoob.github.com/three.js/examples/webgl_interactive_cubes.html
+  
+  // Checks first if it's touch or mouse device
   if (!touch.device) {
-    var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+    var actCoord = { x: mouse.x, y: mouse.y };
   }else{
-    var vector = new THREE.Vector3( touch.x, touch.y, 1 );
+    var actCoord = { x: touch.x, y: touch.y };
   }
+  
+  var vector = new THREE.Vector3( actCoord.x, actCoord.y, 1 );
   
   projector.unprojectVector( vector, camera );
    
@@ -275,7 +283,7 @@ function animateScene() {
       INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
       INTERSECTED.material.emissive.setHex( 
               parseInt( pies[intersects[0].object.pieid].darklumcolor, 16 ) );
-      pies[intersects[0].object.pieid].showLabel();
+      pies[intersects[0].object.pieid].showLabel( actCoord.x, actCoord.y );
       intersectedId = intersects[0].object.pieid;
     }
   } else {

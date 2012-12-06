@@ -175,12 +175,13 @@ BarCube = function( color, x, z, val, valcolor, render, html_label, titles ) {
   
   // function to hide the label
   this.hideLabel = function(){
-  
+    
+    // Hides 3D label if set
     if( this.hasLabel ) {
       this.labelobj.visible = false;
     }
     
-    // Shows HTML Label if set - uses jquery for DOM manipulation
+    // Hides HTML Label if set - uses jquery for DOM manipulation
     if ( this.hasHTMLLabel ) {
       this.hasHTMLLabel.hide();
     }

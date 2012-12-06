@@ -2,7 +2,7 @@
  * a class for the Pie objects - @author Yane Frenski
  */
 
-PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolor, render) {
+PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolor, render, html_label, titles ) {
   
   // The render type - can be light and full
   this.renderType = render;
@@ -15,6 +15,7 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   
   // should it have a label
   this.hasLabel = true;
+  this.hasHTMLLabel = html_label;
   
   // should it cast/receive shadows
   this.hasShadows = true;
@@ -28,15 +29,19 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   // the previous angle - this one should start from it
   this.angPrev = angprev;
   
-  // value and Totam
+  // value and Total
   this.val = val;
   this.valTotal = totalval;
+  
+  // rows and column titles
+  this.titles = titles;
   
   // extrude options
   this.extrudeOpts = extrude;
   
   // main cube colour
   this.color = parseInt(color,16);
+  this.htmlcolor = "#"+color;
   this.valcolor = parseInt(valcolor,16);
   this.lumcolor = colorLuminance( color, 0.5 );
   this.darklumcolor = colorLuminance( color, -0.6 );
@@ -145,20 +150,38 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   };
   
   // function to show the label
-  this.showLabel = function(){
+  this.showLabel = function( posx, posy ){
   
+    // Shows 3D label if set
     if(this.hasLabel){
       this.labelobj.visible = true;
-    }  
+    }
+    
+    // Shows HTML Label if set - uses jquery for DOM manipulation
+    if ( this.hasHTMLLabel ) {
+      this.hasHTMLLabel.html( this.titles.col + 
+                              '<p>'+val+'</p>' );
+      this.hasHTMLLabel.show();
+      // Back transformation of the coordinates
+      posx = ( ( posx + 1 ) * window.innerWidth / 2 );
+      posy = - ( ( posy - 1 ) * window.innerHeight / 2 );
+      this.hasHTMLLabel.offset( { left: posx, top: posy } );
+    }
     
   };
   
   // function to hide the label
   this.hideLabel = function(){
   
-    if(this.hasLabel){
+    // Hides 3D label if set
+    if( this.hasLabel ) {
       this.labelobj.visible = false;
-    }  
+    }
+    
+    // Hides HTML Label if set - uses jquery for DOM manipulation
+    if ( this.hasHTMLLabel ) {
+      this.hasHTMLLabel.hide();
+    }
     
   };
   
