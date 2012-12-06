@@ -203,8 +203,9 @@ function initWebGLScene () {
     sTextRows[i].addText(groundX);
   }
   
-  for ( var i=0; i<=valHeight/squareStep*2; i++ ) {
-    var val = scaleDif*i/10;
+  var maxValTexts = valHeight/squareStep*2;
+  for ( var i=0; i<=maxValTexts; i++ ) {
+    var val = Math.floor(scaleDif*i/maxValTexts);
     sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
     sTextVals[i].addText(groundZ);
   }
