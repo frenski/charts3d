@@ -325,44 +325,44 @@ function initCanvasScene () {
   scene.add( groundZ );
 
 
-  // Adding scale texts - rows ***
-  //******************************
-  var canvTexture = createTextureScale (schema.rows,  
-                                        squareStep*schema.rows.length,
-                                        squareStep,
-                                        40, "#"+scaleTextColor, 
-                                        "#"+backColor,
-                                        "right");
-  var texture = new THREE.Texture(canvTexture);
-  texture.needsUpdate = true;
-  
-  var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.rows.length );
-  var material = new THREE.MeshBasicMaterial( {  map: texture } );
-
-  scalePlaneX = new THREE.Mesh( geometry, material );
-  scalePlaneX.rotation.set ( 3*Math.PI/2, 0, Math.PI/2 );
-  scalePlaneX.position.y = yDeviation;
-  scalePlaneX.position.z = squareStep*(schema.cols.length)/2 + canvTexture.width/2 + 2;
-  scene.add( scalePlaneX );
-  
-  // Adding scale texts - cols
-  var canvTexture = createTextureScale (schema.cols,  
-                                        squareStep*schema.cols.length,
-                                        squareStep,
-                                        40, "#"+scaleTextColor, 
-                                        "#"+backColor,
-                                        "left");
-  var texture = new THREE.Texture(canvTexture);
-  texture.needsUpdate = true;
-  
-  var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.cols.length );
-  var material = new THREE.MeshBasicMaterial( {  map: texture } );
-
-  scalePlaneX = new THREE.Mesh( geometry, material );
-  scalePlaneX.rotation.set ( 3*Math.PI/2, 0, 0 );
-  scalePlaneX.position.y = yDeviation
-  scalePlaneX.position.x = squareStep*(schema.rows.length)/2 + canvTexture.width/2 + 2;
-  scene.add( scalePlaneX );
+  // // Adding scale texts - rows ***
+  // //******************************
+  // var canvTexture = createTextureScale (schema.rows,  
+  //                                       squareStep*schema.rows.length,
+  //                                       squareStep,
+  //                                       40, "#"+scaleTextColor, 
+  //                                       "#"+backColor,
+  //                                       "right");
+  // var texture = new THREE.Texture(canvTexture);
+  // texture.needsUpdate = true;
+  // 
+  // var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.rows.length );
+  // var material = new THREE.MeshBasicMaterial( {  map: texture } );
+  // 
+  // scalePlaneX = new THREE.Mesh( geometry, material );
+  // scalePlaneX.rotation.set ( 3*Math.PI/2, 0, Math.PI/2 );
+  // scalePlaneX.position.y = yDeviation;
+  // scalePlaneX.position.z = squareStep*(schema.cols.length)/2 + canvTexture.width/2 + 2;
+  // scene.add( scalePlaneX );
+  // 
+  // // Adding scale texts - cols
+  // var canvTexture = createTextureScale (schema.cols,  
+  //                                       squareStep*schema.cols.length,
+  //                                       squareStep,
+  //                                       40, "#"+scaleTextColor, 
+  //                                       "#"+backColor,
+  //                                       "left");
+  // var texture = new THREE.Texture(canvTexture);
+  // texture.needsUpdate = true;
+  // 
+  // var geometry = new THREE.PlaneGeometry( canvTexture.width, squareStep*schema.cols.length );
+  // var material = new THREE.MeshBasicMaterial( {  map: texture } );
+  // 
+  // scalePlaneX = new THREE.Mesh( geometry, material );
+  // scalePlaneX.rotation.set ( 3*Math.PI/2, 0, 0 );
+  // scalePlaneX.position.y = yDeviation
+  // scalePlaneX.position.x = squareStep*(schema.rows.length)/2 + canvTexture.width/2 + 2;
+  // scene.add( scalePlaneX );
   
   
   //*** Adding bars ************
