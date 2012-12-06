@@ -41,6 +41,7 @@ $('#datatable').tableSheet({
     animateScene();
     initLegend($('#div-legend-data'), schema);
     $('#div-legend').children('h4').html($('#charttitle').val());
+    $('#valuelabel').css('color', '#'+valTextColor);
   }
 });
 

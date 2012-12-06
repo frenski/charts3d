@@ -39,6 +39,7 @@ $('#datatable').tableSheet({
     initScene();
     animateScene();
     $('#div-legend').children('h4').html($('#charttitle').val());
+    $('#valuelabel').css('color', '#'+valTextColor);
   }
 });
 
