@@ -7,7 +7,7 @@
 // size of one square in real 3d units
 var squareStep = 200;
 // maximum height of the walls (y and z)
-var valHeight = 1000;
+var valHeight = 500;
 // Background Color
 var backColor = "000000";
 // Colour for the text on the x and y scales
@@ -15,7 +15,7 @@ var scaleTextColor = "eeeeee";
 // Colour for the text on each bar
 var valTextColor = "ffffff";
 // extrude options
-var extrudeOpts = { amount: squareStep/2, 
+var extrudeOpts = { amount: squareStep/4, 
                     bevelEnabled: true, 
                     bevelSegments: 5, 
                     steps: 5 };
@@ -126,7 +126,7 @@ function initWebGLScene () {
   // material for the grounds
   var gridTex = THREE.ImageUtils.loadTexture("img/grid_pattern1.jpg");
   gridTex.wrapS = gridTex.wrapT = THREE.RepeatWrapping;
-  gridTex.repeat.set( 5, 5 );
+  gridTex.repeat.set( 5, valHeight/200 );
   
   var gridTex2 = THREE.ImageUtils.loadTexture("img/grid_pattern2.jpg");
   gridTex2.wrapS = gridTex2.wrapT = THREE.RepeatWrapping;

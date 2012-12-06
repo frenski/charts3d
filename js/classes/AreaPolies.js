@@ -26,9 +26,6 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
   // should it cast/receive shadows
   this.hasShadows = true;
   
-  // the square size (x and z)
-  this.sqsize = 100;
-  
   // position in the quadrant
   this.posz = z;
   
@@ -39,7 +36,7 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
   this.titles = titles;
   
   // extrude options
-  this.extrudeOpts = extrude
+  this.extrudeOpts = extrude;
   
   // main cube colour
   this.color = parseInt(color,16);
