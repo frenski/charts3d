@@ -21,7 +21,7 @@ var valTextColor = "ffffff";
 
 // Main scene vars
 var camera, scene, renderer, projector;
-var mouse = { }, touch = { },  INTERSECTED;
+var mouse = { }, touch = { },  INTERSECTED, intersectedId;
 
 // The deviation position of the ground from the center
 var yDeviation, zDeviation, xDeviation;
@@ -49,6 +49,7 @@ function initSceneVars(){
   touch.y = -3000;
   touch.device = false;
   INTERSECTED = null;
+  intersectedId = null;
   
   // Inits deviation position of the ground from the center
   yDeviation = -(valHeight/2);
@@ -246,7 +247,7 @@ function initWebGLScene () {
 }
 
 
-// *** SCENE INITIALIZATION FOR CANVAS RENDERER ********************************
+// *** SCENE INITIALIZATION FOR CANVAS RENDERER *******************************
 // ****************************************************************************
 
 function initCanvasScene () {
@@ -485,23 +486,21 @@ function animateScene() {
     if ( INTERSECTED != intersects[ 0 ].object ) {
       if ( INTERSECTED ) {
         INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-        for( var i=0; i<bars.length; i++ ){
-          bars[i].hideLabel();
-        }
+        bars[intersectedId].hideLabel();
       }
       INTERSECTED = intersects[ 0 ].object;
       INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
       INTERSECTED.material.emissive.setHex( 
-        parseInt( bars[intersects[0].object.barid].darklumcolor, 16 ) );
-      bars[intersects[0].object.barid].showLabel()
+              parseInt( bars[intersects[0].object.barid].darklumcolor, 16 ) );
+      bars[intersects[0].object.barid].showLabel();
+      intersectedId = intersects[0].object.barid;
     }
   } else {
     if ( INTERSECTED ) {
       INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-      for( var i=0; i<bars.length; i++ ){
-        bars[i].hideLabel();
-      }
+      bars[intersectedId].hideLabel();
     }
+    intersectedId = null;
     INTERSECTED = null;
   }
 

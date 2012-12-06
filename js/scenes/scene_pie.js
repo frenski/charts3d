@@ -23,7 +23,7 @@ var extrudeOpts = { amount: pieHeight,
 
 // Main scene vars
 var camera, scene, renderer, projector;
-var mouse = { }, touch = { },  INTERSECTED;
+var mouse = { }, touch = { },  INTERSECTED, intersectedId;
 
 // pies array
 var pies, intersobj;
@@ -45,6 +45,7 @@ function initSceneVars(){
   touch.y = -3000;
   touch.device = false;
   INTERSECTED = null;
+  intersectedId = null;
   
   // pies array
   pies = [];
@@ -268,23 +269,21 @@ function animateScene() {
     if ( INTERSECTED != intersects[ 0 ].object ) {
       if ( INTERSECTED ) {
         INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-        for( var i=0; i<pies.length; i++ ){
-          pies[i].hideLabel();
-        }
+        pies[intersectedId].hideLabel();
       }
       INTERSECTED = intersects[ 0 ].object;
       INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
       INTERSECTED.material.emissive.setHex( 
-        parseInt( pies[intersects[0].object.pieid].darklumcolor, 16 ) );
-      pies[intersects[0].object.pieid].showLabel()
+              parseInt( pies[intersects[0].object.pieid].darklumcolor, 16 ) );
+      pies[intersects[0].object.pieid].showLabel();
+      intersectedId = intersects[0].object.pieid;
     }
   } else {
     if ( INTERSECTED ) {
       INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-      for( var i=0; i<pies.length; i++ ){
-        pies[i].hideLabel();
-      }
+      pies[intersectedId].hideLabel();
     }
+    intersectedId = null;
     INTERSECTED = null;
   }
 
