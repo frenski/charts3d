@@ -331,23 +331,19 @@ function initCanvasScene () {
   groundZ.position.x = xDeviation;
   scene.add( groundZ );
   
-  
-  //*** Adding areas ************
-  // ***************************
+
+  //*** Adding areas
   for ( var i=0; i<schema.cols.length; i++ ) {
-    for (var j=0; j<schema.rows.length; j++ ) {
-      areas.push( new BarCube( schema.cols[i].color, j, i, 
-                              dataValues[i][j], valTextColor, 
-                              'light', $('#valuelabel'),
-                              { row:schema.rows[j].name, 
+    areas.push( new AreaPoly( schema.cols[i].color, i, 
+                              dataValues[i], valTextColor, extrudeOpts,
+                              'light', null,
+                              { row:schema.rows, 
                                 col:schema.cols[i].name } ) );
-      areas[areas.length-1].hasLabel = false;               
-      areas[areas.length-1].addArea(scene);
-      // Adds the areas objects to ones that need to be checked for intersection
-      // This is used for the moseover action
-      intersobj[areas.length-1] = areas[areas.length-1].areaobj;
-      intersobj[areas.length-1].areaid = areas.length-1;
-    }
+    areas[areas.length-1].addArea(scene);
+    // Adds the areas objects to ones that need to be checked for intersection
+    // This is used for the moseover action
+    intersobj[areas.length-1] = areas[areas.length-1].areaobj;
+    intersobj[areas.length-1].areaid = areas.length-1;
   }
   
   //******************************
