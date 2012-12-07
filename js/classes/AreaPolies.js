@@ -11,12 +11,12 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
   this.areaobj = null;
   
   // the 3D object for the text label
-  this.labelobj = null
+  this.labelobj = null;
   
   // should we set the wireframe
   this.hasWireframe = true;
   
-  // should it have a label
+  // should it have a label. The HTML one should point to a dom element
   this.hasLabel = true;
   this.hasHTMLLabel = html_label;
   
@@ -59,8 +59,7 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
     shape.moveTo( startX, startY );
     
     for (var i = 0; i < this.val.length; i++) {
-      var scaledVar = ((this.val[i] - minScaleVal)/scaleDif) * valHeight;
-      shape.lineTo( startX + i*squareStep, startY + scaledVar );
+      shape.lineTo( startX + i*squareStep, startY + calcPointYPos( this.val[i] ) );
     }
     shape.lineTo( startX + ( this.val.length - 1)*squareStep , startY);
     shape.lineTo( startX, startY );
@@ -102,7 +101,6 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
     // If we want to have a label, we add a text object
     if( this.hasLabel ){
       
-      var txt = this.val.toString();
       var curveSeg = 3;
       var material = new THREE.MeshPhongMaterial( { color: this.valcolor, 
                                                     shading: THREE.FlatShading } );
@@ -111,10 +109,9 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
       if( this.renderType == 'light' ){
         curveSeg = 1;
         material = new THREE.MeshBasicMaterial( { color: this.valcolor } );
-      } 
+      }
       
-      // Create a three.js text geometry
-      var geometry = new THREE.TextGeometry( txt, {
+      var txtOpts = {
         size: this.labelSize,
         height: this.labelHeight,
         curveSegments: curveSeg,
@@ -122,20 +119,34 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
         weight: "bold",
         style: "normal",
         bevelEnabled: false
-      });
-      
-      // Positions the text and adds it to the scene
-      this.labelobj = new THREE.Mesh( geometry, material );
-      this.labelobj.position.y += (this.h/2) + 50;
-      this.labelobj.position.x -= (this.labelSize*txt.length/3);
-      this.labelobj.position.z += 50;
-      this.labelobj.rotation.y = Math.PI/4;
-      // Adds shadows if selected as an option
-      if( this.hasShadows ){
-        this.labelobj.castShadow = true;
-        this.labelobj.receiveShadow = true;
       }
-      this.areaobj.add( this.labelobj );
+      
+      
+      this.labelobj = [];
+      
+      for ( var i=0; i<this.val.length; i++ ) {
+        var txt = this.val[i].toString();
+        // Create a three.js text geometry
+        var geometry = new THREE.TextGeometry( txt, txtOpts );      
+        // Positions the text and adds it to the scene
+        this.labelobj[i] = new THREE.Mesh( geometry, material );
+        this.labelobj[i].position.y += yDeviation + 
+                                       calcPointYPos( this.val[i] ) + 50;
+        this.labelobj[i].position.x += xDeviation + (i+0.5)*squareStep;
+        this.labelobj[i].position.z += this.extrudeOpts.amount/2 + 
+                                       (this.labelSize/2)*txt.length;
+        // this.labelobj[i].position.y = calcPointYPos( this.val[i] ) + 50;
+        // this.labelobj[i].position.x += ( this.val[i].length - 1)*squareStep;
+        this.labelobj[i].rotation.y = Math.PI/2;
+        // Adds shadows if selected as an option
+        if( this.hasShadows ){
+          this.labelobj[i].castShadow = true;
+          this.labelobj[i].receiveShadow = true;
+        }
+        this.areaobj.add( this.labelobj[i] );
+        
+      }
+      
       
       // hides the label at the beginning
       this.hideLabel();
@@ -149,13 +160,19 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
   
     // Shows 3D label if set
     if( this.hasLabel ) {
-      this.labelobj.visible = true;
+      for ( var i=0; i<this.labelobj.length; i++ ){
+        this.labelobj[i].visible = true; 
+      }
     }
     
     // Shows HTML Label if set - uses jquery for DOM manipulation
     if ( this.hasHTMLLabel ) {
-      this.hasHTMLLabel.html( this.titles.row + 
-                              '<p>' + this.titles.col + ': '+val+'</p>' );
+      var rowVals = "";
+      for ( var i=0; i<this.titles.row.length; i++ ){
+        rowVals += this.titles.row[i].name + ": " + this.val[i] + "<br>";
+      }
+      this.hasHTMLLabel.html( this.titles.col + 
+                              '<p>' + rowVals + '</p>' );
       this.hasHTMLLabel.show();
       // Back transformation of the coordinates
       posx = ( ( posx + 1 ) * window.innerWidth / 2 );
@@ -170,7 +187,9 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
     
     // Hides 3D label if set
     if( this.hasLabel ) {
-      this.labelobj.visible = false;
+      for ( var i=0; i<this.labelobj.length; i++ ){
+        this.labelobj[i].visible = false; 
+      }
     }
     
     // Hides HTML Label if set - uses jquery for DOM manipulation
@@ -179,6 +198,10 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
     }
     
   };
+  
+  var calcPointYPos = function ( val ) {
+    return scaledVar = ( (val - minScaleVal)/scaleDif ) * valHeight;
+  }
   
   
 };

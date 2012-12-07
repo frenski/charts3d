@@ -19,7 +19,7 @@ BarCube = function( color, x, z, val, valcolor, render, html_label, titles ) {
   // should we set the wireframe
   this.hasWireframe = true;
   
-  // should it have a label
+  // should it have a label. The HTML one should point to a dom element
   this.hasLabel = true;
   this.hasHTMLLabel = html_label;
   

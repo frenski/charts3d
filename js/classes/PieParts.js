@@ -13,7 +13,7 @@ PiePart = function( val, totalval, radius, angprev, pos, extrude, color, valcolo
   // the 3D object for the text label
   this.labelobj = null
   
-  // should it have a label
+  // should it have a label. The HTML one should point to a dom element
   this.hasLabel = true;
   this.hasHTMLLabel = html_label;
   

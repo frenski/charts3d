@@ -318,9 +318,10 @@ function initCanvasScene () {
   for ( var i=0; i<schema.cols.length; i++ ) {
     areas.push( new AreaPoly( schema.cols[i].color, i, 
                               dataValues[i], valTextColor, extrudeOpts,
-                              'light', null,
+                              'light', $('#valuelabel'),
                               { row:schema.rows, 
                                 col:schema.cols[i].name } ) );
+    areas[areas.length-1].hasLabel = false;
     areas[areas.length-1].addArea(scene);
     // Adds the areas objects to ones that need to be checked for intersection
     // This is used for the moseover action
