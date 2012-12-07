@@ -13,7 +13,7 @@ body{
 h1{
   margin: auto;
   width: 200px;
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 h1 span{
@@ -27,7 +27,7 @@ h2{
   font-style: italic;
   color: #a0a0a0;
   margin: auto;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
   width: 200px;
 }
 
@@ -47,7 +47,7 @@ ul{
 }
 
 li{
-  margin:30px 0;
+  margin:20px 0;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-style: italic;
 }
@@ -68,7 +68,7 @@ li{
 .separator_big{
   width: 50px;
   background: url('../img/separator_big.png') repeat-y top center;
-  height: 280px;
+  height: 350px;
 }
 
 #content {
