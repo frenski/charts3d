@@ -133,3 +133,55 @@ function createTextureScale ( text, h, line, size, color, backGroundColor, align
   return canvas;
   
 }
+
+// three.js camera mouse/touch controls
+
+function mouseControls ( camera ){
+  
+  // **** Mouse controls *********************
+  // Setting controls for the trackball camera
+  controls = new THREE.TrackballControlsTouch( camera, renderer.domElement );
+  controls.zoomSpeed = 0.3;
+  controls.rotateSpeed = 0.1;
+  controls.minDistance = 500;
+  controls.maxDistance = 3500;
+  
+  // funciton to get the mouse position for the hover efect onthe pies
+  $(document).mousemove(function(event) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+  });
+
+  // function to adjust the size of the canvas when resizing the window
+  $(window).resize(function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+  });
+  
+  return controls;
+  
+}
+
+function detectRenderer (){
+  
+  // Detecting the renderer - from webgl detector
+  var ifcanvas = !! window.CanvasRenderingContext2D;
+  var ifwebgl = ( function () { try { return !! window.WebGLRenderingContext && !! document.createElement( 'canvas' ).getContext( 'experimental-webgl' ); } catch( e ) { return false; } } )();
+  
+  // Init vars and scene depending on the renderer
+  if ( ifwebgl ) {
+    return 'webgl'
+  }
+  else if ( ifcanvas ) {
+    return 'canvas'
+  }
+  else {
+    return 'none';
+  }
+}

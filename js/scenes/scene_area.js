@@ -359,16 +359,15 @@ function initCanvasScene () {
 
 function initScene() {
   
-  // Detecting the renderer - from webgl detector
-  var ifcanvas = !! window.CanvasRenderingContext2D;
-  var ifwebgl = ( function () { try { return !! window.WebGLRenderingContext && !! document.createElement( 'canvas' ).getContext( 'experimental-webgl' ); } catch( e ) { return false; } } )();
+  // Detecting the renderer:
+  var browserRender = detectRenderer ( );
   
   // Init vars and scene depending on the renderer
-  if ( ifwebgl ) {
+  if ( browserRender == 'webgl' ) {
     initSceneVars ();
     initWebGLScene ();
   }
-  else if ( ifcanvas ) {
+  else if ( browserRender == 'canvas' ) {
     initSceneVars ();
     initCanvasScene ();
   }
@@ -376,31 +375,7 @@ function initScene() {
     alert("Your browser doesn't support this function!");
   }
   
-  // **** Mouse controls *********************
-  // Setting controls for the trackball camera
-  controls = new THREE.TrackballControlsTouch( camera, renderer.domElement );
-  controls.zoomSpeed = 0.3;
-  controls.rotateSpeed = 0.1;
-  controls.minDistance = 500;
-  controls.maxDistance = 3500;
-  
-  // funciton to get the mouse position for the hover efect on the areas
-  $(document).mousemove(function(event) {
-
-    event.preventDefault();
-
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-  });
-
-  // function to adjust the size of the canvas when resizing the window
-  $(window).resize(function() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize( window.innerWidth, window.innerHeight );
-  });
+  controls = mouseControls ( camera );
 
 }
 
