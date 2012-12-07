@@ -10,9 +10,6 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
   //the 3D cube object
   this.areaobj = null;
   
-  //the 3D stroke (wireframe object) object
-  this.wfobj = null;
-  
   // the 3D object for the text label
   this.labelobj = null
   
@@ -97,27 +94,10 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
       this.areaobj.castShadow = true;
       this.areaobj.receiveShadow = true;
     }
-    // this.areaobj.position.x = xDeviation + this.posx*squareStep + squareStep/2;
-    // this.areaobj.position.y = yDeviation + this.h/2;
-    this.areaobj.position.z = zDeviation + this.posz*squareStep + squareStep/4;
+    this.areaobj.position.z = zDeviation + this.posz*squareStep + squareStep/4 + 
+                              this.extrudeOpts.amount/2;
     target.add( this.areaobj );
     
-    // If we want to have wireframe (with a lighter colour) we attach 2nd obj
-    if(this.hasWireframe){
-      
-      // Creates cube with the same size
-      var geometry = new THREE.CubeGeometry( this.sqsize, this.h, this.sqsize );
-      
-      // Generates a wireframe material
-      var material = new THREE.MeshBasicMaterial( { 
-                         color: parseInt( this.lumcolor, 16 ),
-                         wireframe:true} );
-      this.wfobj = new THREE.Mesh( geometry, material );
-      this.wfobj.receiveShadow = true;
-      
-      // Adds the wireframe object to the main one
-      this.areaobj.add( this.wfobj );
-    }
     
     // If we want to have a label, we add a text object
     if( this.hasLabel ){
