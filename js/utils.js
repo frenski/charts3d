@@ -1,6 +1,17 @@
 // *******************
 // Util functions
 
+// A function to Detect touch devices - solution by Gregers Rygg
+// maybe look for better one
+function isTouchDevice() {
+   var el = document.createElement('div');
+   el.setAttribute('ongesturestart', 'return;');
+   if(typeof el.ongesturestart == "function"){
+      return true;
+   }else {
+      return false
+   }
+}
 
 // A function to calcuate lighter hex colour for the wireframe 
 // courtesy of Craig Buckler:
@@ -140,7 +151,12 @@ function mouseControls ( camera ){
   
   // **** Mouse controls *********************
   // Setting controls for the trackball camera
-  controls = new THREE.TrackballControlsTouch( camera, renderer.domElement );
+  
+  if ( isTouchDevice () ){
+    controls = new THREE.TrackballControlsTouch( camera, renderer.domElement );
+  }else{
+    controls = new THREE.TrackballControls( camera, renderer.domElement );
+  }
   controls.zoomSpeed = 0.3;
   controls.rotateSpeed = 0.1;
   controls.minDistance = 500;
