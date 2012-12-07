@@ -2,6 +2,9 @@
  * a general settings script - @author Yane Frenski
  */
 
+// table rows and cols maximum
+var maxTableRows = 50;
+var maxTableCols = 50;
 // size of one square in real 3d units
 var squareStep = 200;
 // maximum height of the walls (y and z)
@@ -22,10 +25,16 @@ var extrudeOpts = { amount: pieHeight,
                     bevelSegments: 5, 
                     steps: 5 };
 
+// init the schema and data array
+var schema = { cols: [ { name: "Column 1", color:"ae00e6" }],
+              rows: [ { name: "Row 1" } ] };
+var dataValues = [[0]];
+
 switch(chartType){
   case 'bar':
     break;
   case 'pie':
+    maxTableRows = 1;
     break;
   case 'area':
     valHeight = 500;

@@ -1,6 +1,6 @@
 // ****************************************************************************
 // sample data file for the bar charts
-var schema = { 
+schema = { 
                cols: [ { name:"2010", color:"d17100" }, 
                        { name:"2011", color:"d9bd00" }, 
                        { name:"2012", color:"61c900" }, 
@@ -13,7 +13,7 @@ var schema = {
                      ]
              };
              
-var dataValues = [];
+dataValues = [];
 
 for( var i=0; i<schema.cols.length; i++ ){
   dataValues[i] = [];
