@@ -1,3 +1,7 @@
+/**
+ * DOM initialization script - @author Yane Frenski
+ */
+
 // Creates the edit/add data dialog box
 $( "#div-databox" ).dialog({
             modal: true,

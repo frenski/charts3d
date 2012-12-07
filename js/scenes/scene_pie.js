@@ -2,22 +2,6 @@
  * a script for loading pie chart scene for WebGL - @author Yane Frenski
  */
 
-// *** GENERAL SETTINGS *******************************************************
-// ****************************************************************************
-var pieRadius = 750;
-// Background Color
-var backColor = "000000";
-// Colour for the text on each bar
-var valTextColor = "ffffff";
-// the thickness of the pie
-var pieHeight = 150;
-// extrude options
-var extrudeOpts = { amount: pieHeight, 
-                    bevelEnabled: true, 
-                    bevelSegments: 5, 
-                    steps: 5 };
-
-
 // *** GLOBAL VARIABLES *******************************************************
 // ****************************************************************************
 

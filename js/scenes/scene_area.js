@@ -2,24 +2,6 @@
  * a script for loading bar chart scene for WebGL - @author Yane Frenski
  */
 
-// *** GENERAL SETTINGS *******************************************************
-// ****************************************************************************
-// size of one square in real 3d units
-var squareStep = 200;
-// maximum height of the walls (y and z)
-var valHeight = 500;
-// Background Color
-var backColor = "000000";
-// Colour for the text on the x and y scales
-var scaleTextColor = "eeeeee";
-// Colour for the text on each bar
-var valTextColor = "ffffff";
-// extrude options
-var extrudeOpts = { amount: squareStep/4, 
-                    bevelEnabled: true, 
-                    bevelSegments: 5, 
-                    steps: 5 };
-
 
 // *** GLOBAL VARIABLES *******************************************************
 // ****************************************************************************
