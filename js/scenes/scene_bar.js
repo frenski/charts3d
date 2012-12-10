@@ -13,7 +13,7 @@ var mouse = { }, touch = { },  INTERSECTED, intersectedId;
 var yDeviation, zDeviation, xDeviation;
 
 // Creates the value scale variables
-var minScaleVal, maxScaleVal, scaleDif;
+var niceScale;
 
 // bars array
 var bars, intersobj;
@@ -43,15 +43,9 @@ function initSceneVars(){
   xDeviation = -(schema.rows.length*squareStep/2);
 
   // Inits the value scale variables
-  minScaleVal = getMinArr ( dataValues );
-  maxScaleVal = getMaxArr ( dataValues );
-  if(minScaleVal > 0){
-    minScaleVal = 0;
-  }else{
-    minScaleVal = getRoundMax ( minScaleVal );
-  }
-  maxScaleVal = getRoundMax ( maxScaleVal );
-  scaleDif = maxScaleVal - minScaleVal;
+  niceScale = new NiceScale ( getMinArr ( dataValues ), 
+                              getMaxArr ( dataValues ) );
+  niceScale.calculate ();
   
   // bars array
   bars = [];
@@ -107,7 +101,7 @@ function initWebGLScene () {
   // material for the grounds
   var gridTex = THREE.ImageUtils.loadTexture("img/grid_pattern1.jpg");
   gridTex.wrapS = gridTex.wrapT = THREE.RepeatWrapping;
-  gridTex.repeat.set( 5, valHeight/200 );
+  gridTex.repeat.set( 5, 5 );
   
   var gridTex2 = THREE.ImageUtils.loadTexture("img/grid_pattern2.jpg");
   gridTex2.wrapS = gridTex2.wrapT = THREE.RepeatWrapping;
@@ -183,11 +177,12 @@ function initWebGLScene () {
     sTextRows[i] = new ScaleText(schema.rows[i].name, "row", i, scaleTextColor);
     sTextRows[i].addText(groundX);
   }
-  
-  var maxValTexts = valHeight/squareStep*2;
-  for ( var i=0; i<=maxValTexts; i++ ) {
-    var val = Math.floor(scaleDif*i/maxValTexts);
-    sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
+    
+  var yStep = valHeight/niceScale.tickNum;
+  for ( var i=0; i<=niceScale.tickNum; i++ ) {
+    var val = niceScale.niceMin + i*niceScale.tickSpacing;
+    var stringVal = val.toString();
+    sTextVals[i] = new ScaleText(stringVal, "val", i, scaleTextColor, yStep);
     sTextVals[i].addText(groundZ);
   }
   
@@ -198,7 +193,10 @@ function initWebGLScene () {
       bars.push( new BarCube( schema.cols[i].color, j, i, 
                               dataValues[i][j], valTextColor, 'full', null,
                               { row:schema.rows[j].name, 
-                                col:schema.cols[i].name } ) );
+                                col:schema.cols[i].name },
+                                niceScale.niceMin, 
+                                niceScale.range, 
+                                valHeight ) );
       bars[bars.length-1].addBar(scene);
       // Adds the bars objects to ones that need to be checked for intersection
       // This is used for the moseover action
@@ -362,7 +360,10 @@ function initCanvasScene () {
                               dataValues[i][j], valTextColor, 
                               'light', $('#valuelabel'),
                               { row:schema.rows[j].name, 
-                                col:schema.cols[i].name } ) );
+                                col:schema.cols[i].name },
+                                niceScale.niceMin, 
+                                niceScale.range, 
+                                valHeight ) );
       bars[bars.length-1].hasLabel = false;               
       bars[bars.length-1].addBar(scene);
       // Adds the bars objects to ones that need to be checked for intersection

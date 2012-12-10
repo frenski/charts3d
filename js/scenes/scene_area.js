@@ -14,7 +14,7 @@ var mouse = { }, touch = { },  INTERSECTED, intersectedId;
 var yDeviation, zDeviation, xDeviation;
 
 // Creates the value scale variables
-var minScaleVal, maxScaleVal, scaleDif;
+var niceScale;
 
 // areas array
 var areas, intersobj;
@@ -44,15 +44,9 @@ function initSceneVars(){
   xDeviation = -(schema.rows.length*squareStep/2);
 
   // Inits the value scale variables
-  minScaleVal = getMinArr ( dataValues );
-  maxScaleVal = getMaxArr ( dataValues );
-  if(minScaleVal > 0){
-    minScaleVal = 0;
-  }else{
-    minScaleVal = getRoundMax ( minScaleVal );
-  }
-  maxScaleVal = getRoundMax ( maxScaleVal );
-  scaleDif = maxScaleVal - minScaleVal;
+  niceScale = new NiceScale ( getMinArr ( dataValues ), 
+                              getMaxArr ( dataValues ) );
+  niceScale.calculate ();
   
   // areas array
   areas = [];
@@ -185,10 +179,11 @@ function initWebGLScene () {
     sTextRows[i].addText(groundX);
   }
   
-  var maxValTexts = valHeight/squareStep*2;
-  for ( var i=0; i<=maxValTexts; i++ ) {
-    var val = Math.floor(scaleDif*i/maxValTexts);
-    sTextVals[i] = new ScaleText(val.toString(), "val", i, scaleTextColor);
+  var yStep = valHeight/niceScale.tickNum;
+  for ( var i=0; i<=niceScale.tickNum; i++ ) {
+    var val = niceScale.niceMin + i*niceScale.tickSpacing;
+    var stringVal = val.toString();
+    sTextVals[i] = new ScaleText(stringVal, "val", i, scaleTextColor, yStep);
     sTextVals[i].addText(groundZ);
   }
   
@@ -199,7 +194,10 @@ function initWebGLScene () {
                               dataValues[i], valTextColor, extrudeOpts,
                               'full', null,
                               { row:schema.rows, 
-                                col:schema.cols[i].name } ) );
+                                col:schema.cols[i].name },
+                                niceScale.niceMin, 
+                                niceScale.range, 
+                                valHeight ) );
     areas[areas.length-1].addArea(scene);
     // Adds the areas objects to ones that need to be checked for intersection
     // This is used for the moseover action
@@ -320,7 +318,10 @@ function initCanvasScene () {
                               dataValues[i], valTextColor, extrudeOpts,
                               'light', $('#valuelabel'),
                               { row:schema.rows, 
-                                col:schema.cols[i].name } ) );
+                                col:schema.cols[i].name },
+                                niceScale.niceMin, 
+                                niceScale.range, 
+                                valHeight ) );
     areas[areas.length-1].hasLabel = false;
     areas[areas.length-1].addArea(scene);
     // Adds the areas objects to ones that need to be checked for intersection

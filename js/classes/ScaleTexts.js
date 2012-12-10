@@ -2,7 +2,7 @@
  * a class for the Text objects on the scales - @author Yane Frenski
  */
 
-ScaleText = function( text, type, pos, color ) {
+ScaleText = function( text, type, pos, color, yStep ) {
   
   // the 3D object for the text label
   this.txtobj = null;
@@ -15,6 +15,9 @@ ScaleText = function( text, type, pos, color ) {
   
   // position
   this.position = pos;
+  
+  // the difirance in position according y axis
+  this.yStep = yStep;
   
   // the color
   this.color = 0x555555;
@@ -62,7 +65,7 @@ ScaleText = function( text, type, pos, color ) {
       this.txtobj.position.z = squareStep/5 + 
                                 this.txt.length * 
                                 ( this.textSize -  this.letterSize );
-      this.txtobj.position.y = yDeviation + this.position * squareStep/2 - 
+      this.txtobj.position.y = yDeviation + this.position * yStep - 
                                this.textSize/2;
     }
     

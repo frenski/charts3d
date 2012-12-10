@@ -5,6 +5,8 @@
   algorithm Java code by Steffen L. Norgren
   http://trollop.org/2011/03/15/algorithm-for-optimal-scaling-on-a-chart-axis/
   
+  TODO: Fix the floating point problem!
+  
 **/
 
 NiceScale = function ( min, max) {

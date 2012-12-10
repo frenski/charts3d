@@ -2,7 +2,7 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-BarCube = function( color, x, z, val, valcolor, render, html_label, titles ) {
+BarCube = function( color, x, z, val, valcolor, render, html_label, titles, minScaleVal, scaleDif, valHeight ) {
   
   // The render type - can be light and full
   this.renderType = render;

@@ -2,7 +2,7 @@
  * a class for the Bar objects - @author Yane Frenski
  */
 
-AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, titles ) {
+AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, titles, minScaleVal, scaleDif, valHeight ) {
   
   // The render type - can be light and full
   this.renderType = render;
@@ -32,6 +32,11 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
   // rows and column titles
   this.titles = titles;
   
+  // vars to calculate the values
+  this.minScaleVal = minScaleVal;
+  this.scaleDif = scaleDif;
+  this.valHeight = valHeight;
+  
   // extrude options
   this.extrudeOpts = extrude;
   
@@ -59,7 +64,10 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
     shape.moveTo( startX, startY );
     
     for (var i = 0; i < this.val.length; i++) {
-      shape.lineTo( startX + i*squareStep, startY + calcPointYPos( this.val[i] ) );
+      shape.lineTo( startX + i*squareStep, startY + calcPointYPos( this.val[i], 
+                                                                   this.minScaleVal,
+                                                                   this.scaleDif,
+                                                                   this.valHeight) );
     }
     shape.lineTo( startX + ( this.val.length - 1)*squareStep , startY);
     shape.lineTo( startX, startY );
@@ -131,7 +139,10 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
         // Positions the text and adds it to the scene
         this.labelobj[i] = new THREE.Mesh( geometry, material );
         this.labelobj[i].position.y += yDeviation + 
-                                       calcPointYPos( this.val[i] ) + 50;
+                                       calcPointYPos( this.val[i], 
+                                                      this.minScaleVal,
+                                                      this.scaleDif,
+                                                      this.valHeight ) + 50;
         this.labelobj[i].position.x += xDeviation + (i+0.5)*squareStep;
         this.labelobj[i].position.z += this.extrudeOpts.amount/2 + 
                                        (this.labelSize/2)*txt.length;
@@ -199,7 +210,7 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
     
   };
   
-  var calcPointYPos = function ( val ) {
+  var calcPointYPos = function ( val , minScaleVal , scaleDif ,valHeight ) {
     return scaledVar = ( (val - minScaleVal)/scaleDif ) * valHeight;
   }
   
