@@ -18,6 +18,6 @@ dataValues = [];
 for( var i=0; i<schema.cols.length; i++ ){
   dataValues[i] = [];
   for (var j=0; j<schema.rows.length; j++ ){
-    dataValues[i][j] = Math.floor((Math.random()*400));
+    dataValues[i][j] = Math.floor((Math.random()*1000));
   }
 }

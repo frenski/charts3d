@@ -102,7 +102,7 @@ function initWebGLScene () {
   // material for the grounds
   var gridTex = THREE.ImageUtils.loadTexture("img/grid_pattern1.jpg");
   gridTex.wrapS = gridTex.wrapT = THREE.RepeatWrapping;
-  gridTex.repeat.set( 5, valHeight/200 );
+  gridTex.repeat.set( 5, 5 );
   
   var gridTex2 = THREE.ImageUtils.loadTexture("img/grid_pattern2.jpg");
   gridTex2.wrapS = gridTex2.wrapT = THREE.RepeatWrapping;

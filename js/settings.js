@@ -37,7 +37,7 @@ switch(chartType){
     maxTableRows = 1;
     break;
   case 'area':
-    valHeight = 500;
+    valHeight = 600;
     extrudeOpts = { amount: squareStep/4, 
                     bevelEnabled: true, 
                     bevelSegments: 5, 

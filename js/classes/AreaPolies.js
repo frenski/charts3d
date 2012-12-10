@@ -158,7 +158,6 @@ AreaPoly = function( color, z, val, valcolor, extrude, render, html_label, title
         
       }
       
-      
       // hides the label at the beginning
       this.hideLabel();
       
