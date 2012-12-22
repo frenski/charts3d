@@ -2,6 +2,9 @@
  * a general settings script - @author Yane Frenski
  */
 
+
+// static url - the url for the images, etc
+var staticUrl = "/charts3d/";
 // table rows and cols maximum
 var maxTableRows = 50;
 var maxTableCols = 50;

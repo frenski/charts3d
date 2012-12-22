@@ -100,11 +100,11 @@ function initWebGLScene () {
   
   //*** Adding the grounds
   // material for the grounds
-  var gridTex = THREE.ImageUtils.loadTexture("img/grid_pattern1.jpg");
+  var gridTex = THREE.ImageUtils.loadTexture(staticUrl+"img/grid_pattern1.jpg");
   gridTex.wrapS = gridTex.wrapT = THREE.RepeatWrapping;
   gridTex.repeat.set( 5, 5 );
   
-  var gridTex2 = THREE.ImageUtils.loadTexture("img/grid_pattern2.jpg");
+  var gridTex2 = THREE.ImageUtils.loadTexture(staticUrl+"img/grid_pattern2.jpg");
   gridTex2.wrapS = gridTex2.wrapT = THREE.RepeatWrapping;
   gridTex2.repeat.set( schema.rows.length, schema.cols.length );
   
