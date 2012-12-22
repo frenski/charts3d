@@ -28,12 +28,12 @@
     } 
     tbody.append('<tr><td class="rowcol" style="padding:0">'+
                   '<div class="addremove" style="text-align:right;"><img id="'+nspace+
-                  'addCol" src="img/add2.png"><br>'+
-                  '<img id="'+nspace+'remCol" src="img/rem1.png"></div>'+
+                  'addCol" src="'+opts.imgUrl+'add2.png"><br>'+
+                  '<img id="'+nspace+'remCol" src="'+opts.imgUrl+'rem1.png"></div>'+
                   '<div style="clear:both;"></div>'+
                   '<div class="addremove" style="margin-top:0"><img id="'+nspace+
-                  'addRow" src="img/add1.png"><img id="'+nspace+
-                  'remRow" src="img/rem2.png"></div></td>'+colsToAdd+'</tr>');
+                  'addRow" src="'+opts.imgUrl+'add1.png"><img id="'+nspace+
+                  'remRow" src="'+opts.imgUrl+'rem2.png"></div></td>'+colsToAdd+'</tr>');
     
     // adds rows from the init data and schema
     var rowsToAdd = '';
@@ -218,7 +218,8 @@
     exportCall: '',
     initSchema: { cols: [ { name: "Column 1", color:"ae00e6" }],
                   rows: [ { name: "Row 1" } ] },
-    initData: [[0]]
+    initData: [[0]],
+    imgUrl: 'img/'
   };
   
   /**** plugin parameters *****************************************************
@@ -242,6 +243,7 @@
                          }
                          initData must be two dimentional array with the size
                          of the number of rows and columns in the initSchema
+    * imgUrl:            The url for the images
                          
   ****************************************************************************/
 

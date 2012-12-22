@@ -50,7 +50,8 @@ $('#datatable').tableSheet({
     animateScene();
     $('#div-legend').children('h4').html($('#charttitle').val());
     $('#valuelabel').css('color', '#'+valTextColor);
-  }
+  },
+  imgUrl: staticUrl+'img/'
 });
 
 // link to open add/edit data dialog again
