@@ -51,7 +51,8 @@ $('#datatable').tableSheet({
     $('#div-legend').children('h4').html($('#charttitle').val());
     $('#valuelabel').css('color', '#'+valTextColor);
   },
-  imgUrl: staticUrl+'img/'
+  imgUrl: staticUrl+'img/',
+  colorpickerImg: staticUrl+'css/images/ui-colorpicker.png'
 });
 
 // link to open add/edit data dialog again
@@ -96,7 +97,7 @@ $('#colorpick_bc').colorpicker({
     buttonColorize: true,
     showNoneButton: false,
     alpha: true,
-    buttonImage: 'css/images/ui-colorpicker.png',
+    buttonImage: staticUrl+'css/images/ui-colorpicker.png'
 });
 
 $('#colorpick_vt').colorpicker({
@@ -106,7 +107,7 @@ $('#colorpick_vt').colorpicker({
     buttonColorize: true,
     showNoneButton: false,
     alpha: true,
-    buttonImage: 'css/images/ui-colorpicker.png',
+    buttonImage: staticUrl+'css/images/ui-colorpicker.png'
 });
 
 if ( chartType == 'pie') {
@@ -120,7 +121,7 @@ if ( chartType == 'pie') {
       buttonColorize: true,
       showNoneButton: false,
       alpha: true,
-      buttonImage: 'css/images/ui-colorpicker.png',
+      buttonImage: staticUrl+'css/images/ui-colorpicker.png'
   });
   // Hides the color picker input fields
   $('#colorpick_stc').hide();
@@ -142,7 +143,7 @@ if ( loadType == 'sample' ){
   // initiating the scene
   initScene();
   animateScene();
-  $('#charttitle').val('Three Chart Sample');
+  $('#charttitle').val(chartTitle);
   $('#div-legend').children('h4').html($('#charttitle').val());
   
   if ( chartType == 'pie' ) {

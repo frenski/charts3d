@@ -146,7 +146,7 @@
           buttonColorize: true,
           showNoneButton: false,
           alpha: true,
-          buttonImage: 'css/images/ui-colorpicker.png',
+          buttonImage: opts.colorpickerImg
       });
       el.hide();
     }
@@ -219,7 +219,8 @@
     initSchema: { cols: [ { name: "Column 1", color:"ae00e6" }],
                   rows: [ { name: "Row 1" } ] },
     initData: [[0]],
-    imgUrl: 'img/'
+    imgUrl: 'img/',
+    colorpickerImg: 'css/images/ui-colorpicker.png'
   };
   
   /**** plugin parameters *****************************************************
@@ -244,6 +245,7 @@
                          initData must be two dimentional array with the size
                          of the number of rows and columns in the initSchema
     * imgUrl:            The url for the images
+    * colorpickerImg:    'css/images/ui-colorpicker.png'
                          
   ****************************************************************************/
 
