@@ -79,12 +79,35 @@ $('div#link-export-image').click(function(){
   var canvasData = renderer.domElement.toDataURL();
   $.ajax({
       type: "POST",
-      url: "exporters/export_image.php?h="+window.innerHeight+
+      url: exportImageUrl+'?h='+window.innerHeight+
             "&w="+window.innerWidth+"&c="+backColor,
       data: canvasData,
       contentType: "application/upload; charset=utf-8",
       success: function(data){
         $('div#result-export-image').html(data);
+      }
+  });
+});
+
+// link to export the chart as web
+$('div#link-export-embed').click(function(){
+  var exportData = {
+    'title':      $('#charttitle').val(),
+    'schema':     JSON.stringify(schema),
+    'dataValues': JSON.stringify(dataValues),
+    'settings':   'valHeight='+valHeight+';'+
+                  'backColor='+backColor+';'+
+                  'scaleTextColor='+scaleTextColor+';'+
+                  'pieHeight='+pieHeight,
+    'chartType':  chartType
+  };
+  
+  $.ajax({
+      type: "POST",
+      url: "charts/save/",
+      data: exportData,
+      success: function(data){
+        $('div#result-export-embed').html(data);
       }
   });
 });

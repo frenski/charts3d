@@ -3,8 +3,11 @@
  */
 
 
-// static url - the url for the images, etc
+ // urls
 var staticUrl = "/charts3d/";
+var rootUrl = "/charts3d/";
+var exportUrl = rootUrl+'save/';
+var exportImageUrl = "exporters/export_image.php";
 // table rows and cols maximum
 var maxTableRows = 50;
 var maxTableCols = 50;
@@ -27,7 +30,8 @@ var extrudeOpts = { amount: pieHeight,
                     bevelEnabled: true, 
                     bevelSegments: 5, 
                     steps: 5 };
-
+// world radius
+var globeRadius = 750;
 // init the schema and data array
 var schema = { cols: [ { name: "Column 1", color:"ae00e6" }],
               rows: [ { name: "Row 1" } ] };
@@ -45,6 +49,9 @@ switch(chartType){
                     bevelEnabled: true, 
                     bevelSegments: 5, 
                     steps: 5 };
+    break;
+  case 'world':
+    valHeight = 400;
     break;
   default:
     

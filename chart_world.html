@@ -68,11 +68,10 @@
       </div>
       <div id="result-export-image" class="div-results"></div>
       <div class="separator_hid10"></div>
-      <div id="link-export-embed" class="general-button general-button-b element-centered">
+      <div id="link-export-embed" class="general-button general-button-b general-button-disabled element-centered">
         Export for the web<br>
-        <span>(As a public webpage<br>and as an embedded code)</span>
+        <span>As a webpage and embed code</span>
       </div>
-      <div id="result-export-embed" class="div-results"></div>
       <div class="separator_hid30"></div>
       <div class="separator_big_h"></div>
       <div class="separator_hid10"></div>
@@ -84,13 +83,14 @@
   </body>
   
   <script type="text/javascript">
-    chartType = "bar";
+    chartType = "world";
     loadType = "sample";
-    chartTitle = "Bar Chart Sample";
+    chartTitle = "Sample World chart";
   </script>
   
   <script type="text/javascript" src="js/settings.js"></script>
   <script type="text/javascript" src="js/sampledata/InputDataBar.js"></script>
+  <script type="text/javascript" src="js/sampledata/countries.js"></script>
   <script type="text/javascript" src="js/libs/jquery-1.7.1.js"></script>
   <script type="text/javascript" src="js/plugins/jquery-ui.js"></script>
   <script type="text/javascript" src="js/plugins/jquery.jeditable.mini.js"></script>
@@ -104,7 +104,7 @@
   <script type="text/javascript" src="js/classes/BarCubes.js"></script>
   <script type="text/javascript" src="js/classes/ScaleTexts.js"></script>
   <script type="text/javascript" src="fonts/helvetiker_bold.typeface.js"></script>
-  <script type="text/javascript" src="js/scenes/scene_bar.js"></script>
+  <script type="text/javascript" src="js/scenes/scene_world.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
-
+  
 </html>

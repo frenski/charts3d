@@ -188,5 +188,13 @@ BarCube = function( color, x, z, val, valcolor, render, html_label, titles, minS
     
   };
   
+  this.reposition = function ( x, y, z ){
+    this.barobj.position.set ( x, y, z );
+  }
+  
+  this.reorientation = function ( x, y, z ){
+    this.barobj.rotation.set ( x, y, z );
+  }
+  
   
 };
