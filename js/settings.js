@@ -52,6 +52,7 @@ switch(chartType){
     break;
   case 'world':
     valHeight = 400;
+    countryFocus = "Greece";
     break;
   default:
     

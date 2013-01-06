@@ -6,8 +6,9 @@
 // ****************************************************************************
 
 // Main scene vars
-var camera, scene, renderer, projector;
+var camera, scene, renderer, projector, spotLight;
 var mouse = { }, touch = { },  INTERSECTED, intersectedId;
+var camPos = { x:100, y:100, z:1800 };
 
 // The deviation position of the ground from the center
 var yDeviation, zDeviation, xDeviation;
@@ -73,9 +74,7 @@ function initSceneVars(){
                                         window.innerWidth/window.innerHeight,
                                         1, 
                                         5000 );
-  camera.position.z = 1600;
-  camera.position.x = 500;
-  camera.position.y = 500;
+  camera.position.set(camPos.x,camPos.y,camPos.z);
   
 }
 
@@ -102,8 +101,8 @@ function initWebGLScene () {
   var sphereMaterial = new THREE.MeshPhongMaterial({
     ambient : 0x444444,
     color : 0x777777,
-    shininess : 70, 
-    specular : 0x888888,
+    shininess : 40, 
+    specular : 0x333333,
     shading : THREE.SmoothShading,
     side: THREE.DoubleSide,
     map:worldtex
@@ -114,19 +113,18 @@ function initWebGLScene () {
                               sphereMaterial);
   globe.receiveShadow = true;
   // add the sphere to the scene
-  scene.add(globe);
-  
+  scene.add(globe);  
   
   var dummysp1 = new THREE.Mesh( 
-                          new THREE.SphereGeometry(10, 2, 2),
-                          new THREE.MeshLambertMaterial({ color: 0xCC0000 }));
+    new THREE.CubeGeometry( 20, 20, 20 ),
+    new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
 
   // add the sphere to the scene
-  scene.add(dummysp1);
+  globe.add(dummysp1);
   
   var dummysp2 = new THREE.Mesh( 
-                          new THREE.SphereGeometry(10, 2, 2),
-                          new THREE.MeshLambertMaterial({ color: 0xCC0000 }));
+    new THREE.CubeGeometry( 20, 20, 20 ),
+    new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
 
   // add the sphere to the scene
   dummysp1.add(dummysp2);
@@ -140,29 +138,14 @@ function initWebGLScene () {
                             niceScale.range, 
                             valHeight ) );
   bars[bars.length-1].sqsize = 10;
-  bars[bars.length-1].h += globeRadius;
-  var c = country["Bulgaria"];
-  console.log(c);
+  var c = country["Portugal"];
   bars[bars.length-1].addBar(dummysp2);
-  // var pos = findGeoPosition(c.lat.toRad(),Math.PI+c.lng.toRad(),globeRadius);
-  // bars[bars.length-1].reposition(pos.x,pos.y,pos.z);
-  // bars[bars.length-1].reorientation(Math.PI/2+(c.lat).toRad(),Math.PI+(c.lng).toRad(),0);
-  // Adds the bars objects to ones that need to be checked for intersection
-  // This is used for the moseover action
   intersobj[bars.length-1] = bars[bars.length-1].barobj;
   intersobj[bars.length-1].barid = bars.length-1;
   
-  bars[bars.length-1].reposition(0,bars[bars.length-1].h/2,0);
-  // bars[bars.length-1].reorientation(c.lng,c.lat);
-  globe.rotation.y += Math.PI;
-  // dummysp.rotation.y += Math.PI;
-  // dummysp.rotation.x = Math.PI/2;
-  // dummysp.rotation.x -= (c.lat).toRad();
-  // dummysp.rotation.z -= (c.lng).toRad();
-  // dummysp.rotation.set(c.lat, 0 , c.lng);
+  bars[bars.length-1].reposition(0,globeRadius+bars[bars.length-1].h/2,0);
   
-  
-  dummysp1.rotation.y = (c.lng).toRad();
+  dummysp1.rotation.y = Math.PI + (c.lng).toRad();
   dummysp2.rotation.x = Math.PI/2 - (c.lat).toRad();
   
   // //*** Adding bars
@@ -183,6 +166,9 @@ function initWebGLScene () {
   //   }
   // }
   
+  // focus the globe on a certain country
+  var cfoc = country[countryFocus];
+  globe.rotation.set(cfoc.lat.toRad(), Math.PI - cfoc.lng.toRad(), 0);
   
   //*** Adding the lights
   var light = new THREE.DirectionalLight( 0x777777 );
@@ -190,22 +176,25 @@ function initWebGLScene () {
   scene.add( light );
   
   var light = new THREE.DirectionalLight( 0x777777 );
+  light.position.set( 0, 1, -1 ).normalize();
+  scene.add( light );
+  
+  var light = new THREE.DirectionalLight( 0x777777 );
   light.position.set( 1, 0, -1 ).normalize();
   scene.add( light );
   
+  spotLight = new THREE.SpotLight( 0xeeeeee, 2 );
+  spotLight.position.set( camPos.x, camPos.y, camPos.z );
+  spotLight.target.position.set( 0, 0, 0 );
   
-  light = new THREE.SpotLight( 0x999999, 2 );
-  light.position.set( 600, 3000, 1500 );
-  light.target.position.set( 0, 0, 0 );
-  
-  light.shadowCameraNear = 1000;
-  light.shadowCameraFar = 5000;
-  light.shadowCameraFov = 40;
-  light.castShadow = true;
-  light.shadowDarkness = 0.3;
-  light.shadowBias = 0.0001;
-  // light.shadowCameraVisible  = true;
-  scene.add( light );
+  spotLight.shadowCameraNear = 1;
+  spotLight.shadowCameraFar = 3000;
+  spotLight.shadowCameraFov = 100;
+  spotLight.castShadow = true;
+  spotLight.shadowDarkness = 0.3;
+  spotLight.shadowBias = 0.0001;
+  // spotLight.shadowCameraVisible  = true;
+  scene.add( spotLight );
   ////////////////////
   
 }
@@ -361,17 +350,15 @@ function animateScene() {
     intersectedId = null;
     INTERSECTED = null;
   }
+  
+  // set the spotlight to move with the camera
+  spotLight.position.set( camera.position.x, 
+                          camera.position.y, 
+                          camera.position.z+300);
 
+  // renders                        
   renderer.render( scene, camera );
 
-}
-
-// finds geoposition
-function findGeoPosition(lt,ln,r){
-  var x = r * Math.cos(lt) * Math.sin(ln);
-  var y = r * Math.sin(lt)
-  var z = r * Math.cos(lt) * Math.cos(ln);
-  return { x: Math.round(x), y:Math.round(y), z: Math.round(z) };
 }
 
 // Converts numeric degrees to radians
