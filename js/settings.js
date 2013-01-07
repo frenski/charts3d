@@ -51,7 +51,7 @@ switch(chartType){
                     steps: 5 };
     break;
   case 'world':
-    valHeight = 400;
+    valHeight = 300;
     countryFocus = "Greece";
     break;
   default:

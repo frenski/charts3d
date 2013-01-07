@@ -1,23 +1,23 @@
 // ****************************************************************************
 // sample data file for the bar charts
 schema = { cols: [
-                   { name:"Spain", color:"be6700" }, 
-                   { name:"Portugal", color:"be6700" }, 
-                   { name:"Germany", color:"be6700" },
-                   { name:"France", color:"be6700" },
-                   { name:"Ireland", color:"be6700" },
-                   { name:"Italy", color:"be6700" },
-                   { name:"Austria", color:"be6700" },
-                   { name:"Slovakia", color:"be6700" },
-                   { name:"Finland", color:"be6700" },
-                   { name:"Estonia", color:"be6700" },
-                   { name:"Luxembourg", color:"be6700" },
-                   { name:"Belgium", color:"be6700" },
-                   { name:"Netherlands", color:"be6700" },
-                   { name:"Slovenia", color:"be6700" },
-                   { name:"Greece", color:"be6700" },
-                   { name:"Cyprus", color:"be6700" },
-                   { name:"Malta", color:"be6700" }
+                   { name:"Spain", color:"E28105" }, 
+                   { name:"Portugal", color:"E28105" }, 
+                   { name:"Germany", color:"E28105" },
+                   { name:"France", color:"E28105" },
+                   { name:"Ireland", color:"E28105" },
+                   { name:"Italy", color:"E28105" },
+                   { name:"Austria", color:"E28105" },
+                   { name:"Slovakia", color:"E28105" },
+                   { name:"Finland", color:"E28105" },
+                   { name:"Estonia", color:"E28105" },
+                   { name:"Luxembourg", color:"E28105" },
+                   { name:"Belgium", color:"E28105" },
+                   { name:"Netherlands", color:"E28105" },
+                   { name:"Slovenia", color:"E28105" },
+                   { name:"Greece", color:"E28105" },
+                   { name:"Cyprus", color:"E28105" },
+                   { name:"Malta", color:"E28105" }
                   ],
                   rows:[{name:"GDP per capita"}]
                 }

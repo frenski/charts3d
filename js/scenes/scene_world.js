@@ -102,8 +102,18 @@ function initWebGLScene () {
   
   //*** Adding the lights ********
   //******************************
-  // setting up the texture
+  
+  // setting up the defuse map
   var worldtex = THREE.ImageUtils.loadTexture(staticUrl+"img/world1.jpg");
+  
+  // setting up the bump map
+  var mapHeight = THREE.ImageUtils.loadTexture( "img/world_bump.jpg" );
+  mapHeight.anisotropy = 4;
+  mapHeight.repeat.set( 0.998, 0.998 );
+  mapHeight.offset.set( 0.001, 0.001 )
+  mapHeight.wrapS = mapHeight.wrapT = THREE.RepeatWrapping;
+  mapHeight.format = THREE.RGBFormat;
+  
   // setting up the material
   var sphereMaterial = new THREE.MeshPhongMaterial({
     ambient : 0x444444,
@@ -112,7 +122,9 @@ function initWebGLScene () {
     specular : 0x333333,
     shading : THREE.SmoothShading,
     side: THREE.DoubleSide,
-    map:worldtex
+    map:worldtex,
+    bumpMap:mapHeight,
+    bumpScale: 10
   });
   // creaing the mesh
   var globe = new THREE.Mesh(new THREE.SphereGeometry( globeRadius,
@@ -169,19 +181,19 @@ function initWebGLScene () {
   globe.rotation.set(cfoc.lat.toRad(), Math.PI - cfoc.lng.toRad(), 0);
   
   //*** Adding the lights
-  var light = new THREE.DirectionalLight( 0x777777 );
+  var light = new THREE.DirectionalLight( 0x999999 );
   light.position.set( -1, 0, 1 ).normalize();
   scene.add( light );
   
-  var light = new THREE.DirectionalLight( 0x777777 );
+  var light = new THREE.DirectionalLight( 0x999999 );
   light.position.set( 0, 1, -1 ).normalize();
   scene.add( light );
   
-  var light = new THREE.DirectionalLight( 0x777777 );
+  var light = new THREE.DirectionalLight( 0x999999 );
   light.position.set( 1, 0, -1 ).normalize();
   scene.add( light );
   
-  spotLight = new THREE.SpotLight( 0xeeeeee, 2 );
+  spotLight = new THREE.SpotLight( 0xFFFFFF, 2 );
   spotLight.position.set( camPos.x, camPos.y, camPos.z );
   spotLight.target.position.set( 0, 0, 0 );
   

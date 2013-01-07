@@ -20,17 +20,17 @@ if (isset($GLOBALS["HTTP_RAW_POST_DATA"])){
     fwrite( $fp, $decoded_data);
     fclose( $fp );
     
-    $im = imagecreatetruecolor($dst_width, $dst_height);
-    $col = imagecolorallocate($im, $b_col['r'], $b_col['g'], $b_col['b']);
-    imagefill($im, 0, 0, $col);
-    
-    $chart_img = imagecreatefrompng($filename);
-    imagesavealpha($chart_img, false);
-    imagealphablending($chart_img, false);
-    
-    imagecopy($im, $chart_img, 0, 0, 0, 0, $dst_width, $dst_height);
-    
-    imagepng($im, $filename, 9);
+    // $im = imagecreatetruecolor($dst_width, $dst_height);
+    // $col = imagecolorallocate($im, $b_col['r'], $b_col['g'], $b_col['b']);
+    // imagefill($im, 0, 0, $col);
+    // 
+    // $chart_img = imagecreatefrompng($filename);
+    // imagesavealpha($chart_img, false);
+    // imagealphablending($chart_img, false);
+    // 
+    // imagecopy($im, $chart_img, 0, 0, 0, 0, $dst_width, $dst_height);
+    // 
+    // imagepng($im, $filename, 9);
     
     echo '<a href="exporters/get_image.php?file='.$base_url.$filename
                     .'" target="_blank">Click here to download the image</a>';
