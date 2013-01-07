@@ -38,7 +38,6 @@ if ( chartType == 'world' ) {
   }
   initDataCols += "}";
 }
-console.log(initDataCols);
 // calls the plugin
 $('#datatable').tableSheet({
   initSchema: schema,

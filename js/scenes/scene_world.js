@@ -123,15 +123,15 @@ function initWebGLScene () {
   //******************************
   
   // setting up the defuse map
-  var worldtex = THREE.ImageUtils.loadTexture(staticUrl+"img/world1.jpg");
+  var matDif = THREE.ImageUtils.loadTexture(staticUrl+"img/world_diffuse.jpg");
   
   // setting up the bump map
-  var mapHeight = THREE.ImageUtils.loadTexture( "img/world_bump.jpg" );
-  mapHeight.anisotropy = 4;
-  mapHeight.repeat.set( 0.998, 0.998 );
-  mapHeight.offset.set( 0.001, 0.001 )
-  mapHeight.wrapS = mapHeight.wrapT = THREE.RepeatWrapping;
-  mapHeight.format = THREE.RGBFormat;
+  var mapBump = THREE.ImageUtils.loadTexture( "img/world_bump.jpg" );
+  mapBump.anisotropy = 1;
+  mapBump.repeat.set( 1, 1 );
+  mapBump.offset.set( 0, 0 )
+  mapBump.wrapS = mapBump.wrapT = THREE.RepeatWrapping;
+  mapBump.format = THREE.RGBFormat;
   
   // setting up the material
   var sphereMaterial = new THREE.MeshPhongMaterial({
@@ -141,8 +141,8 @@ function initWebGLScene () {
     specular : 0x222222,
     shading : THREE.SmoothShading,
     side: THREE.DoubleSide,
-    map:worldtex,
-    bumpMap:mapHeight,
+    map:matDif,
+    bumpMap:mapBump,
     bumpScale: 10
   });
   // creaing the mesh
