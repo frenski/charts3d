@@ -147,7 +147,7 @@ function createTextureScale ( text, h, line, size, color, backGroundColor, align
 
 // three.js camera mouse/touch controls
 
-function mouseControls ( camera ){
+function mouseControls ( camera, minDist, maxDist ){
   
   // **** Mouse controls *********************
   // Setting controls for the trackball camera

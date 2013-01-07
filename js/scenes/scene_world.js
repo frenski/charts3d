@@ -99,8 +99,27 @@ function initWebGLScene () {
   
   $('body').append( renderer.domElement );
   
+  //*** Adding the supernove background *****
+  // ****************************************
   
-  //*** Adding the lights ********
+  // Create particle for glow
+  var particles = new THREE.Geometry();
+  particles.vertices.push(new THREE.Vertex(new THREE.Vector3(0, 0, 0)));
+  gpMaterial = new THREE.ParticleBasicMaterial({
+          color: 0xFFFFFF,
+          size: 3800,
+          map: THREE.ImageUtils.loadTexture(
+              "img/world_glow.png"
+          ),
+          blending: THREE.AdditiveBlending,
+      });
+  var particleGlow = new THREE.ParticleSystem(particles,
+                                              gpMaterial);
+  particleGlow.sortParticles = true;
+  scene.add(particleGlow);
+  
+  
+  //*** Adding the globe ********
   //******************************
   
   // setting up the defuse map
