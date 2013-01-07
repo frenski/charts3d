@@ -76,6 +76,9 @@ function initSceneVars(){
                                         5000 );
   camera.position.set(camPos.x,camPos.y,camPos.z);
   
+  // Extending the BarCube class with longitude and latitude of the bars
+  BarCube.prototype.dummyLng = null;
+  BarCube.prototype.dummyLat = null;
 }
 
 
@@ -96,6 +99,8 @@ function initWebGLScene () {
   
   $('body').append( renderer.domElement );
   
+  
+  // Creating the globe object
   var worldtex = THREE.ImageUtils.loadTexture(staticUrl+"img/world1.jpg");
   
   var sphereMaterial = new THREE.MeshPhongMaterial({
@@ -112,41 +117,45 @@ function initWebGLScene () {
                                                         32),
                               sphereMaterial);
   globe.receiveShadow = true;
-  // add the sphere to the scene
+  // add the globe to the scene
   scene.add(globe);  
   
-  var dummysp1 = new THREE.Mesh( 
-    new THREE.CubeGeometry( 20, 20, 20 ),
-    new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
-
-  // add the sphere to the scene
-  globe.add(dummysp1);
-  
-  var dummysp2 = new THREE.Mesh( 
-    new THREE.CubeGeometry( 20, 20, 20 ),
-    new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
-
-  // add the sphere to the scene
-  dummysp1.add(dummysp2);
-  
-  var i=0; var j=0;
-  bars.push( new BarCube( schema.cols[i].color, j, i, 
+  // Creating the bars and attaching them to the globe
+  var j=0;
+  for ( var i=0; i<schema.cols.length; i++ ) {
+    if( dataValues[i][0] > 0 ){
+      bars.push( new BarCube( schema.cols[i].color, j, i, 
                           dataValues[i][j], valTextColor, 'full', null,
                           { row:schema.rows[j].name, 
                             col:schema.cols[i].name },
                             niceScale.niceMin, 
                             niceScale.range, 
                             valHeight ) );
-  bars[bars.length-1].sqsize = 10;
-  var c = country["Portugal"];
-  bars[bars.length-1].addBar(dummysp2);
-  intersobj[bars.length-1] = bars[bars.length-1].barobj;
-  intersobj[bars.length-1].barid = bars.length-1;
+      bars[bars.length-1].sqsize = 10;
+      var c = country[schema.cols[i].name];
+      bars[bars.length-1].dummyLng = new THREE.Mesh( 
+        new THREE.CubeGeometry( 20, 20, 20 ),
+        new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
+
+        // add the sphere to the scene
+        globe.add(bars[bars.length-1].dummyLng);
   
-  bars[bars.length-1].reposition(0,globeRadius+bars[bars.length-1].h/2,0);
+      bars[bars.length-1].dummyLat = new THREE.Mesh( 
+      new THREE.CubeGeometry( 20, 20, 20 ),
+      new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
+
+      // add the sphere to the scene
+      bars[bars.length-1].dummyLng.add(bars[bars.length-1].dummyLat);
+      bars[bars.length-1].addBar(bars[bars.length-1].dummyLat);
+      intersobj[bars.length-1] = bars[bars.length-1].barobj;
+      intersobj[bars.length-1].barid = bars.length-1;
   
-  dummysp1.rotation.y = Math.PI + (c.lng).toRad();
-  dummysp2.rotation.x = Math.PI/2 - (c.lat).toRad();
+      bars[bars.length-1].reposition(0,globeRadius+bars[bars.length-1].h/2,0);
+  
+      bars[bars.length-1].dummyLng.rotation.y = Math.PI + (c.lng).toRad();
+      bars[bars.length-1].dummyLat.rotation.x = Math.PI/2 - (c.lat).toRad();
+    }
+  }
   
   // //*** Adding bars
   // for ( var i=0; i<schema.cols.length; i++ ) {
@@ -353,8 +362,8 @@ function animateScene() {
   
   // set the spotlight to move with the camera
   spotLight.position.set( camera.position.x, 
-                          camera.position.y, 
-                          camera.position.z+300);
+                          camera.position.y-200, 
+                          camera.position.z+200);
 
   // renders                        
   renderer.render( scene, camera );
