@@ -28,7 +28,18 @@ $( "#div-exportbox" ).dialog({
             resizable: false
         });
 
-// calls the sheet plugin
+// The tableSheet plugin
+// inits the data for the columns - mainly for the world chart
+var initDataCols = "";
+if ( chartType == 'world' ) {
+  initDataCols = "{'Afghanistan':'Afghanistan'";
+  for (var c in country){
+    if ( c!='Afghanistan' ) initDataCols += ",'"+c+"':'"+c+"'";
+  }
+  initDataCols += "}";
+}
+console.log(initDataCols);
+// calls the plugin
 $('#datatable').tableSheet({
   initSchema: schema,
   initData: dataValues,
@@ -52,7 +63,8 @@ $('#datatable').tableSheet({
     $('#valuelabel').css('color', '#'+valTextColor);
   },
   imgUrl: staticUrl+'img/',
-  colorpickerImg: staticUrl+'css/images/ui-colorpicker.png'
+  colorpickerImg: staticUrl+'css/images/ui-colorpicker.png',
+  selectInputCols: initDataCols
 });
 
 // link to open add/edit data dialog again
