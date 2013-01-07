@@ -19,7 +19,7 @@ schema = { cols: [
                    { name:"Cyprus", color:"be6700" },
                    { name:"Malta", color:"be6700" }
                   ],
-                  rows:[{name:"Row 1"}]
+                  rows:[{name:"GDP per capita"}]
                 }
 
 dataValues = [];

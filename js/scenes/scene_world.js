@@ -125,12 +125,14 @@ function initWebGLScene () {
   for ( var i=0; i<schema.cols.length; i++ ) {
     if( dataValues[i][0] > 0 ){
       bars.push( new BarCube( schema.cols[i].color, j, i, 
-                          dataValues[i][j], valTextColor, 'full', null,
+                          dataValues[i][j], valTextColor, 
+                          'full', $('#valuelabel'),
                           { row:schema.rows[j].name, 
                             col:schema.cols[i].name },
                             niceScale.niceMin, 
                             niceScale.range, 
                             valHeight ) );
+      bars[bars.length-1].hasLabel = false;
       bars[bars.length-1].sqsize = 10;
       var c = country[schema.cols[i].name];
       bars[bars.length-1].dummyLng = new THREE.Mesh( 
@@ -200,8 +202,8 @@ function initWebGLScene () {
   spotLight.shadowCameraFar = 3000;
   spotLight.shadowCameraFov = 100;
   spotLight.castShadow = true;
-  spotLight.shadowDarkness = 0.3;
-  spotLight.shadowBias = 0.0001;
+  spotLight.shadowDarkness = 0.4;
+  spotLight.shadowBias = 0.001;
   // spotLight.shadowCameraVisible  = true;
   scene.add( spotLight );
   ////////////////////
