@@ -159,8 +159,8 @@ function mouseControls ( camera, minDist, maxDist ){
   }
   controls.zoomSpeed = 0.3;
   controls.rotateSpeed = 0.1;
-  controls.minDistance = 500;
-  controls.maxDistance = 3500;
+  controls.minDistance = minDist;
+  controls.maxDistance = maxDist;
   
   // funciton to get the mouse position for the hover efect onthe pies
   $(document).mousemove(function(event) {

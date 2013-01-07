@@ -325,7 +325,7 @@ function initScene() {
     alert("Your browser doesn't support this function!");
   }
   
-  controls = mouseControls ( camera );
+  controls = mouseControls ( camera , 1200, 2800 );
 
 }
 
