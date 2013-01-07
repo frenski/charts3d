@@ -70,9 +70,9 @@ function initSceneVars(){
   scene = new THREE.Scene();
   
   // Setting the camera
-  camera = new THREE.PerspectiveCamera( 60, 
+  camera = new THREE.PerspectiveCamera( 60,
                                         window.innerWidth/window.innerHeight,
-                                        1, 
+                                        1,
                                         5000 );
   camera.position.set(camPos.x,camPos.y,camPos.z);
   
@@ -100,7 +100,8 @@ function initWebGLScene () {
   $('body').append( renderer.domElement );
   
   
-  // Creating the globe object
+  //*** Adding the lights ********
+  //******************************
   // setting up the texture
   var worldtex = THREE.ImageUtils.loadTexture(staticUrl+"img/world1.jpg");
   // setting up the material
@@ -120,19 +121,20 @@ function initWebGLScene () {
                               sphereMaterial);
   globe.receiveShadow = true;
   // add the globe to the scene
-  scene.add(globe);  
+  scene.add(globe); 
   
-  // Creating the bars and attaching them to the globe
+  //*** Creating the bars and attaching them to the globe ********
+  //**************************************************************
   for ( var i=0; i<schema.cols.length; i++ ) {
-    if( dataValues[i][0] > 0 ){
+    if( dataValues[i][0] > 0 ) {
       // crating the bar object
-      bars.push( new BarCube( schema.cols[i].color, 0, i, 
-                          dataValues[i][0], valTextColor, 
+      bars.push( new BarCube( schema.cols[i].color, 0, i,
+                          dataValues[i][0], valTextColor,
                           'full', $('#valuelabel'),
-                          { row:schema.rows[0].name, 
+                          { row:schema.rows[0].name,
                             col:schema.cols[i].name },
-                            niceScale.niceMin, 
-                            niceScale.range, 
+                            niceScale.niceMin,
+                            niceScale.range,
                             valHeight ) );
       // removeing the 3d label
       bars[bars.length-1].hasLabel = false;
