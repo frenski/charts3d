@@ -138,7 +138,7 @@ function initWebGLScene () {
     ambient : 0x444444,
     color : 0x777777,
     shininess : 40, 
-    specular : 0x333333,
+    specular : 0x222222,
     shading : THREE.SmoothShading,
     side: THREE.DoubleSide,
     map:worldtex,
