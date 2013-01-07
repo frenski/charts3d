@@ -75,11 +75,11 @@
         // adds the color picker function
         addColPick ( $( '#colorpick'+cols ) );
         // adds the text editing plugin
-        addJeditable ( $('#'+nspace+'col'+cols).children('span'), 'string' );
+        addJeditable ( $('#'+nspace+'col'+cols).children('span'), 'string', opts.selectInputCols );
         for ( var i=0; i<rows; i++ ){
             tbody.children('tr#'+nspace+'row'+i)
                .append('<td class="cell" id="'+nspace+'cell'+cols+'_'+i+'">0</td>');       
-            addJeditable ( $('#'+nspace+'cell'+cols+'_'+i), 'float' );
+            addJeditable ( $('#'+nspace+'cell'+cols+'_'+i), 'float', opts.selectInputData );
           }
         cols ++;
       }
@@ -97,10 +97,10 @@
         html += '</tr>';
         tbody.append(html);
         // adds the plugins - jeditable and color pickur
-        addJeditable ( $('#'+nspace+'row'+rows).children('td:first'), 'string' );
+        addJeditable ( $('#'+nspace+'row'+rows).children('td:first'), 'string', opts.selectInputRows );
       
         for ( var i=0; i<cols; i++ ){
-          addJeditable ( $('#'+nspace+'cell'+i+'_'+rows), 'float' );
+          addJeditable ( $('#'+nspace+'cell'+i+'_'+rows), 'float', opts.selectInputData );
         }
         rows ++;
       }
@@ -125,7 +125,9 @@
       }
     }
     
-    var addJeditable = function ( el, type ) {
+    var addJeditable = function ( el, type, selectdata ) {
+      var jtype = "text";
+      if ( selectdata !="" ) jtype = "select";
       el.editable(function(value, settings) { 
           if( type == 'float' ){
             value = parseFloat(value);
@@ -133,7 +135,8 @@
           }
           return ( value );
        }, { 
-          type    : 'text',
+          type    : jtype,
+          data    : selectdata,
           onblur  : 'submit' 
       });
     }
@@ -192,16 +195,16 @@
     
     // Adds jeditable to the initialized rows
     for( var i=0; i<rows; i++ ){
-      addJeditable ( $('#'+nspace+'row'+i).children('td:first'), 'string' );
+      addJeditable ( $('#'+nspace+'row'+i).children('td:first'), 'string', opts.selectInputRows );
     }
     for( var i=0; i<cols; i++ ){
       // Adds jeditable to the initialized columns
-      addJeditable ( $('#'+nspace+'col'+i).children('span'), 'string' );
+      addJeditable ( $('#'+nspace+'col'+i).children('span'), 'string', opts.selectInputCols );
       // Adds the color picker elements
       addColPick ( $( '#colorpick'+i ) );
       // Adds jeditable to the initialized data cells
       for( var j=0; j<rows; j++ ){
-        addJeditable ( $('#'+nspace+'cell'+i+'_'+j), 'float' );
+        addJeditable ( $('#'+nspace+'cell'+i+'_'+j), 'float', opts.selectInputData );
       }
     }
   
@@ -220,7 +223,10 @@
                   rows: [ { name: "Row 1" } ] },
     initData: [[0]],
     imgUrl: 'img/',
-    colorpickerImg: 'css/images/ui-colorpicker.png'
+    colorpickerImg: 'css/images/ui-colorpicker.png',
+    selectInputCols: "",
+    selectInputRows: "",
+    selectInputData: ""
   };
   
   /**** plugin parameters *****************************************************
@@ -246,6 +252,11 @@
                          of the number of rows and columns in the initSchema
     * imgUrl:            The url for the images
     * colorpickerImg:    'css/images/ui-colorpicker.png'
+    * selectInputCols:   If set as "{'select':'select', 'select':'select'...}"
+                         makes the text for changing as select elements instead
+                         of textareas. By default it's empty and shows textarea
+    * selectInputRows:   Same as the previous one, but for the rows
+    * selectInputData:   Same as the previous one, but for the data cells
                          
   ****************************************************************************/
 
