@@ -9,6 +9,7 @@
 var camera, scene, renderer, projector, spotLight;
 var mouse = { }, touch = { },  INTERSECTED, intersectedId;
 var camPos = { x:100, y:100, z:1800 };
+var browserRender;
 
 // The deviation position of the ground from the center
 var yDeviation, zDeviation, xDeviation;
@@ -175,12 +176,12 @@ function initWebGLScene () {
       var c = country[schema.cols[i].name];
       // add dummy object along wich we can rotate the bar for the longitute
       bars[bars.length-1].dummyLng = new THREE.Mesh( 
-        new THREE.CubeGeometry( 20, 20, 20 ),
+        new THREE.PlaneGeometry( 1, 1, 0, 0 ),
         new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
       globe.add(bars[bars.length-1].dummyLng);
       // add dummy object along wich we can rotate the bar for the latitude
       bars[bars.length-1].dummyLat = new THREE.Mesh( 
-        new THREE.CubeGeometry( 20, 20, 20 ),
+        new THREE.PlaneGeometry( 1, 1, 0, 0 ),
         new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
       bars[bars.length-1].dummyLng.add(bars[bars.length-1].dummyLat);
       // adding the bar to the scene and positioning it to the earth surface
@@ -239,47 +240,66 @@ function initCanvasScene () {
   
   $('body').append( renderer.domElement );
   
-  var worldtex = THREE.ImageUtils.loadTexture(staticUrl+"img/world1.jpg");
+  //*** Adding the grounds
   
-  var sphereMaterial = new THREE.MeshPhongMaterial({
-    ambient : 0x444444,
-    color : 0x777777,
-    shininess : 70, 
-    specular : 0x888888,
-    shading : THREE.SmoothShading,
-    side: THREE.DoubleSide,
-    map:worldtex
-  });
-  var globe = new THREE.Mesh(new THREE.SphereGeometry( 600,
+  
+  var mapText = THREE.ImageUtils.loadTexture(staticUrl+"img/world_mapplain1.jpg");
+  
+  var material = new THREE.MeshBasicMaterial( { map: mapText, overdraw: true } );
+  // 
+  // var geometry = new THREE.PlaneGeometry( 3000, 1500, 6, 3 );                      
+  // var globe = new THREE.Mesh( geometry, material );
+  
+  // globe.rotation.x -= Math.PI/2;
+  
+  var globe = new THREE.Mesh(new THREE.SphereGeometry( globeRadius,
                                                         16,
                                                         16),
-                              sphereMaterial);
-  // add the sphere to the scene
-  scene.add(globe);
+                              material);
+  scene.add( globe );
   
-  //*** Adding bars ************
-  // ***************************
-  // for ( var i=0; i<schema.cols.length; i++ ) {
-  //   for (var j=0; j<schema.rows.length; j++ ) {
-  //     bars.push( new BarCube( schema.cols[i].color, j, i, 
-  //                             dataValues[i][j], valTextColor, 
-  //                             'light', $('#valuelabel'),
-  //                             { row:schema.rows[j].name, 
-  //                               col:schema.cols[i].name },
-  //                               niceScale.niceMin, 
-  //                               niceScale.range, 
-  //                               valHeight ) );
-  //     bars[bars.length-1].hasLabel = false;               
-  //     bars[bars.length-1].addBar(scene);
-  //     // Adds the bars objects to ones that need to be checked for intersection
-  //     // This is used for the moseover action
-  //     intersobj[bars.length-1] = bars[bars.length-1].barobj;
-  //     intersobj[bars.length-1].barid = bars.length-1;
-  //   }
-  // }
   
-  //******************************
+  for ( var i=0; i<schema.cols.length; i++ ) {
+    if( dataValues[i][0] > 0 ) {
+      // crating the bar object
+      bars.push( new BarCube( schema.cols[i].color, 0, i,
+                          dataValues[i][0], valTextColor,
+                          'light', $('#valuelabel'),
+                          { row:schema.rows[0].name,
+                            col:schema.cols[i].name },
+                            niceScale.niceMin,
+                            niceScale.range,
+                            valHeight ) );
+      // removeing the 3d label
+      bars[bars.length-1].hasLabel = false;
+      // making the widht of the bar smaller
+      bars[bars.length-1].sqsize = 10;
+      // getting the country from the country list
+      var c = country[schema.cols[i].name];
+      // add dummy object along wich we can rotate the bar for the longitute
+      bars[bars.length-1].dummyLng = new THREE.Mesh( 
+        new THREE.PlaneGeometry( 1, 1, 0, 0 ),
+        new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
+      globe.add(bars[bars.length-1].dummyLng);
+      // add dummy object along wich we can rotate the bar for the latitude
+      bars[bars.length-1].dummyLat = new THREE.Mesh( 
+        new THREE.PlaneGeometry( 1, 1, 0, 0 ),
+        new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
+      bars[bars.length-1].dummyLng.add(bars[bars.length-1].dummyLat);
+      // adding the bar to the scene and positioning it to the earth surface
+      bars[bars.length-1].addBar(bars[bars.length-1].dummyLat);
+      bars[bars.length-1].reposition(0,globeRadius+bars[bars.length-1].h/2,0);
+      // rotating the dummy object so that it snaps to the correct country
+      bars[bars.length-1].dummyLng.rotation.y = Math.PI + (c.lng).toRad();
+      bars[bars.length-1].dummyLat.rotation.x = Math.PI/2 - (c.lat).toRad();
+      // adding the bar to the intersection objects
+      intersobj[bars.length-1] = bars[bars.length-1].barobj;
+      intersobj[bars.length-1].barid = bars.length-1;
+    }
+  }
   
+  var cfoc = country[countryFocus];
+  globe.rotation.set(cfoc.lat.toRad(), Math.PI - cfoc.lng.toRad(), 0);
   
   //*** Adding the lights ********
   //******************************
@@ -310,7 +330,7 @@ function initCanvasScene () {
 function initScene() {
   
   // Detecting the renderer:
-  var browserRender = detectRenderer ( );
+  browserRender = detectRenderer ( );
   
   // Init vars and scene depending on the renderer
   if ( browserRender == 'webgl' ) {
@@ -380,10 +400,12 @@ function animateScene() {
     INTERSECTED = null;
   }
   
-  // set the spotlight to move with the camera
-  spotLight.position.set( camera.position.x, 
-                          camera.position.y-200, 
-                          camera.position.z+200);
+  if ( browserRender=='webgl' ) {
+    // set the spotlight to move with the camera
+    spotLight.position.set( camera.position.x, 
+                            camera.position.y-200, 
+                            camera.position.z+200);
+  }
 
   // renders                        
   renderer.render( scene, camera );
