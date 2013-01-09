@@ -243,15 +243,47 @@ function initCanvasScene () {
   //*** Adding the grounds
   
   
-  var mapText = THREE.ImageUtils.loadTexture(staticUrl+"img/world_mapplain1.jpg");
+  var mapText = THREE.ImageUtils.loadTexture(staticUrl+"img/world_mapplain2.jpg");
   
   var material = new THREE.MeshBasicMaterial( { map: mapText, overdraw: true } );
-  // 
+  
+  // MAP SOLUTION
+  
   // var geometry = new THREE.PlaneGeometry( 3000, 1500, 6, 3 );                      
   // var globe = new THREE.Mesh( geometry, material );
+  // scene.add( globe );
+  // globe.rotation.x = -Math.PI/2;
+  // 
+  // for ( var i=0; i<schema.cols.length; i++ ) {
+  //   if( dataValues[i][0] > 0 ) {
+  //     // crating the bar object
+  //     bars.push( new BarCube( schema.cols[i].color, 0, i,
+  //                         dataValues[i][0], valTextColor,
+  //                         'light', $('#valuelabel'),
+  //                         { row:schema.rows[0].name,
+  //                           col:schema.cols[i].name },
+  //                           niceScale.niceMin,
+  //                           niceScale.range,
+  //                           valHeight ) );
+  //     // removeing the 3d label
+  //     bars[bars.length-1].hasLabel = false;
+  //     // making the widht of the bar smaller
+  //     bars[bars.length-1].sqsize = 10;
+  //     // getting the country from the country list
+  //     var c = country[schema.cols[i].name];
+  //     // adding the bar to the scene and positioning it to the earth surface
+  //     bars[bars.length-1].addBar(globe);
+  //     bars[bars.length-1].reposition(i*10,0,bars[bars.length-1].h/2);
+  //     bars[bars.length-1].reorientation(Math.PI/2,0,0);
+  //     // rotating the dummy object so that it snaps to the correct country
+  //     // adding the bar to the intersection objects
+  //     intersobj[bars.length-1] = bars[bars.length-1].barobj;
+  //     intersobj[bars.length-1].barid = bars.length-1;
+  //   }
+  // }
   
-  // globe.rotation.x -= Math.PI/2;
   
+  // GLOBE SOLUTION
   var globe = new THREE.Mesh(new THREE.SphereGeometry( globeRadius,
                                                         16,
                                                         16),
