@@ -176,3 +176,16 @@ h3{
 #div-exportbox{
   display: none;
 }
+
+/* footer for the preview */
+#preview-footer{
+  background-color: #26272B;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  padding: 10px;
+  font-size: 12px;
+  font-style: italic;
+  text-align: right;
+}
