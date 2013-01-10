@@ -47,17 +47,14 @@
         <input id="colorpick_bc" type="text" size="4" value="000000" />
       </div>
       <div class="left col1-4 small-text">
+        Scale text color:
+        <input id="colorpick_stc" type="text" size="4" value="ffffff" />
+      </div>
+      <div class="left col1-4 small-text">
         Value text color:
         <input id="colorpick_vt" type="text" size="4" value="ffffff" />
       </div>
-      <div class="left col1-4 small-text">
-      </div>
       <div class="clear"></div>
-      <div class="small-text">Globe focus:
-        <select id="country_focus" name="country_focus">
-          <option selected="selected" value="Afghanistan">Afghanistan</option>
-        </select>
-      </div>
       <h4>Chart Data</h4>
       <table id="datatable" class="jqueryTableSheet">
       </table>
@@ -87,11 +84,12 @@
   
   <script type="text/javascript">
     chartType = "world";
-    loadType = "new";
+    loadType = "sample";
     chartTitle = "Sample World Chart - European Union GPD per capita for 2011";
   </script>
   
   <script type="text/javascript" src="js/settings.js"></script>
+  <script type="text/javascript" src="js/sampledata/InputDataWorld.js"></script>
   <script type="text/javascript" src="js/sampledata/countries.js"></script>
   <script type="text/javascript" src="js/libs/jquery-1.7.1.js"></script>
   <script type="text/javascript" src="js/plugins/jquery-ui.js"></script>

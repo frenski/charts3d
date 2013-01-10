@@ -29,12 +29,15 @@ $( "#div-exportbox" ).dialog({
         });
 
 // The tableSheet plugin
-// inits the data for the columns - mainly for the world chart
+// inits the data for the columns and for the select - mainly for the world chart
 var initDataCols = "";
 if ( chartType == 'world' ) {
   initDataCols = "{'Afghanistan':'Afghanistan'";
   for (var c in country){
-    if ( c!='Afghanistan' ) initDataCols += ",'"+c+"':'"+c+"'";
+    if ( c!='Afghanistan' ){
+      initDataCols += ",'"+c+"':'"+c+"'";
+      $('#country_focus').append('<option value="'+c+'">'+c+'</option>');
+    }
   }
   initDataCols += "}";
 }
@@ -55,6 +58,9 @@ $('#datatable').tableSheet({
       initLegend($('#div-legend-data'), schema);
     }else {
       scaleTextColor = $('#colorpick_stc').val();
+    }
+    if ( chartType == 'world' ){
+      countryFocus = $('#country_focus').val();
     }
     initScene();
     animateScene();

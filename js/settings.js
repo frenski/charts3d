@@ -51,6 +51,8 @@ switch(chartType){
                     steps: 5 };
     break;
   case 'world':
+    maxTableRows = 1;
+    schema.cols[0].name = "Afghanistan";
     valHeight = 400;
     countryFocus = "Libya";
     break;

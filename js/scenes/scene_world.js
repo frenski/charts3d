@@ -253,7 +253,7 @@ function initCanvasScene () {
   // var globe = new THREE.Mesh( geometry, material );
   // scene.add( globe );
   // globe.rotation.x = -Math.PI/2;
-  // 
+  
   // for ( var i=0; i<schema.cols.length; i++ ) {
   //   if( dataValues[i][0] > 0 ) {
   //     // crating the bar object
