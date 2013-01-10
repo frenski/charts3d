@@ -33,9 +33,13 @@ var extrudeOpts = { amount: pieHeight,
 // world radius
 var globeRadius = 750;
 // init the schema and data array
-var schema = { cols: [ { name: "Column 1", color:"ae00e6" }],
-              rows: [ { name: "Row 1" } ] };
+var schema = { cols: [ { name: "Column Name", color:"ae00e6" }],
+              rows: [ { name: "Row Name" } ] };
 var dataValues = [[0]];
+// for the table default texts/vaules
+var defaultRowText = "Row Name";
+var defaultColText = "Column Name";
+var defaultCellVal = 0;
 
 switch(chartType){
   case 'bar':
@@ -55,6 +59,7 @@ switch(chartType){
     schema.cols[0].name = "Afghanistan";
     valHeight = 400;
     countryFocus = "Libya";
+    defaultColText = "Afghanistan"
     break;
   default:
     

@@ -71,14 +71,15 @@
            .after('<td class="rowcol" id="'+nspace+'col'+cols+'">'+
            '<input id="colorpick'+cols+
            '" type="text" size="1" value="'+randomHexNum()+'" />'+
-           ' <span>Column '+(cols+1)+'</span></td>');
+           ' <span>'+opts.newColText+'</span></td>');
         // adds the color picker function
         addColPick ( $( '#colorpick'+cols ) );
         // adds the text editing plugin
         addJeditable ( $('#'+nspace+'col'+cols).children('span'), 'string', opts.selectInputCols );
         for ( var i=0; i<rows; i++ ){
             tbody.children('tr#'+nspace+'row'+i)
-               .append('<td class="cell" id="'+nspace+'cell'+cols+'_'+i+'">0</td>');       
+               .append('<td class="cell" id="'+nspace+'cell'+cols+'_'+i+'">'
+               +opts.newCellValue+'</td>');       
             addJeditable ( $('#'+nspace+'cell'+cols+'_'+i), 'float', opts.selectInputData );
           }
         cols ++;
@@ -89,10 +90,11 @@
     var addRow = function () {
       if( rows < opts.maxRows ){
         // apends every row and column to the table
-        var html = '<tr id="'+nspace+'row'+rows+'"><td class="rowcol">Row '
-                  +(rows+1)+'</td>';
+        var html = '<tr id="'+nspace+'row'+rows+'"><td class="rowcol">'
+                  +opts.newRowText+'</td>';
         for ( var i=0; i<cols; i++ ){
-          html += '<td class="cell" id="'+nspace+'cell'+i+'_'+rows+'">0</td>';
+          html += '<td class="cell" id="'+nspace+'cell'+i+'_'+rows+'">'
+                  +opts.newCellValue+'</td>';
         }
         html += '</tr>';
         tbody.append(html);
@@ -226,7 +228,10 @@
     colorpickerImg: 'css/images/ui-colorpicker.png',
     selectInputCols: "",
     selectInputRows: "",
-    selectInputData: ""
+    selectInputData: "",
+    newColText: "Column",
+    newRowText: "Row",
+    newCellValue: 0
   };
   
   /**** plugin parameters *****************************************************
@@ -257,6 +262,9 @@
                          of textareas. By default it's empty and shows textarea
     * selectInputRows:   Same as the previous one, but for the rows
     * selectInputData:   Same as the previous one, but for the data cells
+    * newColText:        The default text when adding a new column
+    * newRowText:        The default text when adding a new column
+    * newCellValue:      The default text when adding a new data cell
                          
   ****************************************************************************/
 

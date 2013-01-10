@@ -40,3 +40,7 @@
   cursor: pointer;
   float:right;
 }
+
+.rowcol select{
+  width:60px;
+}

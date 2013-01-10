@@ -69,7 +69,10 @@ $('#datatable').tableSheet({
   },
   imgUrl: staticUrl+'img/',
   colorpickerImg: staticUrl+'css/images/ui-colorpicker.png',
-  selectInputCols: initDataCols
+  selectInputCols: initDataCols,
+  newRowText: defaultRowText,
+  newColText: defaultColText,
+  newCellValue: defaultCellVal
 });
 
 // link to open add/edit data dialog again
