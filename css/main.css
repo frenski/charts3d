@@ -50,6 +50,8 @@ li{
   margin:20px 0;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-style: italic;
+  float: left;
+  width:140px;
 }
 
 .float{
@@ -61,19 +63,36 @@ li{
 }
 
 .column_big{
-  width: 200px;
+  width: 280px;
   text-align: center;
 }
 
 .separator_big{
-  width: 50px;
+  width: 40px;
   background: url('../img/separator_big.png') repeat-y top center;
-  height: 350px;
+  height: 300px;
 }
 
 #content {
-  width: 450px;
+  width: 600px;
   margin: auto;
+}
+#morecharts{
+  font-style: italic;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#footer{
+  background-color: #000;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  padding: 10px;
+  font-size: 12px;
+  font-style: italic;
+  text-align: right;
 }
 
 
