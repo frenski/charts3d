@@ -374,7 +374,7 @@ function initScene() {
     initCanvasScene ();
   }
   else {
-    alert("Your browser doesn't support this function!");
+    nonSupportedBrowsers();
   }
   
   controls = mouseControls ( camera , 1200, 2800 );

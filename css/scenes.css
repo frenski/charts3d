@@ -188,4 +188,19 @@ h3{
   font-size: 12px;
   font-style: italic;
   text-align: right;
+  z-index:11;
+}
+
+div#non-supported-errormsg{
+  width: 200px;
+  background-color: #26272B;
+  position: absolute;
+  z-index: 10;
+  top: 40%;
+  left: 50%;
+  margin-left: -100px;
+}
+img#non-supported-img{
+  width: 100%;
+  height: 100%;
 }

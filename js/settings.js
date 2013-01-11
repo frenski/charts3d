@@ -40,6 +40,8 @@ var dataValues = [[0]];
 var defaultRowText = "Row Name";
 var defaultColText = "Column Name";
 var defaultCellVal = 0;
+// Image to replace the canvas if neither WebGL nor Canvas2D supported
+var replaceImage = null;
 
 switch(chartType){
   case 'bar':

@@ -247,3 +247,11 @@ $.ajaxSetup({
     }
 });
 
+function nonSupportedBrowsers () {
+  if(replaceImage){
+    $('body').append('<img id="non-supported-img" src="'+replaceImage+'" />');
+  }else{
+    $('body').append('<div id="non-supported-errormsg" />Unfortunately your browser doesn\'t support the threegraphs editor. Please use Chrome, Firefox 4+, Internet Explorer 9+, Safari 5+, or Opera.</div>');
+  }
+}
+
