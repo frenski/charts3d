@@ -3,7 +3,7 @@
 schema = { 
                cols: [ { name:"2010", color:"d17100" }, 
                        { name:"2011", color:"d9bd00" }, 
-                       { name:"2012", color:"61c900" }, 
+                       { name:"2012", color:"61c900" }
                      ],
                rows: [ { name: "Product 1" }, 
                        { name: "Product 2" },

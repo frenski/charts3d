@@ -364,6 +364,12 @@ function initScene() {
   // Detecting the renderer:
   var browserRender = detectRenderer ( );
   
+  // Setting the renderer to null in case an old version of FF or IE
+  if(($.browser.msie&&parseFloat($.browser.version)<9)||
+     ($.browser.mozilla&&parseFloat($.browser.version)<2)){
+    browserRender = null;
+  }
+  
   // Init vars and scene depending on the renderer
   if ( browserRender == 'webgl' ) {
     initSceneVars ();

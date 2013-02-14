@@ -32,6 +32,8 @@ var extrudeOpts = { amount: pieHeight,
                     steps: 5 };
 // world radius
 var globeRadius = 750;
+// country focus
+countryFocus = "Libya";
 // init the schema and data array
 var schema = { cols: [ { name: "Column Name", color:"ae00e6" }],
               rows: [ { name: "Row Name" } ] };
@@ -60,7 +62,6 @@ switch(chartType){
     maxTableRows = 1;
     schema.cols[0].name = "Afghanistan";
     valHeight = 400;
-    countryFocus = "Libya";
     defaultColText = "Afghanistan"
     break;
   default:

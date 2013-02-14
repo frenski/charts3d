@@ -114,17 +114,20 @@ $('div#link-export-embed').click(function(){
   var exportData = {
     'title':      $('#charttitle').val(),
     'schema':     JSON.stringify(schema),
-    'dataValues': JSON.stringify(dataValues),
+    'data':       JSON.stringify(dataValues),
     'settings':   'valHeight='+valHeight+';'+
-                  'backColor='+backColor+';'+
-                  'scaleTextColor='+scaleTextColor+';'+
-                  'pieHeight='+pieHeight,
+                  'backColor=\''+backColor+'\';'+
+                  'scaleTextColor=\''+scaleTextColor+'\';'+
+                  'pieHeight='+pieHeight+';'+
+                  'countryFocus="'+countryFocus+'";'+
+                  'valTextColor=\''+valTextColor+'\';',
     'chartType':  chartType
   };
   
   $.ajax({
       type: "POST",
-      url: "charts/save/",
+      url: exportUrl+'?h='+window.innerHeight+
+            "&w="+window.innerWidth+"&c="+backColor,
       data: exportData,
       success: function(data){
         $('div#result-export-embed').html(data);

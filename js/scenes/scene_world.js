@@ -110,7 +110,7 @@ function initWebGLScene () {
           color: 0xFFFFFF,
           size: 3800,
           map: THREE.ImageUtils.loadTexture(
-              "img/world_glow.png"
+              staticUrl+"img/world_glow.png"
           ),
           blending: THREE.AdditiveBlending,
       });
@@ -124,10 +124,10 @@ function initWebGLScene () {
   //******************************
   
   // setting up the defuse map
-  var matDif = THREE.ImageUtils.loadTexture(staticUrl+"img/world_diffuse.jpg");
+  var matDif = THREE.ImageUtils.loadTexture( staticUrl+"img/world_diffuse.jpg");
   
   // setting up the bump map
-  var mapBump = THREE.ImageUtils.loadTexture( "img/world_bump.jpg" );
+  var mapBump = THREE.ImageUtils.loadTexture( staticUrl+"img/world_bump.jpg" );
   mapBump.anisotropy = 1;
   mapBump.repeat.set( 1, 1 );
   mapBump.offset.set( 0, 0 )
@@ -363,6 +363,12 @@ function initScene() {
   
   // Detecting the renderer:
   browserRender = detectRenderer ( );
+  
+  // Setting the renderer to null in case an old version of FF or IE
+  if(($.browser.msie&&parseFloat($.browser.version)<9)||
+     ($.browser.mozilla&&parseFloat($.browser.version)<2)){
+    browserRender = null;
+  }
   
   // Init vars and scene depending on the renderer
   if ( browserRender == 'webgl' ) {
